@@ -1,0 +1,1229 @@
+###########################################################
+#
+# class CyAccountsBalanceSqlBuilder
+#
+#
+# method CyAccountsBalanceSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyAccountsBalanceSqlBuilder.getDialogTitle.AccountsBalanceTitle"
+msgstr "Historique des soldes"
+
+msgid "CyAccountsBalanceSqlBuilder.getDialogTitle.AccountTitle"
+msgstr "Compte n°"
+
+###########################################################
+#
+# class CyAccountsBalanceSqlBuilder
+#
+#
+# method CyAccountsBalanceSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyAccountsBalanceSqlBuilder.getSelectSql.ValueDate"
+msgstr "date"
+
+msgid "CyAccountsBalanceSqlBuilder.getSelectSql.Amount"
+msgstr "Solde"
+
+###########################################################
+#
+# class CyAccountsSqlBuilder
+#
+#
+# method CyAccountsSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyAccountsSqlBuilder.getDialogTitle.AccountTitle"
+msgstr "Comptes"
+
+###########################################################
+#
+# class CyAccountsSqlBuilder
+#
+#
+# method CyAccountsSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountCanBeImported"
+msgstr "Importation"
+
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountDescription"
+msgstr "Description"
+
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountNumber"
+msgstr "N° de compte"
+
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountInitialAmount"
+msgstr "Montant initial"
+
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountValidSinceDate"
+msgstr "Date d'ouverture"
+
+msgid "CyAccountsSqlBuilder.getSelectSql.Balance"
+msgstr "Solde"
+
+##########################################################
+#
+# class CyAnalyseSqlBuilder
+#
+#
+# method CyAnalyseSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyAnalyseSqlBuilder.getDialogTitle.AnayseTitle"
+msgstr "Analyse"
+
+msgid "CyAnalyseSqlBuilder.getDialogTitle.BudgetTitle"
+msgstr "Budget : "
+
+msgid "CyAnalyseSqlBuilder.getDialogTitle.EndDateTitle"
+msgstr "au "
+
+msgid "CyAnalyseSqlBuilder.getDialogTitle.StartDateTitle"
+msgstr "Période: du "
+
+###########################################################
+#
+# class CyAnalyseSqlBuilder
+#
+#
+# method CyAnalyseSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.Amount"
+msgstr "Montant"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.Description"
+msgstr "Attribution"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.DescriptionName"
+msgstr "Total pour l'attribution..."
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.DescriptionTotal"
+msgstr "Total de l'attribution"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.MainDescription"
+msgstr "Groupe"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.MainDescriptionName"
+msgstr "Total pour le groupe..."
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.MainDescriptionTotal"
+msgstr "Total du groupe"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.Month"
+msgstr "Mois"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.Total"
+msgstr "Total"
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.TotalForAttribution"
+msgstr "Total pour l'attribution: "
+
+msgid "CyAnalyseSqlBuilder.getSelectSql.TotalForGroup"
+msgstr "Total pour le groupe: "
+
+###########################################################
+#
+# class CyAttributionsSqlBuilder
+#
+#
+# method CyAttributionsSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyAttributionsSqlBuilder.getDialogTitle.AttributionsTitle"
+msgstr "Attributions"
+
+###########################################################
+#
+# class CyAttributionsSqlBuilder
+#
+#
+# method CyAttributionsSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyAttributionsSqlBuilder.getSelectSql.Budget"
+msgstr "Budget"
+
+msgid "CyAttributionsSqlBuilder.getSelectSql.Description"
+msgstr "Attribution"
+
+msgid "CyAttributionsSqlBuilder.getSelectSql.GroupDescription"
+msgstr "Groupe"
+
+###########################################################
+#
+# class CyAttributionsGroupsSqlBuilder
+#
+#
+# method CyAttributionsGroupsSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyAttributionsGroupsSqlBuilder.getDialogTitle.GroupsTitle"
+msgstr "Groupes"
+
+###########################################################
+#
+# class CyAttributionsGroupsSqlBuilder
+#
+#
+# method CyAttributionsGroupsSqlBuilder.Groupes
+#
+###########################################################
+
+msgid "CyAttributionsGroupsSqlBuilder.getSelectSql.GroupDescription"
+msgstr "Groupe"
+
+###########################################################
+#
+# class CyBudgetsSqlBuilder
+#
+#
+# method CyBudgetsSqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyBudgetsSqlBuilder.getDialogTitle.BudgetTitle"
+msgstr "Budgets"
+
+###########################################################
+#
+# class CyBudgetsSqlBuilder
+#
+#
+# method CyBudgetsSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyBudgetsSqlBuilder.getSelectSql.Description"
+msgstr "Budget"
+
+###########################################################
+#
+# class CyIngImportTool
+#
+#
+# method CyIngImportTool.import
+#
+###########################################################
+
+msgid "CyIngImportTool.import.ErrorObjIdCaption"
+msgstr "Erreur"
+
+msgid "CyIngImportTool.import.ErrorObjIdText"
+msgstr "Une erreur s'est produire lors de la recherche des ObjId"
+
+msgid "CyIngImportTool.import.ErrorOpenFileCaption"
+msgstr "Erreur"
+
+msgid "CyIngImportTool.import.ErrorOpenFileText"
+msgstr "Une erreur s'est produite à l'ouverture du fichier"
+
+msgid "CyIngImportTool.import.ErrorReadingFileCaption"
+msgstr "Erreur"
+
+msgid "CyIngImportTool.import.ErrorReadingFileText"
+msgstr "Une erreur s'est produite pendant la lecture du fichier"
+
+msgid "CyIngImportTool.import.FailedCaption"
+msgstr "Erreur lors de l'mportation"
+
+msgid "CyIngImportTool.import.FailedText1"
+msgstr "Une erreur s'est produite à la ligne "
+
+msgid "CyIngImportTool.import.FailedText2"
+msgstr "du fichier "
+
+msgid "CyIngImportTool.import.FailedText3"
+msgstr "La ligne n'a pas été importée"
+
+msgid "CyIngImportTool.import.InformationCaption"
+msgstr "Information"
+
+msgid "CyIngImportTool.import.InformationText1"
+msgstr "L'importation des données est terminée."
+
+msgid "CyIngImportTool.import.InformationText2"
+msgstr " opérations ont été ajoutées"
+
+msgid "CyIngImportTool.import.SelectFile"
+msgstr "Sélectionnez un fichier d'exportation des données du ING Web Banking( .csv)"
+
+###########################################################
+#
+# class CyOperationsSqlBuilder
+#
+#
+# method CyOperationsSqlBuilder.CyOperationsSqlBuilder
+#
+###########################################################
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.AccountTitle"
+msgstr "Compte n°"
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.OperationTitle"
+msgstr "Opérations"
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.OperationWithoutAttributionsTitle"
+msgstr "Opérations sans attributions complètes"
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.Period1"
+msgstr " Période du "
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.Period2"
+msgstr " au "
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.Title"
+msgstr "Opérations réalisées sur les attributions "
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.Group"
+msgstr "Groupe : "
+
+msgid "CyOperationsSqlBuilder.CyOperationsSqlBuilder.Attribution"
+msgstr "Attribution : "
+
+###########################################################
+#
+# class CyOperationsSqlBuilder
+#
+#
+# method CyOperationsSqlBuilder.getSelectSql
+#
+###########################################################
+
+msgid "CyOperationsSqlBuilder.getSelectSql.Account"
+msgstr "N° de compte"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.Amount"
+msgstr "Montant"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.AttributionDate"
+msgstr "Date d'attribution"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.Attributions"
+msgstr "Attributions"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.Details"
+msgstr "Détails"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.Note"
+msgstr "Note"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.OperationDate"
+msgstr "Date de l'opération"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.OperationNumber"
+msgstr "N° de l'opération"
+
+msgid "CyOperationsSqlBuilder.getSelectSql.ValueDate"
+msgstr "Date valeur"
+
+###########################################################
+#
+# class CyUserQuerySqlBuilder
+#
+#
+# method CyUserQuerySqlBuilder.getDialogTitle
+#
+###########################################################
+
+msgid "CyUserQuerySqlBuilder.getDialogTitle.QueryTitle"
+msgstr "Résultats de la requête"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.CyWxBudgetsFrame
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.About"
+msgstr "À propos de CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutToolHelp"
+msgstr "À propos de CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutTooltip"
+msgstr "À propos de CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Account"
+msgstr "Comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountToolHelp"
+msgstr "Voir ou modifer les comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountTooltip"
+msgstr "Voir ou modifer les comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountsBalance"
+msgstr "Historique des soldes des comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountsBalanceTooltip"
+msgstr "Voir l'historique des soldes des comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountBalanceToolHelp"
+msgstr "Voir l'historique des soldes des comptes"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Analyse"
+msgstr "Analyse"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AnalyseToolHelp"
+msgstr "Faire une analyse"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AnalyseTooltip"
+msgstr "Faire une analyse"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Attributions"
+msgstr "Attrbutions"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsToolHelp"
+msgstr "Voir ou modifer les attributions"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsTooltip"
+msgstr "Voir ou modifer les attributions"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsGroups"
+msgstr "Groupes d'attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsGroupsTooltip"
+msgstr "Voir ou modifer les groupes d'attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsGroupsToolHelp"
+msgstr "Voir ou modifer les groupes d'attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Budget"
+msgstr "Budgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.BudgetToolHelp"
+msgstr "Voir ou modifer les budgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.BudgetTooltip"
+msgstr "Voir ou modifer les budgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Import"
+msgstr "Importer"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.ImportToolHelp"
+msgstr "Importer des opérations"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.ImportTooltip"
+msgstr "Importer des opérations"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.NewFile"
+msgstr "Nouveau fichier"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.NewFileToolHelp"
+msgstr "Nouveau fichier CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.NewFileTooltip"
+msgstr "Nouveau fichier CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFile"
+msgstr "Ouvrir un fichier"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFileToolHelp"
+msgstr "Ouvrir un fichier CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFileTooltip"
+msgstr "Ouvrir un fichier CyBudgets"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Operations"
+msgstr "Voir ou modifer les opérations"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsToolHelp"
+msgstr "Voir ou modifer les opérations"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsTooltip"
+msgstr "Voir ou modifer les opérations"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttribution"
+msgstr "Voir ou modifer les opérations sans attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttributionTooltip"
+msgstr "Voir ou modifer les opérations  sans attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttributionToolHelp"
+msgstr "Voir ou modifer les opérations  sans attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Quit"
+msgstr "Quitter"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitToolHelp"
+msgstr "Quitter le programme"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitTooltip"
+msgstr "Quitter le programme"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Sql"
+msgstr "Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.SqlToolHelp"
+msgstr "Exécuter une instruction en Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.SqlTooltip"
+msgstr "Exécuter une instruction en Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Query"
+msgstr "Requête Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.QueryToolHelp"
+msgstr "Exécuter une requête en Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.QueryTooltip"
+msgstr "Exécuter une requête en Sql"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.WindowTitle"
+msgstr "CyBudgets"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.displayDbErrorMessage
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorDbCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorDbText"
+msgstr "Une erreur s'est produite lors de l'ouverture de la base de données"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorSqlCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorSqlText"
+msgstr "Une erreur s'est produite lors de la création des tables de la base de données"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorLogCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorLogText"
+msgstr "Une erreur s'est produite lors de l'ouverture du fichier error.log"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorValidateCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorValidateText"
+msgstr "Le fichier n'est pas valide."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorValidateBefore102Caption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.ErrorValidateBefore102Text"
+msgstr "Une erreur s'est produite lors de la création de la table Versions"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.SqlLogCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.SqlLogText"
+msgstr "Une erreur s'est produite lors de l'ouverture du fichier Sql.log"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenUnknownCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenUnknownText"
+msgstr "Une erreur inconnue s'est produite lors de l'ouverture du fichier"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion102Caption"
+msgstr "Mise à jour vers la version 1.0.2"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion102Text"
+msgstr "La mise à jour vers la version 1.0.2 a échoué"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion103Caption"
+msgstr "Mise à jour vers la version 1.0.3"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text"
+msgstr "La mise à jour vers la version 1.0.3 a échoué"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenVersionNotFoundCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenVersionNotFoundText"
+msgstr "La version du programme n'a pas été trouvée dans le fichier"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.isDbOpen
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.isDbOpen.ErrorDbCaption"
+msgstr "Erreur..."
+
+msgid "CyWxBudgetsFrame.isDbOpen.ErrorDbText"
+msgstr "Il n'y a pas de fichier ouvert. Ouvrez d'abord un fichier ou créez un nouveau fichier"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.onNewFile
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onNewFile.Title"
+msgstr "Sélectionnez le répertoire et donnez le nom du nouveau fichier CyBudgets"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.onOpenFile
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onOpenFile.Title"
+msgstr "Sélectionnez le fichier CyBudgets à ouvrir"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.onQuery
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onQuery.Caption"
+msgstr "Exécuter une requête en SQL"
+
+msgid "CyWxBudgetsFrame.onQuery.Message"
+msgstr "Requête SQL :"
+
+msgid "CyWxBudgetsFrame.onQuery.QueryError"
+msgstr "Une erreur est survenue. Message d'erreur de SQLite : "
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
+# method CyWxBudgetsFrame.onSql
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onSql.Caption"
+msgstr "Exécuter une instruction en SQL"
+
+msgid "CyWxBudgetsFrame.onSql.Message"
+msgstr "Instruction SQL :"
+
+msgid "CyWxBudgetsFrame.onSql.SqlError"
+msgstr "Une erreur est survenue. Message d'erreur de SQLite : "
+
+msgid "CyWxBudgetsFrame.onSql.SqlExecuted"
+msgstr "L'instruction Sql a été exécutée"
+
+###########################################################
+#
+# class CyWxEditAccountDialog
+#
+#
+# method CyWxEditAccountDialog.CyWxEditAccountDialog
+#
+###########################################################
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountCanBeImported"
+msgstr "Données importées depuis un fichier : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountInitialAmount"
+msgstr "Montant initial : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountNumber"
+msgstr "N° de compte : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountOwner"
+msgstr "Description : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidSince"
+msgstr "Date d'ouverture : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.No"
+msgstr "Non"
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.Yes"
+msgstr "Oui"
+
+###########################################################
+#
+# class CyWxEditAttributionDialog
+#
+#
+# method CyWxEditAttributionDialog.CyWxEditAttributionDialog
+#
+###########################################################
+
+msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.Budget"
+msgstr "Budget :"
+
+msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.Description"
+msgstr "Attribution : "
+
+msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.GroupDescription"
+msgstr "Groupe : "
+
+###########################################################
+#
+# class CyWxEditOperationAttributionDialog
+#
+#
+# method CyWxEditOperationAttributionDialog.CyWxEditOperationAttributionDialog
+#
+###########################################################
+
+msgid "CyWxEditOperationAttributionDialog.CyWxEditOperationAttributionDialog.Amount"
+msgstr "Montant : "
+
+msgid "CyWxEditOperationAttributionDialog.CyWxEditOperationAttributionDialog.Attribution"
+msgstr "Attribution :"
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.AddAttribution
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.AddAttribution.Add"
+msgstr "Ajout d'une attribution"
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.CyWxEditOperationDialog
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Account"
+msgstr "N° de compte : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Amount"
+msgstr "Montant : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Attributions"
+msgstr "Attributions : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.AttributionAmount"
+msgstr "Montant"
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.BudgetDate"
+msgstr "Date d'attribution : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Description"
+msgstr "Attribution"
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Details"
+msgstr "Détails : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.MainDescription"
+msgstr "Groupe"
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.Note"
+msgstr "Note : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.OperationDate"
+msgstr "Date de l'opération : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.OperationNumber"
+msgstr " N° de l'opération : "
+
+msgid "CyWxEditOperationDialog.CyWxEditOperationDialog.ValueDate"
+msgstr " Date valeur : "
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.deleteAttribution
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.deleteAttribution.ComfirmCaption"
+msgstr "Confirmation de suppression"
+
+msgid "CyWxEditOperationDialog.deleteAttribution.ComfirmText"
+msgstr "Êtes-vous sûr de vouloir supprimer cette attribution?"
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.onPopupRightClickGrid
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.onPopupRightClickGrid.Edit"
+msgstr "Modification d'une attribution"
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.onRightClickGrid
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.onRightClickGrid.AddAttribution"
+msgstr "Ajouter une attribution"
+
+msgid "CyWxEditOperationDialog.onRightClickGrid.DeleteAttribution"
+msgstr "Supprimer l'attribution"
+
+msgid "CyWxEditOperationDialog.onRightClickGrid.EditAttribution"
+msgstr "Modifier l'attribution"
+
+###########################################################
+#
+# class CyWxEditOperationDialog
+#
+#
+# method CyWxEditOperationDialog.onRightClickLabel
+#
+###########################################################
+
+msgid "CyWxEditOperationDialog.onRightClickLabel.AddAttribution"
+msgstr "Ajouter une attribution"
+
+###########################################################
+#
+# class CyWxShowRequestAccountsMediator
+#
+#
+# method CyWxShowRequestAccountsMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestAccountsMediator.addPopupItems.Add"
+msgstr "Ajouter un compte"
+
+msgid "CyWxShowRequestAccountsMediator.addPopupItems.Delete"
+msgstr "Supprimer le compte"
+
+msgid "CyWxShowRequestAccountsMediator.addPopupItems.Edit"
+msgstr "Modifier le compte"
+
+###########################################################
+#
+# class CyWxShowRequestAccountsMediator
+#
+#
+# method CyWxShowRequestAccountsMediator.onAdd
+#
+###########################################################
+
+msgid "CyWxShowRequestAccountsMediator.onAdd.AddTitle"
+msgstr "Ajout d'un compte"
+
+msgid "CyWxShowRequestAccountsMediator.onAdd.FailedText"
+msgstr "Une erreur s'est produite lors de l'ajout du compte"
+
+msgid "CyWxShowRequestAccountsMediator.onAdd.FailedCaption"
+msgstr "Erreur"
+
+###########################################################
+#
+# class CyWxShowRequestAccountsMediator
+#
+#
+# method CyWxShowRequestAccountsMediator.onDelete
+#
+###########################################################
+
+msgid "CyWxShowRequestAccountsMediator.onDelete.DeleteWarningCaption"
+msgstr "Confirmation..."
+
+msgid "CyWxShowRequestAccountsMediator.onDelete.DeleteWarningText"
+msgstr "supprimer un compte supprimera également toutes les opérations et toutes les attributions liées à ce compte.Êtes-vous sûr de vouloir supprimer ce compte?"
+
+msgid "CyWxShowRequestAccountsMediator.onDelete.FailedText"
+msgstr "Une erreur s'est produite lors de la suppression du compte"
+
+msgid "CyWxShowRequestAccountsMediator.onDelete.FailedCaption"
+msgstr "Erreur"
+
+###########################################################
+#
+# class CyWxShowRequestAccountsMediator
+#
+#
+# method CyWxShowRequestAccountsMediator.onEdit
+#
+###########################################################
+
+msgid "CyWxShowRequestAccountsMediator.onEdit.EditTitle"
+msgstr "Modification d'un compte"
+
+msgid "CyWxShowRequestAccountsMediator.onEdit.FailedText"
+msgstr "Une erreur s'est produite lors de la modification du compte"
+
+msgid "CyWxShowRequestAccountsMediator.onEdit.FailedCaption"
+msgstr "Erreur"
+
+###########################################################
+#
+# class CyWxShowRequestAnalyseMediator
+#
+#
+# method CyWxShowRequestAnalyseMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestAnalyseMediator.addPopupItems.ViewOperation"
+msgstr "Voir les opérations"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsGroupsMediator
+#
+#
+# method CyWxShowRequestAttributionsGroupsMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.addPopupItems.Add"
+msgstr "Ajouter un groupe"
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.addPopupItems.Delete"
+msgstr "Supprimer le groupe"
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.addPopupItems.Edit"
+msgstr "Modifier le groupe"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsGroupsMediator
+#
+#
+# method CyWxShowRequestAttributionsGroupsMediator.onAdd
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onAdd.Caption"
+msgstr "Ajout d'un groupe"
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onAdd.Message"
+msgstr "Groupe:"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsGroupsMediator
+#
+#
+# method CyWxShowRequestAttributionsGroupsMediator.onDelete
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onDelete.DeleteWarningCaption"
+msgstr "Confirmation..."
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onDelete.DeleteWarningText"
+msgstr "Supprimer un groupe supprimera également toutes les attributions liées à ce groupe. Êtes-vous sûr de vouloir supprimer ce groupe?"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsGroupsMediator
+#
+#
+# method CyWxShowRequestAttributionsGroupsMediator.onEdit
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onEdit.Caption"
+msgstr "Modification d'un groupe"
+
+msgid "CyWxShowRequestAttributionsGroupsMediator.onEdit.Message"
+msgstr "Groupe:"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsMediator
+#
+#
+# method CyWxShowRequestAttributionsMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsMediator.addPopupItems.Add"
+msgstr "Ajouter une attribution"
+
+msgid "CyWxShowRequestAttributionsMediator.addPopupItems.Delete"
+msgstr "Supprimer une attribution"
+
+msgid "CyWxShowRequestAttributionsMediator.addPopupItems.Edit"
+msgstr "Modifier une attribution"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsMediator
+#
+#
+# method CyWxShowRequestAttributionsMediator.onAdd
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsMediator.onAdd.Add"
+msgstr "Ajout d'une attribution"
+
+msgid "CyWxShowRequestAttributionsMediator.onAdd.FailedCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestAttributionsMediator.onAdd.FailedText"
+msgstr "Une erreur s'est produite lors de l'ajout du compte"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsMediator
+#
+#
+# method CyWxShowRequestAttributionsMediator.onDelete
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsMediator.onDelete.DeleteWarningCaption"
+msgstr "Confirmation..."
+
+msgid "CyWxShowRequestAttributionsMediator.onDelete.DeleteWarningText"
+msgstr "Supprimer une attribution enlèvera également les attributions correspondantes sur les opérations. Êtes-vous sûr de vouloir supprimer cette attribution?"
+
+msgid "CyWxShowRequestAttributionsMediator.onDelete.FailedText"
+msgstr "Une erreur s'est produite lors de la suppression de l'attribution"
+
+msgid "CyWxShowRequestAttributionsMediator.onDelete.FailedCaption"
+msgstr "Erreur"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsMediator
+#
+#
+# method CyWxShowRequestAttributionsMediator.onDoubleLeftClickLabel
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsMediator.onDoubleLeftClickLabel.ErrorCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestAttributionsMediator.onDoubleLeftClickLabel.ErrorText"
+msgstr "Il n'est pas possible de créer une attribution quand aucun budget ou aucun groupe n'est créé"
+
+###########################################################
+#
+# class CyWxShowRequestAttributionsMediator
+#
+#
+# method CyWxShowRequestAttributionsMediator.onEdit
+#
+###########################################################
+
+msgid "CyWxShowRequestAttributionsMediator.onEdit.DialogTitle"
+msgstr "Modification d'une attribution"
+
+msgid "CyWxShowRequestAttributionsMediator.onEdit.FailedCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestAttributionsMediator.onEdit.FailedText"
+msgstr "Une erreur s'est produite lors de l'ajout du compte"
+
+###########################################################
+#
+# class CyWxShowRequestBudgetsMediator
+#
+#
+# method CyWxShowRequestBudgetsMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestBudgetsMediator.addPopupItems.Add"
+msgstr "Ajouter un budget"
+
+msgid "CyWxShowRequestBudgetsMediator.addPopupItems.Delete"
+msgstr "Supprimer le budget"
+
+msgid "CyWxShowRequestBudgetsMediator.addPopupItems.Edit"
+msgstr "Modifier le budget"
+
+###########################################################
+#
+# class CyWxShowRequestBudgetsMediator
+#
+#
+# method CyWxShowRequestBudgetsMediator.onAdd
+#
+###########################################################
+
+msgid "CyWxShowRequestBudgetsMediator.onAdd.Caption"
+msgstr "Ajout d'un budget"
+
+msgid "CyWxShowRequestBudgetsMediator.onAdd.Message"
+msgstr "Budget:"
+
+###########################################################
+#
+# class CyWxShowRequestBudgetsMediator
+#
+#
+# method CyWxShowRequestBudgetsMediator.onDelete
+#
+###########################################################
+
+msgid "CyWxShowRequestBudgetsMediator.onDelete.DeleteWarningCaption"
+msgstr "Confirmation..."
+
+msgid "CyWxShowRequestBudgetsMediator.onDelete.DeleteWarningText"
+msgstr "Supprimer un budget supprimera également toutes les attributions liées à ce budget. Êtes-vous sûr de vouloir supprimer ce budget?"
+
+###########################################################
+#
+# class CyWxShowRequestBudgetsMediator
+#
+#
+# method CyWxShowRequestBudgetsMediator.onEdit
+#
+###########################################################
+
+msgid "CyWxShowRequestBudgetsMediator.onEdit.Caption"
+msgstr "Modification d'un budget"
+
+msgid "CyWxShowRequestBudgetsMediator.onEdit.Message"
+msgstr "Budget:"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.addOperation
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.addOperation.Add"
+msgstr "Ajout d'une opération"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.addPopupItems
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.addPopupItems.Add"
+msgstr "Ajouter une opération"
+
+msgid "CyWxShowRequestOperationsMediator.addPopupItems.Delete"
+msgstr "Supprimer une opération"
+
+msgid "CyWxShowRequestOperationsMediator.addPopupItems.Edit"
+msgstr "Modifier une opération"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.editOperation
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.editOperation.Edit"
+msgstr "Modification d'une opération"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.onAdd
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.onAdd.FailedCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestOperationsMediator.onAdd.FailedText"
+msgstr "Une erreur s'est produite lors de l'ajout de l'opération"
+
+msgid "CyWxShowRequestOperationsMediator.onAdd.SelectAccountCaption"
+msgstr "Sélection du compte"
+
+msgid "CyWxShowRequestOperationsMediator.onAdd.SelectAccountText"
+msgstr "Compte n° :"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.onDelete
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.onDelete.DeleteWarningCaption"
+msgstr "Confirmation..."
+
+msgid "CyWxShowRequestOperationsMediator.onDelete.DeleteWarningText"
+msgstr "Êtes-vous sûr de vouloir supprimer cette opération?"
+
+msgid "CyWxShowRequestOperationsMediator.onDelete.FailedText"
+msgstr "Une erreur s'est produite lors de la suppression de l'opération"
+
+msgid "CyWxShowRequestOperationsMediator.onDelete.FailedCaption"
+msgstr "Erreur"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.onDoubleLeftClickLabel
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.onDoubleLeftClickLabel.ErrorCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestOperationsMediator.onDoubleLeftClickLabel.ErrorText"
+msgstr "Il n'est pas possible de créer une opération quand aucun compte n'est créé"
+
+###########################################################
+#
+# class CyWxShowRequestOperationsMediator
+#
+#
+# method CyWxShowRequestOperationsMediator.onEdit
+#
+###########################################################
+
+msgid "CyWxShowRequestOperationsMediator.onEdit.FailedCaption"
+msgstr "Erreur"
+
+msgid "CyWxShowRequestOperationsMediator.onEdit.FailedText"
+msgstr "Une erreur s'est produite lors de la modification de l'opération"
