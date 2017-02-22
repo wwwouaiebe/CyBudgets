@@ -1,9 +1,14 @@
 # Logs
 logs
 *.log
-CyBudgets VC14/
-!CyBudgets.sln
-bin/
+CyBudgets VC14/Debug
+CyBudgets VC14/Release
+CyBudgets VC14/ipch
+CyBudgets VC14/CyBudgets
+CyBudgets VC14/.vs
+CyBudgets VC14/CyBudgets.sdf
+CyBudgets VC14/CyBudgets.suo
+CyBudgets VC14/CyBudgets.VC.db
 cppCheck/
 data/
 documentation/
@@ -11,3 +16,4 @@ gettext/
 packages/
 CyBudgetsGcc/
 notes/
+bin/
