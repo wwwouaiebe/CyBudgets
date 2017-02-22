@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2F3F2D01-A566-4546-86F4-5669477C16EF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CyBudgets</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <LibraryPath>C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <LibraryPath>C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CY_COMPILER_VC10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\CyBudgets\Code;..\..\..\wxWidgets-3.1.0\code\include;..\..\..\wxWidgets-3.1.0\code\include\msvc;..\..\..\sqlite-3.17.00.00\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4514;4710;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\sqlite-3.17.00.00\Sqlite VC14\Win32\Debug;..\..\..\wxWidgets-3.1.0\code\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CY_COMPILER_VC10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\CyBudgets\Code;..\..\..\wxWidgets-3.1.0\code\include;..\..\..\wxWidgets-3.1.0\code\include\msvc;..\..\..\sqlite-3.17.00.00\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4514;4710;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\sqlite-3.17.00.00\Sqlite VC14\x64\Debug;..\..\..\wxWidgets-3.1.0\code\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CY_COMPILER_VC10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\CyBudgets\Code;..\..\..\wxWidgets-3.1.0\code\include;..\..\..\wxWidgets-3.1.0\code\include\msvc;..\..\..\sqlite-3.17.00.00\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4514;4710;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\sqlite-3.17.00.00\Sqlite VC14\Win32\Release;..\..\..\wxWidgets-3.1.0\code\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CY_COMPILER_VC10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\CyBudgets\Code;..\..\..\wxWidgets-3.1.0\code\include;..\..\..\wxWidgets-3.1.0\code\include\msvc;..\..\..\sqlite-3.17.00.00\code;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4514;4710;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\sqlite-3.17.00.00\Sqlite VC14\x64\Release;..\..\..\wxWidgets-3.1.0\code\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Code\CoreLayer\CyAccountsBalanceSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyAccountsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyAnalyseSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyAttributionsGroupsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyAttributionsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyBudgetsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyCurrencyConverter.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyIngImportTool.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyOperationsAttributionsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlManager.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CySqlBuilder.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyLongValue.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyQueryResult.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CySqliteDb.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CySqliteFunctions.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyStringValue.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyUserPreferences.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyValue.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsApp.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsFrame.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditAccountDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditAttributionDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationAttributionDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxLongLongItemData.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAccountsMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAnalyseMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAttributionsGroupsMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAttributionsMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestBudgetsMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestOperationsMediator.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxTreeItemData.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyIngDateParser.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyIngDetailParser.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyEnum.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyFilesService.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyGetText.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyStdIncludes.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyStringParser.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyUtf8WxStringTranslator.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyWxIncludes.h" />
+    <ClInclude Include="..\..\Code\UtilitiesLayer\CyWxVersionInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Code\CoreLayer\CyAccountsBalanceSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyAccountsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyAnalyseSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyAttributionsGroupsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyAttributionsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyBudgetsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyCurrencyConverter.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyIngImportTool.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyOperationsAttributionsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlManager.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CySqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyLongValue.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyQueryResult.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CySqliteDb.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CySqliteFunctions.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyStringValue.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyUserPreferences.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyValue.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyBudgets.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsApp.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsFrame.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditAccountDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditAttributionDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationAttributionDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxLongLongItemData.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAccountsMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAnalyseMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAttributionsGroupsMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAttributionsMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestBudgetsMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestOperationsMediator.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxTreeItemData.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyIngDateParser.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyIngDetailParser.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyFilesService.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyGetText.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyStringParser.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyUtf8WxStringTranslator.cpp" />
+    <ClCompile Include="..\..\Code\UtilitiesLayer\CyWxVersionInfo.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

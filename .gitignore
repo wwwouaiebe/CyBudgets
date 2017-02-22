@@ -4,11 +4,13 @@ logs
 CyBudgets VC14/Debug
 CyBudgets VC14/Release
 CyBudgets VC14/ipch
-CyBudgets VC14/CyBudgets
 CyBudgets VC14/.vs
 CyBudgets VC14/CyBudgets.sdf
 CyBudgets VC14/CyBudgets.suo
 CyBudgets VC14/CyBudgets.VC.db
+CyBudgets VC14/CyBudgets/Release
+CyBudgets VC14/CyBudgets/Debug
+CyBudgets VC14/CyBudgets/x64
 cppCheck/
 data/
 documentation/
