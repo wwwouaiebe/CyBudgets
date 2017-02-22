@@ -2,6 +2,7 @@
 logs
 *.log
 CyBudgets VC14/
+!CyBudgets VC14/CyBudgets.sln
 bin/
 cppCheck/
 data/
