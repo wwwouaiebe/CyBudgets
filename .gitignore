@@ -13,7 +13,8 @@ CyBudgets VC14/CyBudgets/Debug
 CyBudgets VC14/CyBudgets/x64
 cppCheck/
 data/
-documentation/
+documentation/warning.txt
+documentation/html
 gettext/
 packages/
 CyBudgetsGcc/
