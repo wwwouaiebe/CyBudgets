@@ -1,0 +1,4 @@
+﻿rm ../Code/CodeLayer/*.o
+rm ../Code/DataLayer/*.o
+rm ../Code/BusinessLayer/*.o
+rm ../Code/UserInterfaceLayer/*.o    

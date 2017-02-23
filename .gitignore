@@ -13,5 +13,5 @@ CyBudgets VC14/CyBudgets/x64
 cppCheck/
 documentation/warning.txt
 documentation/html
-CyBudgetsGcc/
+CyBudgetsGcc/CyBudgets
 bin/
