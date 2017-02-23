@@ -1,4 +1,3 @@
-# Logs
 logs
 *.log
 CyBudgets VC14/Debug
@@ -12,11 +11,7 @@ CyBudgets VC14/CyBudgets/Release
 CyBudgets VC14/CyBudgets/Debug
 CyBudgets VC14/CyBudgets/x64
 cppCheck/
-data/
 documentation/warning.txt
 documentation/html
-gettext/
-packages/
 CyBudgetsGcc/
-notes/
 bin/

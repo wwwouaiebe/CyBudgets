@@ -1,0 +1,1 @@
+xgettext -f files.txt --c++ --from-code=UTF-8 -kgetText -D ../Code/UserInterfaceLayer -D ../Code/DataLayer -D ../Code/UtilitiesLayer -D ../Code/CoreLayer --copyright-holder="Christian Guyette" --package-name=CyBudgets --package-version=1.0.2 --msgid-bugs-address=http://www.ouaie.be/
