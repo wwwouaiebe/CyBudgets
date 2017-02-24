@@ -550,6 +550,12 @@ msgstr "Mise à jour vers la version 1.0.3"
 msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text"
 msgstr "La mise à jour vers la version 1.0.3 a échoué"
 
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion110Caption"
+msgstr "Mise à jour vers la version 1.1.0"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion110Text"
+msgstr "La mise à jour vers la version 1.1.0 a échoué"
+
 msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenVersionNotFoundCaption"
 msgstr "Erreur..."
 

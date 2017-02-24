@@ -393,6 +393,22 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeDatabase ( )
 			return eReturnCode;
 		}
 	}
+
+	eReturnCode = CySqliteDb::kNewOpenUnknown;
+	if ((1 == lMajorVersion) && (0 == lMinorVersion) && (3 == lMicroVersion))
+	{
+		// upgrading to version 1.1.0
+		eReturnCode = this->upgradeToVersion110();
+		if (CySqliteDb::kNewOpenOk == eReturnCode)
+		{
+			lMinorVersion = 1;
+			lMicroVersion = 0;
+		}
+		else
+		{
+			return eReturnCode;
+		}
+	}
 	// to continue for future versions...
 
 	return CySqliteDb::kNewOpenOk;
@@ -556,6 +572,36 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion103 ( )
 	{
 		// update not executed
 		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;") );
+		return CySqliteDb::kNewOpenErrorUpgrade103;
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
+{
+	// starting the upgrade
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql(wxString("BEGIN EXCLUSIVE TRANSACTION;"));
+
+
+	// ... to continue
+
+	// Version update
+	bTransactionOk &= this->executeSql(wxString("Update Versions set MinorVersion = 1;"));
+	bTransactionOk &= this->executeSql(wxString("Update Versions set MicroVersion = 0;"));
+
+	if (bTransactionOk)
+	{
+		// update executed correctly
+		this->executeSql(wxString("COMMIT;"));
+		return CySqliteDb::kNewOpenOk;
+	}
+	else
+	{
+		// update not executed
+		this->executeSql(wxString("ROLLBACK TRANSACTION;"));
 		return CySqliteDb::kNewOpenErrorUpgrade103;
 	}
 }

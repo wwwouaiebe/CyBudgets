@@ -117,7 +117,8 @@ class CySqliteDb
 			kNewOpenVersionNotFound = 8,
 			kNewOpenErrorUpgrade102 = 9,
 			kNewOpenErrorUpgrade103 = 10,
-			kNewOpenUnknown = 11
+			kNewOpenErrorUpgrade110 = 11,
+			kNewOpenUnknown = 12
 		};
 
 		//! \fn newFile ( const wxString& strPathName, const wxString& strFileName )
@@ -288,7 +289,15 @@ class CySqliteDb
 		//! - kNewOpenErrorUpgrade103 when an error occurs
 		//! - kNewOpenOk when successfull
 
-		NewOpenErrors upgradeToVersion103 ( );
+		NewOpenErrors upgradeToVersion103();
+
+		//! \fn upgradeToVersion110 ( )
+		//! this method upgrade the database to the version 1.1.0
+		//! \return 
+		//! - kNewOpenErrorUpgrade110 when an error occurs
+		//! - kNewOpenOk when successfull
+
+		NewOpenErrors upgradeToVersion110();
 
 		//! \fn logError ( const wxString& strSql )
 		//! This method log the error message and the SQL instruction associated to the error

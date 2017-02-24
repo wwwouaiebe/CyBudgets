@@ -469,8 +469,12 @@ void CyWxBudgetsFrame::displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturn
 		strErrorCaption = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion102Caption" );
 		break;
 	case CySqliteDb::kNewOpenErrorUpgrade103:
-		strErrorMessage = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text" );
-		strErrorCaption = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion103Caption" );
+		strErrorMessage = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text");
+		strErrorCaption = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion103Caption");
+		break;
+	case CySqliteDb::kNewOpenErrorUpgrade110:
+		strErrorMessage = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion110Text");
+		strErrorCaption = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion110Caption");
 		break;
 	case CySqliteDb::kNewOpenUnknown:
 		strErrorMessage = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenUnknownText" );
