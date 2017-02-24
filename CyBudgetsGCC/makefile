@@ -13,21 +13,21 @@ TESTING := no
 ifeq ($(DEBUG),yes)
 	ifeq ($(TESTING),yes)
 		RESULT := CyBudgetsLinuxDebugUnitTestingx64
-		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -Werror -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-parameter -Wunused-but-set-parameter -Waddress -Warray-bounds -Wchar-subscripts -Wcomment -Wformat -Wmissing-braces -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow=1 -Wswitch -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -D CY_UNIT_TESTS -D CY_COMPILER_GCC -D CY_64_BITS -D _DEBUG -g `wx-config --cxxflags` `wx-config --libs`
+		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -Werror -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-parameter -Wunused-but-set-parameter -Waddress -Warray-bounds -Wchar-subscripts -Wcomment -Wformat -Wmissing-braces -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow=1 -Wswitch -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -D CY_UNIT_TESTS -D CY_COMPILER_GCC -D CY_64_BITS -D _DEBUG -g `wx-config --cxxflags`
 	else
 		RESULT := CyBudgetsLinuxDebugx64
-		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -Werror -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-parameter -Wunused-but-set-parameter -Waddress -Warray-bounds -Wchar-subscripts -Wcomment -Wformat -Wmissing-braces -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow=1 -Wswitch -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -D CY_COMPILER_GCC -D CY_64_BITS -D _DEBUG -g `wx-config --cxxflags` `wx-config --libs`
+		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -Werror -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized -Wunused-parameter -Wunused-but-set-parameter -Waddress -Warray-bounds -Wchar-subscripts -Wcomment -Wformat -Wmissing-braces -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow=1 -Wswitch -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -D CY_COMPILER_GCC -D CY_64_BITS -D _DEBUG -g `wx-config --cxxflags` 
 	endif
-    LDFLAGS := `wx-config --unicode --debug --libs` /usr/lib/x86_64-linux-gnu/libsqlite3.so.0
+    LDFLAGS := `wx-config --unicode --debug --libs` ../../sqlite-3.17.00.00/code/sqlite3.o
 else
 	ifeq ($(TESTING),yes)
 		RESULT := CyBudgetsLinuxReleaseUnitTestingx64
-		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -D CY_UNIT_TESTS -D CY_COMPILER_GCC -D CY_64_BITS `wx-config --cxxflags` `wx-config --libs`
+		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -D CY_UNIT_TESTS -D CY_COMPILER_GCC -D CY_64_BITS `wx-config --cxxflags`
 	else
 		RESULT := CyBudgetsLinuxReleasex64
-		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -D CY_COMPILER_GCC -D CY_64_BITS `wx-config --cxxflags` `wx-config --libs`
+		CPPFLAGS := -std=c++03 -I ../Code/ -I ../../sqlite-3.17.00.00/code/ -I /usr/include/wx-3.1/ -funsigned-char -D CY_COMPILER_GCC -D CY_64_BITS `wx-config --cxxflags` 
 	endif
-    LDFLAGS := `wx-config --unicode --libs` /usr/lib/x86_64-linux-gnu/libsqlite3.so.0
+    LDFLAGS := `wx-config --unicode --libs` ../../sqlite-3.17.00.00/code/sqlite3.o
 endif
 
 CC := c++
@@ -84,6 +84,3 @@ CyBudgets : $(OBJECTS)
 	@echo ""
 	@echo "End compiling " $<
 	@echo ""
-
-
-
