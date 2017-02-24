@@ -52,11 +52,13 @@
 //!
 //! <a href = "../warning.txt">Doxygen warnings</a>
 //!
-//! <a href="../../../sqlite-3.08.06.00/documentation/index.html">SQLite documentation</a>
+//! <a href="https://www.sqlite.org/c3ref/intro.html" target="_blank">SQLite documentation</a>
 //!
-//! <a href="../../../wxWidgets-3.0.1/documentation/index.html">wxWidgets documentation</a>
+//! <a href="http://docs.wxwidgets.org/3.0/" target="_blank">wxWidgets documentation</a>
 //!
-//! <a href="../../../cppreference/en/index.html">C++ documentation</a>
+//! <a href="http://en.cppreference.com/w/" target="_blank">cppreference</a>
+//!
+//! <a href="http://www.cplusplus.com/reference/" target="_blank">cplusplus</a>
 //!
 //!
 //!		<h1>Data model</h1>
