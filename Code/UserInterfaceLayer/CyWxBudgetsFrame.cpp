@@ -380,6 +380,12 @@ void CyWxBudgetsFrame::onNewFile ( wxCommandEvent& )
 		{
 			this->m_pBudgetComboBox->Select ( 0 );
 			this->m_pAccountComboBox->Select ( 0 );
+			this->SetTitle (
+				CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.WindowTitle" )
+				+ wxString ( " - " )
+				+ sqlFileDialog.GetDirectory ( )
+				+ wxFileName::GetPathSeparator ( )
+				+ sqlFileDialog.GetFilename ( ) );
 		}
 	}
 }
@@ -407,6 +413,12 @@ void CyWxBudgetsFrame::onOpenFile ( wxCommandEvent& )
 		{
 			this->m_pBudgetComboBox->Select ( 0 );
 			this->m_pAccountComboBox->Select ( 0 );
+			this->SetTitle ( 
+				CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.WindowTitle" )
+				+ wxString ( " - " )
+				+ sqlFileDialog.GetDirectory ( ) 
+				+ wxFileName::GetPathSeparator ( ) 
+				+ sqlFileDialog.GetFilename ( ) );
 		}
 	}
 }
