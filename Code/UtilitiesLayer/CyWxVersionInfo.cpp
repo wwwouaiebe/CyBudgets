@@ -98,7 +98,7 @@ const wxString CyWxVersionInfo::getVersion ( ) const
 
 const wxString CyWxVersionInfo::getWebSite ( ) const
 {
-	return  wxString ( "http://www.ouaie.be/" ) ;
+	return  wxString ( "https://github.com/wwwouaiebe/CyBudgets" );
 }
 
 

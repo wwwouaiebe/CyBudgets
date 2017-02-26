@@ -60,6 +60,8 @@
 //! 
 //! <a href="http://www.cplusplus.com/reference/" target="_blank">cplusplus</a>
 //! 
+//! <a href="https://github.com/wwwouaiebe/CyBudgets" target="_blank">CyBudgets on github</a>
+//! 
 //! 
 //! <h1>Data model</h1>
 //! 

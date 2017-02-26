@@ -309,6 +309,12 @@ class CyWxBudgetsFrame: public wxFrame
 
 		CyWxBudgetsFrame& operator = ( const CyWxBudgetsFrame& );
 
+		//! \fn onNewOpenSuccess ( const wxString& strFilePath )
+		//! this method display the file name on the window title and activate the toolbar button.
+		//! @param [ in ] strFilePath the db path
+
+		void onNewOpenSuccess ( const wxString& strFilePath );
+
 		//! \var m_pAccountComboBox
 		//! the account combo box on the toolbar
 		//!
@@ -332,6 +338,8 @@ class CyWxBudgetsFrame: public wxFrame
 		//!
 
 		wxDatePickerCtrl* m_pEndDateCtrl;
+
+		wxToolBar* m_pToolBar;
 
 };
 
