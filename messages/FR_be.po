@@ -160,6 +160,9 @@ msgstr "Attribution"
 msgid "CyAttributionsSqlBuilder.getSelectSql.GroupDescription"
 msgstr "Groupe"
 
+msgid "CyAttributionsSqlBuilder.getSelectSql.ValidToDate"
+msgstr "Utilisé jusqu'au"
+
 ###########################################################
 #
 # class CyAttributionsGroupsSqlBuilder

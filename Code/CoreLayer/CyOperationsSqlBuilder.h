@@ -56,7 +56,7 @@ class CyOperationsSqlBuilder: public CySqlBuilder
 		//! \fn CyOperationsSqlBuilder ( ) 
 		//! constructor
 		//!
-		//! This constructor is used from tha CyWxBudgetFrame window to select the Operations
+		//! This constructor is used from the CyWxBudgetFrame window to select the Operations
 		//! without attributions or incomplete attributions
 
 		CyOperationsSqlBuilder ( );
@@ -68,7 +68,7 @@ class CyOperationsSqlBuilder: public CySqlBuilder
 		//! @param [ in ] objEndDate the ending date of the search
 		//! constructor
 		//!
-		//! This constructor is used from tha CyWxBudgetFrame window to select the Operations
+		//! This constructor is used from the CyWxBudgetFrame window to select the Operations
 		//! with an account number and start and end dates
 
 		CyOperationsSqlBuilder ( 
@@ -83,7 +83,7 @@ class CyOperationsSqlBuilder: public CySqlBuilder
 		//! @param [ in ] objEndDate the ending date of the search
 		//! constructor
 		//!
-		//! This constructor is used from tha CyWxShowRequestAnalyseMediator object to select the Operations
+		//! This constructor is used from the CyWxShowRequestAnalyseMediator object to select the Operations
 		//! linked to a row in an analyse result
 
 		CyOperationsSqlBuilder ( 

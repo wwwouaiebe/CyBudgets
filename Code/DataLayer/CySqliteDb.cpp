@@ -102,11 +102,12 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsAttributions (ObjId INTEGER PRIMARY KEY DESC, AttributionObjId INTEGER, OperationObjId INTEGER, Amount INTEGER);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS AttributionsGroups (ObjId INTEGER PRIMARY KEY DESC, GroupDescription TEXT);" ));
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER, ValidToDate TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Operations (ObjId INTEGER PRIMARY KEY DESC, AccountObjId INTEGER, OperationNumber INTEGER,OperationDate TEXT,ValueDate TEXT,AttributionDate TEXT, Amount INTEGER, Description TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsDetails (ObjId INTEGER PRIMARY KEY DESC, OperationObjId INTEGER, Detail TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Budgets (ObjId INTEGER PRIMARY KEY DESC, Description TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Versions (Application TEXT, MajorVersion INTEGER, MinorVersion INTEGER, MicroVersion INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters (ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
 
 	// ... version is added to the version table...
 	wxString strSql;
@@ -146,6 +147,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS OperationsAttributions_ObjId ON OperationsAttributions ( ObjId );" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS OperationsAttributions_OperationObjId ON OperationsAttributions ( OperationObjId );" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS OperationsAttributions_AttributionObjId ON OperationsAttributions ( AttributionObjId );" ) );
+
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );") );
 
 	// ... view creation...
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE VIEW IF NOT EXISTS AccountsView AS SELECT ObjId as AccObjId, CanBeImported, AccountNumber FROM Accounts;" ) );
@@ -395,11 +398,11 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeDatabase ( )
 	}
 
 	eReturnCode = CySqliteDb::kNewOpenUnknown;
-	if ((1 == lMajorVersion) && (0 == lMinorVersion) && (3 == lMicroVersion))
+	if ( ( 1 == lMajorVersion ) && ( 0 == lMinorVersion ) && ( 3 == lMicroVersion ) )
 	{
 		// upgrading to version 1.1.0
-		eReturnCode = this->upgradeToVersion110();
-		if (CySqliteDb::kNewOpenOk == eReturnCode)
+		eReturnCode = this->upgradeToVersion110 ( );
+		if ( CySqliteDb::kNewOpenOk == eReturnCode )
 		{
 			lMinorVersion = 1;
 			lMicroVersion = 0;
@@ -583,14 +586,19 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
 	// starting the upgrade
 	bool bTransactionOk = true;
 
-	bTransactionOk &= this->executeSql(wxString("BEGIN EXCLUSIVE TRANSACTION;"));
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
 
+	// parameters table creation
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters (ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );" ) );
 
-	// ... to continue
+	// Attributions table modification
+	bTransactionOk &= this->executeSql ( wxString ( "ALTER TABLE Attributions ADD COLUMN ValidToDate TEXT;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Attributions SET ValidToDate = \"2099-12-31\";" ) );
 
 	// Version update
-	bTransactionOk &= this->executeSql(wxString("Update Versions set MinorVersion = 1;"));
-	bTransactionOk &= this->executeSql(wxString("Update Versions set MicroVersion = 0;"));
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MinorVersion = 1;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MicroVersion = 0;" ) );
 
 	if (bTransactionOk)
 	{
