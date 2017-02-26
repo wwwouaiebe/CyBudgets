@@ -43,6 +43,24 @@
 
 CyAccountsSqlBuilder::CyAccountsSqlBuilder ( )
 {
+	this->m_strWhereClause = wxEmptyString;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+CyAccountsSqlBuilder::CyAccountsSqlBuilder ( const wxDateTime& objAccountValidToDate )
+{
+	//
+	// this->m_strWhereClause =
+
+	// WHERE 
+	//		a.ValidToDate >= "2017-02-26" 
+	//
+
+	this->m_strWhereClause
+		<< "WHERE a.ValidToDate >= \""
+		<< objAccountValidToDate.Format ( wxString ( "%Y-%m-%d" ) )
+		<< "\" ";
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -97,7 +115,8 @@ wxString CyAccountsSqlBuilder::getDeleteSql ( long long lObjId ) const
 	//			AccountOwner, 
 	//			CanBeImported, 
 	//			ValidSinceDate, 
-	//			InitialAmount 
+	//			InitialAmount,
+	//			ValidToDate
 	//		) 
 	//		VALUES 
 	//		( 
@@ -106,14 +125,15 @@ wxString CyAccountsSqlBuilder::getDeleteSql ( long long lObjId ) const
 	//			"Nouveau compte",
 	//			0,
 	//			"2015-02-06",
-	//			0
+	//			0,
+	//			"2099-12-31"
 	//		);
 	//
 
 	wxString strInsertSql = wxEmptyString;
 
 	strInsertSql 
-		<< wxString ( "INSERT INTO Accounts ( ObjId, AccountNumber, AccountOwner, CanBeImported, ValidSinceDate, InitialAmount ) " )
+		<< wxString ( "INSERT INTO Accounts ( ObjId, AccountNumber, AccountOwner, CanBeImported, ValidSinceDate, InitialAmount, ValidToDate ) " )
 		<< wxString ( "VALUES ( (SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Accounts ), \"" )
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountNumber )->get ( CyStringValue::m_strDummyValue )
 		<< wxString ( "\", \"" )
@@ -122,9 +142,11 @@ wxString CyAccountsSqlBuilder::getDeleteSql ( long long lObjId ) const
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountImported )->get ( CyLongValue::m_lDummyValue )
 		<< wxString ( ", \"" )
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountValidSinceDate )->get ( CyStringValue::m_strDummyValue )
-		<< wxString ("\", " )
+		<< wxString ( "\", " )
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountInitialAmount )->get ( CyLongValue::m_lDummyValue )
-		<< wxString ( ");");
+		<< wxString ( ", \"" )
+		<< newRow.at ( CyAccountsSqlBuilder::kAccountValidToDate )->get ( CyStringValue::m_strDummyValue )
+		<< wxString ( "\");");
 
 	return strInsertSql;
 }
@@ -186,6 +208,15 @@ void CyAccountsSqlBuilder::createRow ( CyQueryResult::CyQueryResultValuesRow& ne
 	pAccountInitialAmount->set ( 0, strStringFormat );
 	newRow.push_back ( pAccountInitialAmount );
 
+	// ... Validity date
+	strStringFormat.clear ( );
+	strStringFormat
+		<< CyStartFormat
+		<< CyFormatDate;
+	CyStringValue* pValidityDate = new CyStringValue;
+	pValidityDate->set ( wxString ( "2099-12-31" ), strStringFormat );
+	newRow.push_back ( pValidityDate );
+
 	// ... and account balance.
 	strStringFormat.clear ( );
 	strStringFormat
@@ -216,6 +247,8 @@ wxString CyAccountsSqlBuilder::getSelectSql ( ) const
 	//		a.ValidSinceDate AS "Date d'ouverture",
 	//		"➻€" AS ➻,
 	//		a.InitialAmount AS "Montant initial",
+	//		"➻≋" AS ➻,
+	//		a.ValidToDate AS "Utilisé jusqu'au",
 	//		"➻€" AS ➻,
 	//		IFNULL ( SUM ( o.Amount), 0) + a.InitialAmount AS "Solde" 
 	//	FROM Accounts a LEFT OUTER JOIN Operations o ON a.ObjId = o.AccountObjId 
@@ -233,8 +266,11 @@ wxString CyAccountsSqlBuilder::getSelectSql ( ) const
 		<< this->getFieldSql ( wxString ( "a.CanBeImported"), CyGetText::getInstance ( ).getText ( "CyAccountsSqlBuilder.getSelectSql.AccountCanBeImported" ), CyFormatBoolean )
 		<< this->getFieldSql ( wxString ( "a.ValidSinceDate"), CyGetText::getInstance ( ).getText ( "CyAccountsSqlBuilder.getSelectSql.AccountValidSinceDate" ), CyFormatDate )
 		<< this->getFieldSql ( wxString ( "a.InitialAmount"), CyGetText::getInstance ( ).getText ( "CyAccountsSqlBuilder.getSelectSql.AccountInitialAmount" ), CyFormatCurrency )
+		<< this->getFieldSql ( wxString ( "a.ValidToDate" ), CyGetText::getInstance ( ).getText ( "CyAccountsSqlBuilder.getSelectSql.AccountValidToDate" ), CyFormatDate )
 		<< this->getFieldSql ( wxString ( "IFNULL ( SUM ( o.Amount), 0) + a.InitialAmount" ), CyGetText::getInstance ( ).getText ( "CyAccountsSqlBuilder.getSelectSql.Balance" ), CyFormatCurrency, true )
-		<< wxString ( "FROM Accounts a LEFT OUTER JOIN Operations o ON a.ObjId = o.AccountObjId GROUP BY a.ObjId ORDER BY o.AccountObjId;" );
+		<< wxString ( "FROM Accounts a LEFT OUTER JOIN Operations o ON a.ObjId = o.AccountObjId " )
+		<< this->m_strWhereClause
+		<< wxString ( "	GROUP BY a.ObjId ORDER BY o.AccountObjId;" );
 
 	return strSelectSql;
 }
@@ -253,7 +289,8 @@ wxString CyAccountsSqlBuilder::getUpdateSql ( const CyQueryResult::CyQueryResult
 	//		AccountOwner = "Nouveau compte modifié", 
 	//		CanBeImported = 0, 
 	//		ValidSinceDate = "2015-02-06", 
-	//		InitialAmount = 0 
+	//		InitialAmount = 0,
+	//		ValidToDate = "2017-02-26"
 	//	WHERE 
 	//		ObjId = 10 ;
 	//
@@ -272,7 +309,9 @@ wxString CyAccountsSqlBuilder::getUpdateSql ( const CyQueryResult::CyQueryResult
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountValidSinceDate )->get ( CyStringValue::m_strDummyValue )
 		<< wxString ( "\", InitialAmount = " )
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountInitialAmount )->get ( CyLongValue::m_lDummyValue )
-		<< wxString ( " WHERE ObjId = " )
+		<< wxString ( ", ValidToDate = \"" )
+		<< newRow.at ( CyAccountsSqlBuilder::kAccountValidToDate )->get ( CyStringValue::m_strDummyValue )
+		<< wxString ( "\" WHERE ObjId = " )
 		<< newRow.at ( CyAccountsSqlBuilder::kAccountObjId )->get ( CyLongValue::m_lDummyValue)
 		<< wxString ( " ;" );
 

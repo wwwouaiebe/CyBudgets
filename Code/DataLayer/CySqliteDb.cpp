@@ -99,7 +99,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 
 	// ... table creation...
 	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT, ValidToDate TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsAttributions (ObjId INTEGER PRIMARY KEY DESC, AttributionObjId INTEGER, OperationObjId INTEGER, Amount INTEGER);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS AttributionsGroups (ObjId INTEGER PRIMARY KEY DESC, GroupDescription TEXT);" ));
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER, ValidToDate TEXT);" ) );
@@ -591,6 +591,10 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
 	// parameters table creation
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters (ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );" ) );
+
+	// Accounts table modification
+	bTransactionOk &= this->executeSql ( wxString ( "ALTER TABLE Accounts ADD COLUMN ValidToDate TEXT;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Accounts SET ValidToDate = \"2099-12-31\";" ) );
 
 	// Attributions table modification
 	bTransactionOk &= this->executeSql ( wxString ( "ALTER TABLE Attributions ADD COLUMN ValidToDate TEXT;" ) );

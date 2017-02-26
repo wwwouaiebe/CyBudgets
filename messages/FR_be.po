@@ -64,6 +64,9 @@ msgstr "Montant initial"
 msgid "CyAccountsSqlBuilder.getSelectSql.AccountValidSinceDate"
 msgstr "Date d'ouverture"
 
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountValidToDate"
+msgstr "Date de clôture"
+
 msgid "CyAccountsSqlBuilder.getSelectSql.Balance"
 msgstr "Solde"
 
@@ -666,6 +669,9 @@ msgstr "Description : "
 
 msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidSince"
 msgstr "Date d'ouverture : "
+
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidTo"
+msgstr "Date de clôture : "
 
 msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.No"
 msgstr "Non"

@@ -58,6 +58,13 @@ class CyAccountsSqlBuilder: public CySqlBuilder
 
 		CyAccountsSqlBuilder ( );
 
+		//! \fn CyAccountsSqlBuilder ( const wxDateTime& objAccountValidToDate ) 
+		//! @param [ in ] objAccountValidToDate a reference to a wxDateTime value to filter accounts on the validity date.
+		//!
+		//! constructor
+
+		CyAccountsSqlBuilder ( const wxDateTime& objAccountValidToDate );
+
 		//! \fn ~CyAccountsSqlBuilder ( ) 
 		//! destructor
 
@@ -124,7 +131,8 @@ class CyAccountsSqlBuilder: public CySqlBuilder
 			kAccountImported = 3,
 			kAccountValidSinceDate = 4,
 			kAccountInitialAmount = 5,
-			kAccountBalance = 6
+			kAccountValidToDate = 6,
+			kAccountBalance = 7
 		};
 
 	protected:
@@ -170,6 +178,11 @@ class CyAccountsSqlBuilder: public CySqlBuilder
 		//! not implemented
 
 		CyAccountsSqlBuilder& operator = ( const CyAccountsSqlBuilder& );
+
+		//! \var m_strWhereClause
+		//! this variable is used to build a where clause for the getSelectSql () method. See also constructor implementation
+
+		wxString m_strWhereClause;
 
 };
 

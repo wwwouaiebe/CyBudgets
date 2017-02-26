@@ -189,10 +189,10 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		wxDP_DROPDOWN );
 	pAttributionSizer->Add ( this->m_pAttributionValidToDateCtrl, wxGBPosition ( 3, 1 ) );
 
-	wxString strAccountValidSinceDate = m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->getAsString ( );
+	wxString strAttributionValidSinceDate = m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->getAsString ( );
 
 	wxDateTime attributionValidToDate;
-	if ( attributionValidToDate.ParseISODate ( strAccountValidSinceDate ) )
+	if ( attributionValidToDate.ParseISODate ( strAttributionValidSinceDate ) )
 	{
 		this->m_pAttributionValidToDateCtrl->SetValue ( attributionValidToDate );
 	}

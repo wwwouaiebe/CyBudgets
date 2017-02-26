@@ -893,7 +893,9 @@ void CyWxBudgetsFrame::UpdateAccounts ( )
 
 	// Accounts are searched...
 	CyQueryResult objAccountsQueryResult;
-	CyAccountsSqlBuilder objAccountsSqlBuilder;
+	wxDateTime objToday;
+	objToday.SetToCurrent ( );
+	CyAccountsSqlBuilder objAccountsSqlBuilder ( objToday );
 	objAccountsSqlBuilder.doSelect ( objAccountsQueryResult );
 
 	// and added to the list of the combo box

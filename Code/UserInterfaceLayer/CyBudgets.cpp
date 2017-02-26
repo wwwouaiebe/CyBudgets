@@ -69,8 +69,9 @@
 //! - AccountOwner TEXT
 //! - CanBeImported INTEGER
 //! - InitialAmount REAL ( till version 1.0.2 )
-//! - InitialAmount INTEGER (since version (1.0.3 )
+//! - InitialAmount INTEGER (since version 1.0.3 )
 //! - ValidSinceDate TEXT
+//! - ValidToDate TEXT (since version 1.1.0 )
 //! 
 //! This table stores informations about the accounts
 //! 
@@ -86,6 +87,8 @@
 //! 
 //! Field ValidSinceDate : the date since the initial amount is valid (since version 1.0.2)
 //! 
+//! Field ValidToDate : the date till the account is closed.
+//!
 //! <h2>TABLE Operations</h2>
 //! - ObjId INTEGER PRIMARY KEY DESC
 //! - AccountObjId INTEGER
@@ -207,13 +210,13 @@
 //! <h1>SQL for database creation</h1>
 //! <h2>SQL for tables creation</h2>
 //! 
-//! CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT);
+//! CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT, ValidToDate TEXT);
 //! 
 //! CREATE TABLE IF NOT EXISTS OperationsAttributions (ObjId INTEGER PRIMARY KEY DESC, AttributionObjId INTEGER, OperationObjId INTEGER, Amount INTEGER);
 //! 
 //! CREATE TABLE IF NOT EXISTS AttributionsGroups (ObjId INTEGER PRIMARY KEY DESC, GroupDescription TEXT);
 //! 
-//! CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER);
+//! CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER, ValidToDate TEXT);
 //! 
 //! CREATE TABLE IF NOT EXISTS Operations (ObjId INTEGER PRIMARY KEY DESC, AccountObjId INTEGER, OperationNumber INTEGER, OperationDate TEXT, ValueDate TEXT,AttributionDate TEXT, Amount INTEGER, Description TEXT);
 //! 
@@ -222,6 +225,8 @@
 //! CREATE TABLE IF NOT EXISTS Budgets (ObjId INTEGER PRIMARY KEY DESC, Description TEXT);
 //! 
 //! CREATE TABLE IF NOT EXISTS Versions (Application TEXT, MajorVersion INTEGER, MinorVersion INTEGER, MicroVersion INTEGER);
+//! 
+//! CREATE TABLE IF NOT EXISTS Parameters ( ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER )
 //! 
 //! <h2>SQL for triggers creation</h2>
 //! 
@@ -282,6 +287,8 @@
 //! CREATE INDEX IF NOT EXISTS OperationsAttributions_OperationObjId ON OperationsAttributions ( OperationObjId );
 //! 
 //! CREATE INDEX IF NOT EXISTS OperationsAttributions_AttributionObjId ON OperationsAttributions ( AttributionObjId );
+//! 
+//! CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName )
 //! 
 //! <h2>SQL for view creation</h2>
 //! 

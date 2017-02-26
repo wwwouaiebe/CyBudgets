@@ -130,6 +130,9 @@ class CyWxEditAttributionDialog : public wxDialog
 		//! \var kBudgetDescription
 		//! id for the budget combo box
 		//!
+		//! \var kAttributionValidToDate
+		//! id for the attribution valid to date picker control
+		//!
 
 		enum wxId
 		{

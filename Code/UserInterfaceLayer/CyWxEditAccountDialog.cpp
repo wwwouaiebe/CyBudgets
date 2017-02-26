@@ -63,6 +63,7 @@ CyWxEditAccountDialog::CyWxEditAccountDialog ( CyQueryResult::CyQueryResultValue
 	this->m_lAccountCanBeImported = m_currentRow.at ( CyAccountsSqlBuilder::kAccountImported )->get ( CyLongValue::m_lDummyValue );
 	wxString strAccountValidSinceDate = m_currentRow.at ( CyAccountsSqlBuilder::kAccountValidSinceDate )->getAsString ( );
 	this->m_dAccountInitialAmount = CyCurrencyConverter::toDouble ( m_currentRow.at ( CyAccountsSqlBuilder::kAccountInitialAmount )->get ( CyLongValue::m_lDummyValue ) );
+	wxString strAccountValidToDate = m_currentRow.at ( CyAccountsSqlBuilder::kAccountValidToDate )->getAsString ( );
 
 	// The main sizer is created
 	wxBoxSizer* pMainSizer = new wxBoxSizer ( wxVERTICAL );
@@ -192,6 +193,32 @@ CyWxEditAccountDialog::CyWxEditAccountDialog ( CyQueryResult::CyQueryResultValue
 	*( this->m_pAccountInitialAmountCtrl ) << this->m_dAccountInitialAmount;
 	pAccountSizer->Add ( m_pAccountInitialAmountCtrl ,  wxGBPosition ( 4, 1 ) );
 
+	// account valid to date
+	wxStaticText* pAccountValidToText = new wxStaticText (
+		this,
+		wxID_ANY,
+		CyGetText::getInstance ( ).getText ( "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidTo" ),
+		wxDefaultPosition,
+		wxSize ( kTextGridWidth, kTextGridHeight ),
+		wxALIGN_BOTTOM | wxALIGN_RIGHT );
+	pAccountSizer->Add ( pAccountValidToText, wxGBPosition ( 5, 0 ) );
+
+	this->m_pAccountValidToDateCtrl = new wxDatePickerCtrl (
+		this,
+		CyWxEditAccountDialog::kAccountValidToDate,
+		wxDefaultDateTime,
+		wxDefaultPosition,
+		wxSize ( kControlGridWidth, kControlGridHeight ),
+		wxDP_DROPDOWN );
+
+	wxDateTime accountValidToDate;
+	if ( accountValidToDate.ParseISODate ( strAccountValidToDate ) )
+	{
+		this->m_pAccountValidToDateCtrl->SetValue ( accountValidToDate );
+	}
+
+	pAccountSizer->Add ( this->m_pAccountValidToDateCtrl, wxGBPosition ( 5, 1 ) );
+
 	// and the gridbag is added to the secondary sizer...
 	pStaticBoxSizer->Add ( pAccountSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
 
@@ -263,6 +290,13 @@ const long long CyWxEditAccountDialog::getAccountInitialAmount ( ) const
 
 /* ---------------------------------------------------------------------------- */
 
+const wxString CyWxEditAccountDialog::getAccountValidToDate ( ) const
+{
+	return this->m_pAccountValidToDateCtrl->GetValue ( ).Format ( wxString ( "%Y-%m-%d" ) );
+}
+
+/* ---------------------------------------------------------------------------- */
+
 int CyWxEditAccountDialog::ShowModal ( )
 {
 	int iReturnCode =  wxDialog::ShowModal ( );
@@ -274,6 +308,7 @@ int CyWxEditAccountDialog::ShowModal ( )
 		this->m_currentRow.at ( CyAccountsSqlBuilder::kAccountImported )->set ( this->getAccountCanBeImported ( ) );
 		this->m_currentRow.at ( CyAccountsSqlBuilder::kAccountValidSinceDate )->set ( this->getAccountValidSinceDate ( ) );
 		this->m_currentRow.at ( CyAccountsSqlBuilder::kAccountInitialAmount )->set ( this->getAccountInitialAmount ( ) );
+		this->m_currentRow.at ( CyAccountsSqlBuilder::kAccountValidToDate )->set ( this->getAccountValidToDate ( ) );
 	}
 
 	return iReturnCode;

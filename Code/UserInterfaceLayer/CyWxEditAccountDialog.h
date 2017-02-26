@@ -90,6 +90,14 @@ class CyWxEditAccountDialog : public wxDialog
 		//! \var kAccountCanBeImported
 		//! id for the account can be imported combo box
 		//!
+		//! \var kAccountValidSinceDate
+		//! id for the account valid since date picker control
+		//!
+		//! \var kAccountInitialAmount
+		//! id for the account initial amount edit box
+		//!
+		//! \var kAccountValidToDate
+		//! id for the account valid to date picker control
 
 		enum wxId
 		{
@@ -97,7 +105,8 @@ class CyWxEditAccountDialog : public wxDialog
 			kAccountOwner,
 			kAccountCanBeImported,
 			kAccountValidSinceDate,
-			kAccountInitialAmount
+			kAccountInitialAmount,
+			kAccountValidToDate
 		};
 
 		//! \enum DialogSizeAndPosition
@@ -187,6 +196,13 @@ class CyWxEditAccountDialog : public wxDialog
 
 		const long long getAccountInitialAmount ( ) const;
 
+		//! \fn getAccountValidToDate ( ) 
+		//! get method
+		//!
+		//! \return the value of the valid to date field
+
+		const wxString getAccountValidToDate ( ) const;
+
 		//! \var m_pAccountNumberCtrl
 		//! the account number edit box
 		//!
@@ -214,6 +230,11 @@ class CyWxEditAccountDialog : public wxDialog
 		//! the account initial amount edit box
 
 		wxTextCtrl* m_pAccountInitialAmountCtrl;
+
+		//! \var m_pAccountValidToDateCtrl
+		//! the account valid to date picker control
+
+		wxDatePickerCtrl* m_pAccountValidToDateCtrl;
 
 		//! \var m_lAccountObjId
 		//! the  objid of the edited account
