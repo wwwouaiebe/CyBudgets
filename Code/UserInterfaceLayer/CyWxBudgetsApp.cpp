@@ -34,7 +34,9 @@
 
 #include "UserInterfaceLayer/CyWxBudgetsApp.h"
 #include "UserInterfaceLayer/CyWxBudgetsFrame.h"
+#include "DataLayer/CyUserPreferences.h"
 #include "UtilitiesLayer/CyFilesService.h"
+#include "UtilitiesLayer/CyGetText.h"
 
 /* ---------------------------------------------------------------------------- */
 
@@ -59,6 +61,9 @@ bool CyWxBudgetsApp::OnInit()
 
 	// ... and of the wxWidget image handlers.
 	wxInitAllImageHandlers();
+
+	// ...and of the messages in the user language
+	CyGetText::getInstance ( ).loadMessages ( CyUserPreferences::getInstance ( ).getUserLanguage ( ) );
 
 	//The frame is created and displayed
 	this->m_pWxBudgetsFrame = new CyWxBudgetsFrame ( );

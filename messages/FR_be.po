@@ -356,13 +356,13 @@ msgstr "Résultats de la requête"
 ###########################################################
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.About"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutToolHelp"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutTooltip"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Account"
 msgstr "Comptes"
@@ -462,6 +462,15 @@ msgstr "Voir ou modifer les opérations  sans attribution"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttributionToolHelp"
 msgstr "Voir ou modifer les opérations  sans attribution"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Preferences"
+msgstr "Préférences de l'utilisateur"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesTooltip"
+msgstr "Préférences de l'utilisateur"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesToolHelp"
+msgstr "Préférences de l'utilisateur"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Quit"
 msgstr "Quitter"
@@ -612,6 +621,18 @@ msgstr "Sélectionnez le fichier CyBudgets à ouvrir"
 # class CyWxBudgetsFrame
 #
 #
+# method CyWxBudgetsFrame.onPreferences
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onPreferences.Title"
+msgstr "Préférences de l'utilisateur"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
 # method CyWxBudgetsFrame.onQuery
 #
 ###########################################################
@@ -645,6 +666,108 @@ msgstr "Une erreur est survenue. Message d'erreur de SQLite : "
 
 msgid "CyWxBudgetsFrame.onSql.SqlExecuted"
 msgstr "L'instruction Sql a été exécutée"
+
+###########################################################
+#
+# class CyWxDatabaseUserPreferencesPanel
+#
+#
+# method CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.MoneyValues"
+msgstr "Valeurs monétaires"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbol"
+msgstr "Symbole monétaire : "
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolAfter"
+msgstr "Après le texte"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolBefore"
+msgstr "Avant le texte"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolPosition"
+msgstr "Position du symbole monétaire : "
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.NumberValues"
+msgstr "Nombres"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyDecimalPrecision"
+msgstr "Précision décimale : "
+
+###########################################################
+#
+# class CyWxDisplayUserPreferencesPanel
+#
+#
+# method CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanFalseSymbol"
+msgstr "Symbole pour une valeur fausse : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanTrueSymbol"
+msgstr "Symbole pour une valeur vraie : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanValues"
+msgstr "Valeurs booléennes"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.MoneyValues"
+msgstr "Valeurs monétaires"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundBlue"
+msgstr "Bleu"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundCyan"
+msgstr "Cyan"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundGreen"
+msgstr "Vert"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundYellow"
+msgstr "Jaune"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundRed"
+msgstr "Rouge"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundBlack"
+msgstr "Noir"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundGrey"
+msgstr "Gris"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundWhite"
+msgstr "Blanc"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyNegativeColor"
+msgstr "Couleur pour une valeur négative : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyNegativeSymbol"
+msgstr "Préfixe pour une valeur négative : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyPositiveColor"
+msgstr "Couleur pour une valeur positve : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyPositiveSymbol"
+msgstr "Préfixe pour une valeur positve : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencySymbol"
+msgstr "Symbole monétaire : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.NumberValues"
+msgstr "Valeurs numériques"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.DecimalSeparator"
+msgstr "Séparateur décimal : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.Grouping"
+msgstr "Groupement des milliers : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ThousandSeparator"
+msgstr "Séparateur des milliers : "
 
 ###########################################################
 #
@@ -825,6 +948,18 @@ msgstr "Modifier l'attribution"
 
 msgid "CyWxEditOperationDialog.onRightClickLabel.AddAttribution"
 msgstr "Ajouter une attribution"
+
+###########################################################
+#
+# class CyWxGeneralUserPreferencesPanel
+#
+#
+# method CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.UserLanguage"
+msgstr "Langue : "
 
 ###########################################################
 #
@@ -1242,3 +1377,23 @@ msgstr "Erreur"
 
 msgid "CyWxShowRequestOperationsMediator.onEdit.FailedText"
 msgstr "Une erreur s'est produite lors de la modification de l'opération"
+
+###########################################################
+#
+# class CyWxUserPreferencesDialog
+#
+#
+# method CyWxUserPreferencesDialog.CyWxUserPreferencesDialog
+#
+###########################################################
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.DisplayUserPreferenceTitle"
+msgstr "Affichage"
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.GeneralUserPreferenceTitle"
+msgstr "Général"
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.DatabaseUserPreferenceTitle"
+msgstr "Base de données"
+
+

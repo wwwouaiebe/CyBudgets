@@ -39,6 +39,10 @@
 
 /* ---------------------------------------------------------------------------- */
 
+class CyWxUserPreferencesDialog;
+
+/* ---------------------------------------------------------------------------- */
+
 //! \class CyUserPreferences
 //! \brief this class stores and get informations about the user preferences
 //!
@@ -46,18 +50,20 @@
 //!
 //! \since version 1.0.3
 //!
-//! \todo: this class is incomplete... to continue in next versions
-//!
 
 class CyUserPreferences
 {
+	friend class CyWxBudgetsApp;
+	friend class CyWxPersistentUserPreferences;
+	friend class CyWxUserPreferencesDialog;
+	friend class CySqliteDb;
 
 	public:
 
 		//! \fn getInstance ( )
 		//! \return a constant reference to the one and only one instance of this class
 
-		static const CyUserPreferences& getInstance ( );
+		static CyUserPreferences& getInstance ( );
 
 		//! \fn getCurrencyDecimalPrecision ( ) const
 		//! get method
@@ -131,7 +137,36 @@ class CyUserPreferences
 
 		const wxString& getBooleanFalseSymbol ( ) const;
 
+		//! \fn getUserLanguage ( ) const
+		//! get method
+		//! \return the user language
+
+		const wxString& getUserLanguage ( ) const;
+
+		//! \fn getName ( ) const
+		//! get method
+		//! \return the name of the object ( needed for the persistance. See wxWidgets documentation )
+
+		const wxString& getName ( ) const;
+
+		//! \fn setName ( const wxString& strName )
+		//! @param [ in ] strName the object name
+		//! set method
+		//! set the name of the object ( needed for the persistance. See wxWidgets documentation )
+
+		void setName ( const wxString& strName );
+
+		//! \fn save ( )
+		//! Call the wxPersistenceManager object and save
+
+		void save ( ) ;
+
 	private:
+
+		//! \fn init ( )
+		//! initialize the object
+
+		void init ( );
 
 		//! \fn CyUserPreferences ( ) 
 		//! constructor
@@ -161,20 +196,20 @@ class CyUserPreferences
 
 		static CyUserPreferences m_objUserPreferences;
 
-		//! \var m_lDecimalPrecision
+		//! \var m_lCurrencyDecimalPrecision
 		//! stores the number of digits to dsplay for the decimal part of currency
 
-		long long m_lDecimalPrecision;
+		long long m_lCurrencyDecimalPrecision;
 
-		//! \var m_strPositiveSymbol
+		//! \var m_strCurrencyPositiveSymbol
 		//! stores the symbol used to display a positive currency value
 
-		wxString m_strPositiveSymbol;
+		wxString m_strCurrencyPositiveSymbol;
 
-		//! \var m_strNegativeSymbol
+		//! \var m_strCurrencyNegativeSymbol
 		//! stores the symbol used to display a negative currency value
 
-		wxString m_strNegativeSymbol;
+		wxString m_strCurrencyNegativeSymbol;
 
 		//! \var m_strCurrencyPositiveColor
 		//! stores the color used to display a positive currency value
@@ -221,4 +256,22 @@ class CyUserPreferences
 
 		wxString m_strBooleanFalseSymbol;
 
+		//! \var m_strUserLanguage
+		//! stores the user language
+
+		wxString m_strUserLanguage;
+
+		//! \var m_strName
+		//! stores the name used for the persistence
+
+		wxString m_strName;
+
+		//! \var m_bInit
+		//! true when the object is initialized
+
+		bool m_bInit;
+
 };
+
+/* ---------------------------------------------------------------------------- */
+

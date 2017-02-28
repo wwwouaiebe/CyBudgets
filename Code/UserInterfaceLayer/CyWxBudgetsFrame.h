@@ -147,6 +147,7 @@ class CyWxBudgetsFrame: public wxFrame
 		enum wxId
 		{
 			kNewFileButton,
+			kPreferencesButton,
 			kOpenFileButton,
 			kQuitButton,
 			kAccountsButton,
@@ -204,6 +205,12 @@ class CyWxBudgetsFrame: public wxFrame
 		//! @param [ in ] event the event send by the wxWidget framework
 
 		void onOpenFile ( wxCommandEvent& event );
+
+		//! \fn onPreferences ( )
+		//! event handler for the "single click on the Preference button" user action
+		//! @param [ in ] event the event send by the wxWidget framework
+
+		void onPreferences ( wxCommandEvent& event );
 
 		//! \fn onQuit ( )
 		//! event handler for the "single click on the Quit button" user action
@@ -338,6 +345,10 @@ class CyWxBudgetsFrame: public wxFrame
 		//!
 
 		wxDatePickerCtrl* m_pEndDateCtrl;
+
+		//! \var m_pToolBar
+		//! the toolbar
+		//!
 
 		wxToolBar* m_pToolBar;
 

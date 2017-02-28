@@ -42,6 +42,7 @@
 #include "UserInterfaceLayer/CyWxShowRequestDialog.h"
 #include "UserInterfaceLayer/CyWxShowRequestOperationsMediator.h"
 #include "UserInterfaceLayer/CyWxLongLongItemData.h"
+#include "UserInterfaceLayer/CyWxUserPreferencesDialog.h"
 #include "CoreLayer/CyAccountsBalanceSqlBuilder.h"
 #include "CoreLayer/CyAccountsSqlBuilder.h"
 #include "CoreLayer/CyAnalyseSqlBuilder.h"
@@ -53,6 +54,7 @@
 #include "CoreLayer/CyUserQuerySqlBuilder.h"
 #include "DataLayer/CyValue.h"
 #include "DataLayer/CyLongValue.h"
+#include "DataLayer/CyUserPreferences.h"
 #include "UtilitiesLayer/CyEnum.h"
 #include "UtilitiesLayer/CyFilesService.h"
 #include "UtilitiesLayer/CyGetText.h"
@@ -86,6 +88,19 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitToolHelp" ) );
 	this->m_pToolBar->AddSeparator ();
+
+	// Preferences button creation 
+	wxBitmap preferencesBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) + wxString ( "preferences.gif" ), wxBITMAP_TYPE_GIF );
+	wxToolBarToolBase* pPreferencesTool = m_pToolBar->AddTool (
+		this->kPreferencesButton,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Preferences" ),
+		preferencesBitmap,
+		wxNullBitmap,
+		wxITEM_NORMAL,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesTooltip" ),
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesToolHelp" ) );
+
+	m_pToolBar->AddSeparator ( );
 
 	// About button creation 
 	wxBitmap aboutBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "about.gif" ), wxBITMAP_TYPE_GIF );
@@ -333,6 +348,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 	this->Connect ( pSqlTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onSql ) );
 	this->Connect ( pQueryTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onQuery ) );
 	this->Connect ( pAboutTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onAbout ) );
+	this->Connect ( pPreferencesTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onPreferences ) );
 
 	this->m_pToolBar->EnableTool ( this->kAccountsButton, false );
 	this->m_pToolBar->EnableTool ( this->kBudgetsButton, false );
@@ -396,6 +412,18 @@ void CyWxBudgetsFrame::onNewFile ( wxCommandEvent& )
 				+ sqlFileDialog.GetFilename ( ) );
 		}
 	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::onPreferences ( wxCommandEvent& )
+{
+	CyWxUserPreferencesDialog*  pUserPreferencesDialog = new CyWxUserPreferencesDialog (
+		this,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.onPreferences.Title" ) );
+
+	pUserPreferencesDialog->ShowModal ( );
+	pUserPreferencesDialog->Destroy ( );
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -539,6 +567,7 @@ void CyWxBudgetsFrame::displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturn
 
 void CyWxBudgetsFrame::onQuit ( wxCommandEvent& )
 {
+	CyUserPreferences::getInstance ( ).save ( );
 	this->Destroy();
 }
 

@@ -213,6 +213,42 @@ class CySqliteDb
 
 		bool IsInitialized ( ) const;
 
+		//! \fn setParameter ( const wxString& strParameterName, const wxString& strParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ in ] strParameterValue the parameter value
+		//!
+		//! This method inserts or updates a string value in the parameters table
+		//! \return true when the parameter is added correctly
+
+		bool setParameter ( const wxString& strParameterName, const wxString& strParameterValue );
+
+		//! \fn setParameter ( const wxString& strParameterName, const long long& lParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ in ] lParameterValue the parameter value
+		//!
+		//! This method inserts or updates a long long value in the parameters table
+		//! \return true when the parameter is added correctly
+
+		bool setParameter ( const wxString& strParameterName, const long long& lParameterValue );
+
+		//! \fn getParameter ( const wxString& strParameterName, wxString& strParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ out ] strParameterValue the parameter value
+		//!
+		//! This method read a string parameter in the parameters table
+		//! \return true when the parameter was found
+
+		bool getParameter ( const wxString& strParameterName, wxString& strParameterValue );
+
+		//! \fn getParameter ( const wxString& strParameterName, long long& lParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ out ] lParameterValue the parameter value
+		//!
+		//! This method read a long long parameter in the parameters table
+		//! \return true when the parameter was found
+
+		bool getParameter ( const wxString& strParameterName, long long& lParameterValue );
+
 	private:
 
 		//! \fn CySqliteDb ( ) 
@@ -311,6 +347,10 @@ class CySqliteDb
 
 		void logSql ( const wxString& strSql );
 
+		//! \fn updatePreferences ( )
+		//! This method updates the CyUserPreferences object when a db is created or opened
+		void updatePreferences ( );
+
 		//! \var m_bInitialized
 		//! true when the database is opened correctly
 
@@ -337,3 +377,4 @@ class CySqliteDb
 		std::ofstream m_SqlLogStream;
 };
 
+/* ---------------------------------------------------------------------------- */

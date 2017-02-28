@@ -45,6 +45,7 @@
 #include "UtilitiesLayer/CyStringParser.h"
 #include "UtilitiesLayer/CyUtf8WxStringTranslator.h"
 #include "UtilitiesLayer/CyWxVersionInfo.h"
+#include "DataLayer/CyUserPreferences.h"
 
 /* ---------------------------------------------------------------------------- */
 
@@ -163,6 +164,11 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteAttributionTrigger BEFORE DELETE ON Attributions BEGIN DELETE FROM OperationsAttributions WHERE AttributionObjId = old.ObjId; END;" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteOperationTrigger BEFORE DELETE ON Operations BEGIN DELETE FROM OperationsDetails WHERE OperationObjId = old.ObjId; DELETE FROM OperationsAttributions WHERE OperationObjId = old.ObjId; END;" ) );
 
+	// ... Parameters table update 
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ParameterName , TextValue ) values (\"CurrencySymbol\", \"€\") " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ParameterName , TextValue ) values (\"CurrencyDecimalPrecision\", 2) " ) );
+
+
 	if ( bTransactionOk )
 	{
 		// ... and commit
@@ -178,6 +184,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 		this->closeLogFiles ( );
 		sqlite3_close ( m_pSqlite3 );
 	}
+
+	updatePreferences ( );
 
 	return eReturnCode;
 }
@@ -245,6 +253,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::openFile ( const wxString& strPathName, co
 		this->m_bInitialized = false;
 		return eReturnCode;
 	}
+
+	updatePreferences ( );
 
 	return CySqliteDb::kNewOpenOk;
 }
@@ -1103,6 +1113,126 @@ void CySqliteDb::logSql ( const wxString& strSql )
 	// ... and added as remark to the SQL log file
 	this->m_SqlLogStream << "--" << objCurrentDateTime.FormatISOCombined ( ).ToStdString ( )  << std::endl;
 	this->m_SqlLogStream << CyUtf8WxStringTranslator().fromWxStringToUtf8 ( strSql ) << std::endl << std::flush;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::setParameter ( const wxString& strParameterName, const wxString& strParameterValue )
+{
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
+
+	wxString strSql;
+	strSql
+		<< wxString ( "DELETE FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	strSql.clear ( );
+	strSql
+		<< wxString ( "INSERT INTO Parameters ( ParameterName, TextValue ) VALUES ( \"" )
+		<< strParameterName
+		<< wxString ( "\", \"" )
+		<< strParameterValue
+		<< wxString ( "\" );" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	if ( bTransactionOk )
+	{
+		this->executeSql ( wxString ( "COMMIT;" ) );
+	}
+	else
+	{
+		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;" ) );
+	}
+
+	return bTransactionOk;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::setParameter ( const wxString& strParameterName, const long long& lParameterValue )
+{
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
+
+	wxString strSql;
+	strSql
+		<< wxString ( "DELETE FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	strSql.clear ( );
+	strSql
+		<< wxString ( "INSERT INTO Parameters ( ParameterName, IntegerValue ) VALUES ( \"" )
+		<< strParameterName
+		<< wxString ( "\", " )
+		<< lParameterValue
+		<< wxString ( " );" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	if ( bTransactionOk )
+	{
+		this->executeSql ( wxString ( "COMMIT;" ) );
+	}
+	else
+	{
+		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;" ) );
+	}
+
+	return bTransactionOk;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::getParameter ( const wxString& strParameterName, wxString& strParameterValue )
+{
+	wxString strSql;
+	strSql
+		<< wxString ( "SELECT TextValue FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+
+	CyStringValue* pStringValue = new CyStringValue;
+	if ( ( this->getSingleValue ( strSql, pStringValue ) ) && ( ! pStringValue->isNull ( ) ) )
+	{
+		strParameterValue = pStringValue->get ( strParameterValue );
+		return true;
+	}
+
+	return false;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::getParameter ( const wxString& strParameterName, long long& lParameterValue )
+{
+	wxString strSql;
+	strSql
+		<< wxString ( "SELECT IntegerValue FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+
+	CyLongValue* pLongValue = new CyLongValue;
+	if ( ( this->getSingleValue ( strSql, pLongValue ) ) && ( ! pLongValue->isNull ( ) ) )
+	{
+		lParameterValue = pLongValue->get ( lParameterValue );
+		return true;
+	}
+
+	return false;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CySqliteDb::updatePreferences ( )
+{
+	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencyDecimalPrecision" ), CyUserPreferences::m_objUserPreferences.m_lCurrencyDecimalPrecision );
+	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencySymbol" ), CyUserPreferences::m_objUserPreferences.m_strCurrencySymbol );
 }
 
 /* ---------------------------------------------------------------------------- */
