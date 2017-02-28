@@ -93,11 +93,15 @@ class CyWxGeneralUserPreferencesPanel : public wxPanel
 		//!
 		//! \var kUserLanguage
 		//! id for the user language control
-		//
+		//!
+		//! \var kReuseLastOpenedFile
+		//! id for the reuse last opened file check box
+		//!
 
 		enum wxId
 		{
-			kUserLanguage
+			kUserLanguage,
+			kReuseLastOpenedFile
 		};
 
 		//! \enum DialogSizeAndPosition
@@ -133,6 +137,16 @@ class CyWxGeneralUserPreferencesPanel : public wxPanel
 		//! the user language
 
 		wxString m_strUserLanguage;
+
+		//! \var m_pReuseLastOpenedFileCheckbox
+		//! the reuse last opened file check box
+
+		wxCheckBox* m_pReuseLastOpenedFileCheckbox;
+
+		//! \var m_bReuseLastOpenedFile
+		//! the reuse last opened file flag
+
+		bool m_bReuseLastOpenedFile;
 
 };
 

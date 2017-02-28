@@ -185,7 +185,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 		sqlite3_close ( m_pSqlite3 );
 	}
 
-	updatePreferences ( );
+	this->updatePreferences ( strPathName, strFileName );
 
 	return eReturnCode;
 }
@@ -254,7 +254,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::openFile ( const wxString& strPathName, co
 		return eReturnCode;
 	}
 
-	updatePreferences ( );
+	this->updatePreferences ( strPathName, strFileName );
 
 	return CySqliteDb::kNewOpenOk;
 }
@@ -1229,8 +1229,10 @@ bool CySqliteDb::getParameter ( const wxString& strParameterName, long long& lPa
 
 /* ---------------------------------------------------------------------------- */
 
-void CySqliteDb::updatePreferences ( )
+void CySqliteDb::updatePreferences ( const wxString& strPathName, const wxString& strFileName )
 {
+	CyUserPreferences::m_objUserPreferences.m_strLastUsedFilePath = strPathName;
+	CyUserPreferences::m_objUserPreferences.m_strLastUsedFileName = strFileName;
 	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencyDecimalPrecision" ), CyUserPreferences::m_objUserPreferences.m_lCurrencyDecimalPrecision );
 	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencySymbol" ), CyUserPreferences::m_objUserPreferences.m_strCurrencySymbol );
 }

@@ -347,9 +347,11 @@ class CySqliteDb
 
 		void logSql ( const wxString& strSql );
 
-		//! \fn updatePreferences ( )
+		//! \fn updatePreferences ( const wxString& strPathName, const wxString& strFileName )
+		//! @param [in ] strPathName the path of the last used file
+		//! @param [in ] strFileName the name of the last used file
 		//! This method updates the CyUserPreferences object when a db is created or opened
-		void updatePreferences ( );
+		void updatePreferences ( const wxString& strPathName, const wxString& strFileName );
 
 		//! \var m_bInitialized
 		//! true when the database is opened correctly

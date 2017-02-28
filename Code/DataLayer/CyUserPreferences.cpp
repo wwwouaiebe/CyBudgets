@@ -53,7 +53,10 @@ CyUserPreferences::CyUserPreferences ( ):
 	m_bCurrencySymbolBefore ( false ),
 	m_strBooleanTrueSymbol (  L"✓" ),
 	m_strBooleanFalseSymbol ( L"" ),
-	m_strUserLanguage ( "FR_be" ),
+	m_strUserLanguage ( wxString ( "FR_be" ) ),
+	m_strLastUsedFileName ( wxEmptyString ),
+	m_strLastUsedFilePath ( wxEmptyString ),
+	m_bReuseLastFile ( false ),
 	m_bInit ( false )
 {
 }
@@ -182,6 +185,33 @@ const wxString& CyUserPreferences::getBooleanFalseSymbol ( ) const
 const wxString& CyUserPreferences::getUserLanguage ( ) const
 {
 	return this->m_strUserLanguage;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getLastUsedFile ( wxString& strPath, wxString& strFileName ) const
+{
+	if ( ( this->m_bReuseLastFile ) && ( wxEmptyString != this->m_strLastUsedFileName ) && ( wxEmptyString != this->m_strLastUsedFilePath ) )
+	{
+		strPath = this->m_strLastUsedFilePath;
+		strFileName = this->m_strLastUsedFileName;
+
+		return true;
+	}
+	else
+	{
+		strPath = wxEmptyString;
+		strFileName = wxEmptyString;
+
+		return false;
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getReuseLastFile ( ) const
+{
+	return this->m_bReuseLastFile;
 }
 
 /* ---------------------------------------------------------------------------- */

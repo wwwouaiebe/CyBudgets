@@ -361,6 +361,19 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 	this->m_pToolBar->EnableTool ( this->kImportButton, false );
 	this->m_pToolBar->EnableTool ( this->kSqlButton, false );
 	this->m_pToolBar->EnableTool ( this->kQueryButton, false );
+
+	wxString strPathName = wxEmptyString;
+	wxString strFileName = wxEmptyString;
+	if ( CyUserPreferences::getInstance ( ).getLastUsedFile ( strPathName, strFileName ) )
+	{
+		CySqliteDb::NewOpenErrors eReturnCode = CySqliteDb::getInstance ( ).openFile ( strPathName, strFileName );
+		this->displayDbErrorMessage ( eReturnCode );
+
+		if ( CySqliteDb::kNewOpenOk == eReturnCode )
+		{
+			this->onNewOpenSuccess ( strPathName + strFileName );
+		}
+	}
 }
 
 /* ---------------------------------------------------------------------------- */

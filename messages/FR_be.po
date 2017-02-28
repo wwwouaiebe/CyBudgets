@@ -958,6 +958,15 @@ msgstr "Ajouter une attribution"
 #
 ###########################################################
 
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.MainLanguage"
+msgstr "Langue"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.Others"
+msgstr "Autres"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.ReuseLastOpenedfile"
+msgstr "Au lancement du programme, ouvrir le dernier fichier utilisé"
+
 msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.UserLanguage"
 msgstr "Langue : "
 

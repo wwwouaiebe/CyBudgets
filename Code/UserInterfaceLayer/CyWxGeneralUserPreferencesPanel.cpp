@@ -45,6 +45,12 @@ CyWxGeneralUserPreferencesPanel::CyWxGeneralUserPreferencesPanel ( wxWindow* pPa
 {
 	// The main sizer is created
 	wxBoxSizer* pMainSizer = new wxBoxSizer ( wxVERTICAL );
+
+	wxBoxSizer* pMainLanguageSizer = new wxStaticBoxSizer (
+		wxVERTICAL,
+		this,
+		CyGetText::getInstance ( ).getText ( "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.MainLanguage" ) );
+
 	// a gridbag sizer is created...
 	wxGridBagSizer* pUserLanguageSizer = new wxGridBagSizer ( CyEnum::kMarginSize, CyEnum::kMarginSize );
 
@@ -70,7 +76,24 @@ CyWxGeneralUserPreferencesPanel::CyWxGeneralUserPreferencesPanel ( wxWindow* pPa
 		wxCB_READONLY );
 	pUserLanguageSizer->Add ( this->m_pUserLanguageComboBox, wxGBPosition ( 0, 1 ) );
 
-	pMainSizer->Add ( pUserLanguageSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+	pMainLanguageSizer->Add ( pUserLanguageSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+
+	pMainSizer->Add ( pMainLanguageSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+
+	wxBoxSizer* pCheckBoxesSizer = new wxStaticBoxSizer (
+		wxVERTICAL,
+		this,
+		CyGetText::getInstance ( ).getText ( "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.Others" ) );
+
+	this->m_pReuseLastOpenedFileCheckbox = new wxCheckBox (
+		this,
+		CyWxGeneralUserPreferencesPanel::kReuseLastOpenedFile,
+		CyGetText::getInstance ( ).getText ( "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.ReuseLastOpenedfile" ) );
+	pCheckBoxesSizer->Add ( this->m_pReuseLastOpenedFileCheckbox );
+
+	this->m_pReuseLastOpenedFileCheckbox->SetValue ( CyUserPreferences::getInstance ( ).getReuseLastFile ( ) );
+
+	pMainSizer->Add ( pCheckBoxesSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
 
 	// the sizer is added to the dialog
 	this->SetSizer ( pMainSizer );

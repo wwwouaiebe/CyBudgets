@@ -130,6 +130,22 @@ bool CyWxPersistentUserPreferences::Restore ( )
 
 	bReturnValue &= this->RestoreValue ( wxString ( "UserLanguage" ), &( this->Get ( )->m_strUserLanguage ) );
 
+	bReturnValue &= this->RestoreValue ( wxString ( "LastUsedFilePath" ), &( this->Get ( )->m_strLastUsedFilePath ) );
+
+	bReturnValue &= this->RestoreValue ( wxString ( "LastUsedFileName" ), &( this->Get ( )->m_strLastUsedFileName ) );
+
+	int iTmpReuseLastFile;
+	bTmpReturnValue = this->RestoreValue ( wxString ( "ReuseLastFile" ), &iTmpReuseLastFile );
+	if ( bTmpReturnValue && ( ( CyEnum::kYes == iTmpReuseLastFile ) || ( CyEnum::kNo == iTmpReuseLastFile ) ) )
+	{
+		this->Get ( )->m_bReuseLastFile = CyEnum::kYes == iTmpReuseLastFile ? CyEnum::kYes : CyEnum::kNo;
+	}
+	else
+	{
+		bTmpReturnValue = false;
+	}
+	bReturnValue &= bTmpReturnValue;
+
 	return bReturnValue;
 }
 
@@ -169,6 +185,13 @@ void CyWxPersistentUserPreferences::Save ( ) const
 	this->SaveValue ( wxString ( "BooleanFalseSymbol" ), this->Get ( )->getBooleanFalseSymbol ( ) );
 
 	this->SaveValue ( wxString ( "UserLanguage" ), this->Get ( )->getUserLanguage ( ) );
+
+	this->SaveValue ( wxString ( "LastUsedFilePath" ), this->Get ( )->m_strLastUsedFilePath );
+
+	this->SaveValue ( wxString ( "LastUsedFileName" ), this->Get ( )->m_strLastUsedFileName );
+
+	int iTmpReuseLastFile = this->Get ( )->m_bReuseLastFile ? CyEnum::kYes : CyEnum::kNo;
+	this->SaveValue ( wxString ( "ReuseLastFile" ), iTmpReuseLastFile );
 }
 
 /* ---------------------------------------------------------------------------- */

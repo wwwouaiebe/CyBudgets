@@ -143,9 +143,23 @@ class CyUserPreferences
 
 		const wxString& getUserLanguage ( ) const;
 
+		//! \fn getLastUsedFile ( wxString& strPath, wxString& strFileName ) const
+		//! @param [ out ] strPath the last used path
+		//! @param [ out ] strFileName the last used file name
+		//! get method
+		//! \return true when the last used file can be reused
+
+		bool getLastUsedFile ( wxString& strPath, wxString& strFileName ) const;
+
+		//! \fn getReuseLastFile ( ) const
+		//! get method
+		//! \return true when the last opened file is reopened when launching the program
+
+		bool getReuseLastFile ( ) const;
+
 		//! \fn getName ( ) const
 		//! get method
-		//! \return the name of the object ( needed for the persistance. See wxWidgets documentation )
+		//! \return the name of the object ( needed for the persistence. See wxWidgets documentation )
 
 		const wxString& getName ( ) const;
 
@@ -265,6 +279,18 @@ class CyUserPreferences
 		//! stores the name used for the persistence
 
 		wxString m_strName;
+
+		//! \var m_strLastUsedFileName
+		//! the last used file name
+		wxString m_strLastUsedFileName;
+
+		//! \var m_strLastUsedFilePath
+		//! the last used path file
+		wxString m_strLastUsedFilePath;
+
+		//! \var m_bReuseLastFile
+		//! a flag indicating when the last used file have to be reopened when starting the program
+		bool m_bReuseLastFile;
 
 		//! \var m_bInit
 		//! true when the object is initialized

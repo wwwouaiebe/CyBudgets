@@ -153,6 +153,8 @@ int CyWxUserPreferencesDialog::ShowModal ( )
 
 		CyUserPreferences::m_objUserPreferences.m_strUserLanguage = this->m_pGeneralUserPreferencesPanel->m_pUserLanguageComboBox->GetValue ( );
 
+		CyUserPreferences::m_objUserPreferences.m_bReuseLastFile = this->m_pGeneralUserPreferencesPanel->m_pReuseLastOpenedFileCheckbox->GetValue ( );
+
 		CyUserPreferences::m_objUserPreferences.save ( );
 	}
 
