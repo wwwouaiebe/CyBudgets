@@ -97,11 +97,15 @@ class CyWxGeneralUserPreferencesPanel : public wxPanel
 		//! \var kReuseLastOpenedFile
 		//! id for the reuse last opened file check box
 		//!
+		//! \var kDeleteImportFile
+		//! id for the delete import file check box
+		//!
 
 		enum wxId
 		{
 			kUserLanguage,
-			kReuseLastOpenedFile
+			kReuseLastOpenedFile,
+			kDeleteImportFile,
 		};
 
 		//! \enum DialogSizeAndPosition
@@ -147,6 +151,11 @@ class CyWxGeneralUserPreferencesPanel : public wxPanel
 		//! the reuse last opened file flag
 
 		bool m_bReuseLastOpenedFile;
+
+		//! \var m_pDeleteImportFileCheckBox
+		//! The delete import file check box
+
+		wxCheckBox* m_pDeleteImportFileCheckBox;
 
 };
 

@@ -57,6 +57,7 @@ CyUserPreferences::CyUserPreferences ( ):
 	m_strLastUsedFileName ( wxEmptyString ),
 	m_strLastUsedFilePath ( wxEmptyString ),
 	m_bReuseLastFile ( false ),
+	m_bDeleteImportFile ( false ),
 	m_bInit ( false )
 {
 }
@@ -212,6 +213,13 @@ bool CyUserPreferences::getLastUsedFile ( wxString& strPath, wxString& strFileNa
 bool CyUserPreferences::getReuseLastFile ( ) const
 {
 	return this->m_bReuseLastFile;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getDeleteImportFile ( ) const
+{
+	return this->m_bDeleteImportFile;
 }
 
 /* ---------------------------------------------------------------------------- */

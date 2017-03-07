@@ -93,6 +93,19 @@ CyWxGeneralUserPreferencesPanel::CyWxGeneralUserPreferencesPanel ( wxWindow* pPa
 
 	this->m_pReuseLastOpenedFileCheckbox->SetValue ( CyUserPreferences::getInstance ( ).getReuseLastFile ( ) );
 
+	pCheckBoxesSizer->AddSpacer ( CyEnum::kMarginSize );
+
+	this->m_pDeleteImportFileCheckBox = new wxCheckBox (
+		this,
+		CyWxGeneralUserPreferencesPanel::kDeleteImportFile,
+		CyGetText::getInstance ( ).getText ( "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.DeleteImportFile" ) );
+
+	this->m_pDeleteImportFileCheckBox->SetValue ( CyUserPreferences::getInstance ( ).getDeleteImportFile ( ) );
+
+	pCheckBoxesSizer->Add ( this->m_pDeleteImportFileCheckBox );
+
+	pCheckBoxesSizer->AddSpacer ( CyEnum::kMarginSize );
+
 	pMainSizer->Add ( pCheckBoxesSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
 
 	// the sizer is added to the dialog

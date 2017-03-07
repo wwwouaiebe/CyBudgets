@@ -88,6 +88,18 @@ class CyWxDatabaseUserPreferencesPanel : public wxPanel
 
 		CyWxDatabaseUserPreferencesPanel& operator = ( const CyWxDatabaseUserPreferencesPanel& );
 
+		//! \fn onAddFolder ( wxCommandEvent& event)
+		//! event handler for the "add folder button" user action
+		//! @param [ in ] event the event send by the wxWidget framework
+
+		void onAddFolder ( wxCommandEvent& );
+
+		//! \fn onRemoveFolder ( wxCommandEvent& event )
+		//! event handler for the "remove folder button" user action
+		//! @param [ in ] event the event send by the wxWidget framework
+
+		void onRemoveFolder ( wxCommandEvent& );
+
 		//! \enum wxId
 		//! values for the controls in the dialog box
 		//!
@@ -97,11 +109,23 @@ class CyWxDatabaseUserPreferencesPanel : public wxPanel
 		//! \var kDbDecimalPrecistion
 		//! id for the decimal precision control
 		//
+		//! \var kImportFilesListBox
+		//! id for the import folders listbox
+		//
+		//! \var kAddFolderButton
+		//! id for the add folder button
+		//
+		//! \var kRemoveFolderButton
+		//! id for the remove folder button
+		//
 
 		enum wxId
 		{
 			kCurrencySymbol,
 			kDbDecimalPrecistion,
+			kImportFilesListBox,
+			kAddFolderButton,
+			kRemoveFolderButton
 		};
 
 		//! \enum DialogSizeAndPosition
@@ -122,6 +146,15 @@ class CyWxDatabaseUserPreferencesPanel : public wxPanel
 		//! \var kSpinControlGridWidth
 		//! the width of the spin control in the gridbag
 		//!
+		//! \var kTextPanelWidth
+		//! the width of the text in the panel ( when a gridbag is not used )
+		//!
+		//! \var kTextPanelHeight
+		//! the height of the text in the panel ( when a gridbag is not used )
+		//!
+		//! \var kListBoxHeight
+		//! the height for the listbox
+		//!
 
 		enum DialogSizeAndPosition
 		{
@@ -129,7 +162,10 @@ class CyWxDatabaseUserPreferencesPanel : public wxPanel
 			kTextGridHeight = 20,
 			kControlGridWidth = 300,
 			kControlGridHeight = 25,
-			kSpinControlGridWidth = 40
+			kSpinControlGridWidth = 40,
+			kTextPanelWidth = 620,
+			kTextPanelHeight = 20,
+			kListBoxHeight = 100
 		};
 
 		//! \var m_pDbCurrencySymbolCtrl
@@ -151,7 +187,27 @@ class CyWxDatabaseUserPreferencesPanel : public wxPanel
 		//! the currency decimal precision 
 
 		long long m_lDbCurrencyDecimalPrecision;
-		
+
+		//! \var m_pImportFilesListBox
+		//! The import folder listbox
+
+		wxListBox* m_pImportFilesListBox;
+
+		//! \var m_pAddFolderButton
+		//! The Add folder button
+
+		wxButton* m_pAddFolderButton;
+
+		//! \var m_pRemoveFolderButton
+		//! The remove folder button
+
+		wxButton* m_pRemoveFolderButton;
+
+		//! \var m_pDeleteImportFileCheckBox
+		//! The Delete import file button
+
+		wxCheckBox* m_pDeleteImportFileCheckBox;
+
 
 };
 /* ---------------------------------------------------------------------------- */

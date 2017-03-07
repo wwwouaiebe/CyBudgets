@@ -186,6 +186,7 @@
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlManager.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyParametersSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CySqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.h" />
     <ClInclude Include="..\..\Code\DataLayer\CyLongValue.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlManager.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyParametersSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CySqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\DataLayer\CyLongValue.cpp" />

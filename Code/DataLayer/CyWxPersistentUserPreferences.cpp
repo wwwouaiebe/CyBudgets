@@ -146,6 +146,18 @@ bool CyWxPersistentUserPreferences::Restore ( )
 	}
 	bReturnValue &= bTmpReturnValue;
 
+	int iTmpDeleteImportFile;
+	bTmpReturnValue = this->RestoreValue ( wxString ( "DeleteImportFile" ), &iTmpDeleteImportFile );
+	if ( bTmpReturnValue && ( ( CyEnum::kYes == iTmpDeleteImportFile ) || ( CyEnum::kNo == iTmpDeleteImportFile ) ) )
+	{
+		this->Get ( )->m_bDeleteImportFile = CyEnum::kYes == iTmpDeleteImportFile ? CyEnum::kYes : CyEnum::kNo;
+	}
+	else
+	{
+		bTmpReturnValue = false;
+	}
+	bReturnValue &= bTmpReturnValue;
+
 	return bReturnValue;
 }
 
@@ -192,6 +204,10 @@ void CyWxPersistentUserPreferences::Save ( ) const
 
 	int iTmpReuseLastFile = this->Get ( )->m_bReuseLastFile ? CyEnum::kYes : CyEnum::kNo;
 	this->SaveValue ( wxString ( "ReuseLastFile" ), iTmpReuseLastFile );
+
+	int iTmpDeleteImportFile = this->Get ( )->m_bDeleteImportFile ? CyEnum::kYes : CyEnum::kNo;
+	this->SaveValue ( wxString ( "DeleteImportFile" ), iTmpDeleteImportFile );
+
 }
 
 /* ---------------------------------------------------------------------------- */

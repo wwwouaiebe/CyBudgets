@@ -108,7 +108,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsDetails (ObjId INTEGER PRIMARY KEY DESC, OperationObjId INTEGER, Detail TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Budgets (ObjId INTEGER PRIMARY KEY DESC, Description TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Versions (Application TEXT, MajorVersion INTEGER, MinorVersion INTEGER, MicroVersion INTEGER);" ) );
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters (ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters ( ObjId INTEGER PRIMARY KEY DESC, ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
 
 	// ... version is added to the version table...
 	wxString strSql;
@@ -165,8 +165,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteOperationTrigger BEFORE DELETE ON Operations BEGIN DELETE FROM OperationsDetails WHERE OperationObjId = old.ObjId; DELETE FROM OperationsAttributions WHERE OperationObjId = old.ObjId; END;" ) );
 
 	// ... Parameters table update 
-	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ParameterName , TextValue ) values (\"CurrencySymbol\", \"€\") " ) );
-	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ParameterName , TextValue ) values (\"CurrencyDecimalPrecision\", 2) " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , TextValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencySymbol\", \"€\") " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , IntegerValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencyDecimalPrecision\", 2) " ) );
 
 
 	if ( bTransactionOk )
@@ -599,7 +599,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
 	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
 
 	// parameters table creation
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters (ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters ( ObjId INTEGER PRIMARY KEY DESC, ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );" ) );
 
 	// Accounts table modification
@@ -614,6 +614,10 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
 	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MinorVersion = 1;" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MicroVersion = 0;" ) );
 
+	// ... Parameters table update 
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , TextValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencySymbol\", \"€\") " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , IntegerValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencyDecimalPrecision\", 2) " ) );
+
 	if (bTransactionOk)
 	{
 		// update executed correctly
@@ -624,7 +628,7 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
 	{
 		// update not executed
 		this->executeSql(wxString("ROLLBACK TRANSACTION;"));
-		return CySqliteDb::kNewOpenErrorUpgrade103;
+		return CySqliteDb::kNewOpenErrorUpgrade110;
 	}
 }
 
@@ -1132,7 +1136,7 @@ bool CySqliteDb::setParameter ( const wxString& strParameterName, const wxString
 
 	strSql.clear ( );
 	strSql
-		<< wxString ( "INSERT INTO Parameters ( ParameterName, TextValue ) VALUES ( \"" )
+		<< wxString ( "INSERT INTO Parameters ( ObjId, ParameterName, TextValue ) VALUES ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"" )
 		<< strParameterName
 		<< wxString ( "\", \"" )
 		<< strParameterValue
@@ -1168,7 +1172,7 @@ bool CySqliteDb::setParameter ( const wxString& strParameterName, const long lon
 
 	strSql.clear ( );
 	strSql
-		<< wxString ( "INSERT INTO Parameters ( ParameterName, IntegerValue ) VALUES ( \"" )
+		<< wxString ( "INSERT INTO Parameters ( ObjId, ParameterName, IntegerValue ) VALUES ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"" )
 		<< strParameterName
 		<< wxString ( "\", " )
 		<< lParameterValue

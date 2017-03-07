@@ -209,6 +209,20 @@
 //! 
 //! Field MicroVersion : the macro version of the database
 //! 
+//! <h2>TABLE Parameters (since version 1.1.0)</h2>
+//!		- ObjId INTEGER PRIMARY KEY DESC
+//!		- ParameterName TEXT
+//!		- TextValue TEXT
+//!		- IntegerValue INTEGER
+//! 
+//! Field ObjId : unique identifier for the group ( attribution - operation ) used internaly for SQL requests
+//! 
+//! Field ParameterName : the parameter name
+//! 
+//! Field TextValue : the parameter value as text
+//! 
+//! Field IntegerValue: the parameter value as integer
+//! 
 //! <h1>SQL for database creation</h1>
 //! <h2>SQL for tables creation</h2>
 //! 
@@ -228,7 +242,7 @@
 //! 
 //! CREATE TABLE IF NOT EXISTS Versions (Application TEXT, MajorVersion INTEGER, MinorVersion INTEGER, MicroVersion INTEGER);
 //! 
-//! CREATE TABLE IF NOT EXISTS Parameters ( ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER )
+//! CREATE TABLE IF NOT EXISTS Parameters ( ObjId INTEGER PRIMARY KEY DESC, ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER )
 //! 
 //! <h2>SQL for triggers creation</h2>
 //! 
@@ -310,7 +324,7 @@
 /* ---------------------------------------------------------------------------- */
 
 //! \fn wxIMPLEMENT_APP(CyWxBudgetsApp)
-//! See wxWidget documentation
+//! See wxWidgets documentation
 
 wxIMPLEMENT_APP(CyWxBudgetsApp);
 

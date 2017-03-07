@@ -126,6 +126,17 @@ int CyWxUserPreferencesDialog::ShowModal ( )
 		{
 			CyUserPreferences::m_objUserPreferences.m_lCurrencyDecimalPrecision = this->m_pDatabaseUserPreferencesPanel->m_pDbCurrencyDecimalPrecisionSpinCtrl->GetValue ( );
 			CyUserPreferences::m_objUserPreferences.m_strCurrencySymbol = this->m_pDatabaseUserPreferencesPanel->m_pDbCurrencySymbolCtrl->GetValue ( );
+
+			CySqliteDb::getInstance ( ).executeSql ( wxString ( "DELETE from Parameters WHERE ParameterName = \"ImportFolder\"" ) );
+			for ( unsigned int uiItemCounter = 0; uiItemCounter < this->m_pDatabaseUserPreferencesPanel->m_pImportFilesListBox->GetCount ( ); uiItemCounter ++ )
+			{
+				wxString strSql;
+				strSql
+					<< wxString ( "INSERT INTO Parameters ( ObjId, ParameterName, TextValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1 ) + 1 FROM Parameters ), \"ImportFolder\", \"" )
+					<< this->m_pDatabaseUserPreferencesPanel->m_pImportFilesListBox->GetString ( uiItemCounter )
+					<< wxString ( "\") " );
+				CySqliteDb::getInstance ( ).executeSql ( strSql );
+			}
 		}
 
 		CyUserPreferences::m_objUserPreferences.m_strCurrencyPositiveSymbol = this->m_pDisplayUserPreferencesPanel->m_pCurrencyPositiveSymbolCtrl->GetValue ( );
@@ -154,6 +165,8 @@ int CyWxUserPreferencesDialog::ShowModal ( )
 		CyUserPreferences::m_objUserPreferences.m_strUserLanguage = this->m_pGeneralUserPreferencesPanel->m_pUserLanguageComboBox->GetValue ( );
 
 		CyUserPreferences::m_objUserPreferences.m_bReuseLastFile = this->m_pGeneralUserPreferencesPanel->m_pReuseLastOpenedFileCheckbox->GetValue ( );
+
+		CyUserPreferences::m_objUserPreferences.m_bDeleteImportFile = this->m_pGeneralUserPreferencesPanel->m_pDeleteImportFileCheckBox->GetValue ( );
 
 		CyUserPreferences::m_objUserPreferences.save ( );
 	}

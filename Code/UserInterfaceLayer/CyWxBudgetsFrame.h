@@ -179,7 +179,6 @@ class CyWxBudgetsFrame: public wxFrame
 		//!
 		//! \var kComboToolsWidth
 		//! the width of the combo boxes
-		//!
 
 		enum Sizes
 		{
@@ -290,6 +289,17 @@ class CyWxBudgetsFrame: public wxFrame
 
 		void onAbout ( wxCommandEvent& event );
 
+		//! \fn importFiles ( )
+		//! this method launch the import at startup
+
+		void importFiles ( );
+			
+		//! \fn importFile ( const wxString& strPath )
+		//! this method import a csv file in the database
+		//! @param [ in ] strPath the path and file name to import
+
+		void importFile ( const wxString& strPath );
+
 		//! \fn displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturnCode )
 		//! this method display an error message, depending of the parameter value
 		//! @param [ in ] eReturnCode the error code for witch the error message must be displayed
@@ -324,31 +334,26 @@ class CyWxBudgetsFrame: public wxFrame
 
 		//! \var m_pAccountComboBox
 		//! the account combo box on the toolbar
-		//!
 
 		wxComboBox* m_pAccountComboBox;
 
 		//! \var m_pBudgetComboBox
 		//! the budget combo box on the toolbar
-		//!
 
 		wxComboBox* m_pBudgetComboBox;
 
 		//! \var m_pStartDateCtrl
 		//! the start date picker on the toolbar
-		//!
 
 		wxDatePickerCtrl* m_pStartDateCtrl;
 
 		//! \var m_pEndDateCtrl
 		//! the start date picker on the toolbar
-		//!
 
 		wxDatePickerCtrl* m_pEndDateCtrl;
 
 		//! \var m_pToolBar
 		//! the toolbar
-		//!
 
 		wxToolBar* m_pToolBar;
 

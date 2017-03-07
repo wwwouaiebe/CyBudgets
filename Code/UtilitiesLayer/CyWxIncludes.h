@@ -76,6 +76,7 @@
 #include <wx/notebook.h>
 #include <wx/spinctrl.h>
 #include <wx/filesys.h>
+#include <wx/dirdlg.h>
 
 #ifdef CY_COMPILER_VC10
 #pragma warning(pop)

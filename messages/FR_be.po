@@ -257,9 +257,12 @@ msgid "CyIngImportTool.import.InformationCaption"
 msgstr "Information"
 
 msgid "CyIngImportTool.import.InformationText1"
-msgstr "L'importation des données est terminée."
+msgstr "L'importation du fichier " 
 
 msgid "CyIngImportTool.import.InformationText2"
+msgstr " est terminée."
+
+msgid "CyIngImportTool.import.InformationText3"
 msgstr " opérations ont été ajoutées"
 
 msgid "CyIngImportTool.import.SelectFile"
@@ -676,8 +679,14 @@ msgstr "L'instruction Sql a été exécutée"
 #
 ###########################################################
 
-msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.MoneyValues"
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.AddFolder"
+msgstr "Ajouter un répertoire"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyValues"
 msgstr "Valeurs monétaires"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyDecimalPrecision"
+msgstr "Précision décimale : "
 
 msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbol"
 msgstr "Symbole monétaire : "
@@ -691,11 +700,17 @@ msgstr "Avant le texte"
 msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolPosition"
 msgstr "Position du symbole monétaire : "
 
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.Import"
+msgstr "Importation des données"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.ImportFolders"
+msgstr "Répertoires contenant les fichiers à importer :"
+
 msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.NumberValues"
 msgstr "Nombres"
 
-msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyDecimalPrecision"
-msgstr "Précision décimale : "
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.RemoveFolder"
+msgstr "Supprimer un répertoire"
 
 ###########################################################
 #
@@ -957,6 +972,9 @@ msgstr "Ajouter une attribution"
 # method CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel
 #
 ###########################################################
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.DeleteImportFile"
+msgstr "Effacer les fichiers de donnée après importation"
 
 msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.MainLanguage"
 msgstr "Langue"

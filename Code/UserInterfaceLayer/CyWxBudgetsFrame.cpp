@@ -50,6 +50,7 @@
 #include "CoreLayer/CyAttributionsGroupsSqlBuilder.h"
 #include "CoreLayer/CyBudgetsSqlBuilder.h"
 #include "CoreLayer/CyIngImportTool.h"
+#include "CoreLayer/CyParametersSqlBuilder.h"
 #include "CoreLayer/CyOperationsSqlBuilder.h"
 #include "CoreLayer/CyUserQuerySqlBuilder.h"
 #include "DataLayer/CyValue.h"
@@ -484,6 +485,8 @@ void CyWxBudgetsFrame::onNewOpenSuccess ( const wxString& strFilePath )
 	this->m_pToolBar->EnableTool ( this->kSqlButton, true );
 	this->m_pToolBar->EnableTool ( this->kQueryButton, true );
 
+	this->importFiles ( );
+
 	this->m_pBudgetComboBox->Select ( 0 );
 	this->m_pAccountComboBox->Select ( 0 );
 
@@ -811,26 +814,60 @@ void CyWxBudgetsFrame::onImport ( wxCommandEvent& )
 		return;
 	}
 
-	// import
-	CyIngImportTool objImportTool;
-		wxFileDialog csvFileDialog ( 
-		this, 
+	wxFileDialog csvFileDialog (
+		this,
 		CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.SelectFile" ),
 		wxFileSelectorPromptStr,
 		wxEmptyString,
 		wxString ( "CSV files (*.csv)|*.csv" ),
 		wxFD_OPEN | wxFD_FILE_MUST_EXIST );
-	if (wxID_CANCEL == csvFileDialog.ShowModal ( ) )
+	if ( wxID_CANCEL == csvFileDialog.ShowModal ( ) )
 	{
 		return;
 	}
 
+	this->importFile ( csvFileDialog.GetPath ( ) );
+}
 
-	CyIngImportTool::ImportError eImportError = objImportTool.import ( csvFileDialog.GetPath ( ), &CyWxBudgetsFrame::displayMessage );
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::importFiles ( )
+{
+	CyQueryResult objParametersQueryResult;
+	CyParametersSqlBuilder objParametersSqlBuilder ( wxString ( "ImportFolder" ) );
+	objParametersSqlBuilder.doSelect ( objParametersQueryResult );
+	CyQueryResult::const_iterator iterator;
+	for ( iterator = objParametersQueryResult.begin ( ); iterator != objParametersQueryResult.end ( ); ++ iterator )
+	{
+		wxString strImportFolder = iterator->at ( CyParametersSqlBuilder::kTextValue )->getAsString ( );
+
+		wxFileSystem objFileSystem;
+		objFileSystem.ChangePathTo ( strImportFolder );
+		wxString strFileName = objFileSystem.FindFirst ( wxString ( "*.*" ) );
+		while ( ! strFileName.empty ( ) )
+		{
+			wxFileName objFileName = wxFileSystem::URLToFileName ( strFileName );
+			this->importFile ( objFileName.GetFullPath ( ) );
+			strFileName = objFileSystem.FindNext ( );
+		}
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::importFile ( const wxString& strPath )
+{
+	// import
+	CyIngImportTool objImportTool;
+	CyIngImportTool::ImportError eImportError = objImportTool.import ( strPath, &CyWxBudgetsFrame::displayMessage );
 
 	switch ( eImportError )
 	{
 	case CyIngImportTool::kImportOk:
+		if ( CyUserPreferences::getInstance ( ).getDeleteImportFile ( ) )
+		{
+			wxRemoveFile ( strPath );
+		}
 		break;
 	case CyIngImportTool::kImportErrorGetObjId:
 		{

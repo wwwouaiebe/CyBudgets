@@ -157,6 +157,12 @@ class CyUserPreferences
 
 		bool getReuseLastFile ( ) const;
 
+		//! \fn getDeleteImportFile ( ) const
+		//! get method
+		//! \return true when the import files must be deleted after the import
+
+		bool getDeleteImportFile ( ) const;
+
 		//! \fn getName ( ) const
 		//! get method
 		//! \return the name of the object ( needed for the persistence. See wxWidgets documentation )
@@ -290,7 +296,13 @@ class CyUserPreferences
 
 		//! \var m_bReuseLastFile
 		//! a flag indicating when the last used file have to be reopened when starting the program
+
 		bool m_bReuseLastFile;
+
+		//! \var m_bDeleteImportFile
+		//! a flag indicating when the import files have to be deleted
+
+		bool m_bDeleteImportFile;
 
 		//! \var m_bInit
 		//! true when the object is initialized

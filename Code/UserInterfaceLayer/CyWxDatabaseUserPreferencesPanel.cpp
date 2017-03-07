@@ -33,8 +33,11 @@
 /* ---------------------------------------------------------------------------- */
 
 #include "UserInterfaceLayer/CyWxDatabaseUserPreferencesPanel.h"
+#include "CoreLayer/CyParametersSqlBuilder.h"
 #include "DataLayer/CyUserPreferences.h"
 #include "DataLayer/CySqliteDb.h"
+#include "DataLayer/CyQueryResult.h"
+#include "DataLayer/CyValue.h"
 #include "UtilitiesLayer/CyGetText.h"
 #include "UtilitiesLayer/CyEnum.h"
 
@@ -53,7 +56,7 @@ CyWxDatabaseUserPreferencesPanel::CyWxDatabaseUserPreferencesPanel ( wxWindow* p
 		wxBoxSizer* pMainMoneySizer = new wxStaticBoxSizer (
 			wxVERTICAL,
 			this,
-			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.MoneyValues" ) );
+			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyValues" ) );
 
 		wxGridBagSizer* pGridBagMoneySizer = new wxGridBagSizer ( CyEnum::kMarginSize, CyEnum::kMarginSize );
 
@@ -102,6 +105,78 @@ CyWxDatabaseUserPreferencesPanel::CyWxDatabaseUserPreferencesPanel ( wxWindow* p
 		pGridBagMoneySizer->Add ( this->m_pDbCurrencyDecimalPrecisionSpinCtrl, wxGBPosition ( 1, 1 ) );
 		pMainMoneySizer->Add ( pGridBagMoneySizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
 		pMainSizer->Add ( pMainMoneySizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+
+		wxBoxSizer* pMainImportSizer = new wxStaticBoxSizer (
+			wxVERTICAL,
+			this,
+			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.Import" ) );
+
+		wxStaticText* pImportFilesText = new wxStaticText (
+			this,
+			wxID_ANY,
+			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.ImportFolders" ),
+			wxDefaultPosition,
+			wxSize ( kTextPanelWidth, kTextPanelHeight ),
+			wxALIGN_BOTTOM | wxALIGN_LEFT );
+
+		pMainImportSizer->Add ( pImportFilesText );
+
+
+		this->m_pImportFilesListBox = new wxListBox (
+			this,
+			CyWxDatabaseUserPreferencesPanel::kImportFilesListBox,
+			wxDefaultPosition,
+			wxSize ( CyWxDatabaseUserPreferencesPanel::kTextPanelWidth, CyWxDatabaseUserPreferencesPanel::kListBoxHeight ),
+			0,
+			NULL,
+			wxLB_HSCROLL  | wxLB_SINGLE );
+
+		wxArrayString objImportFoldersArray;
+		CyQueryResult objParametersQueryResult;
+		CyParametersSqlBuilder objParametersSqlBuilder ( wxString ( "ImportFolder" ) );
+		objParametersSqlBuilder.doSelect ( objParametersQueryResult );
+		CyQueryResult::const_iterator iterator;
+		for ( iterator = objParametersQueryResult.begin ( ); iterator != objParametersQueryResult.end ( ); ++ iterator )
+		{
+			objImportFoldersArray.Add ( iterator->at ( CyParametersSqlBuilder::kTextValue )->getAsString ( ) );
+		}
+
+		this->m_pImportFilesListBox->InsertItems ( objImportFoldersArray, 0 );
+
+		pMainImportSizer->Add ( this->m_pImportFilesListBox );
+
+		wxBoxSizer* pImportButtonsSizer = new wxStaticBoxSizer (
+			wxHORIZONTAL,
+			this,
+			wxEmptyString );
+
+		this->m_pAddFolderButton = new wxButton (
+			this,
+			CyWxDatabaseUserPreferencesPanel::kAddFolderButton,
+			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.AddFolder" ),
+			wxDefaultPosition,
+			wxDefaultSize );
+
+		pImportButtonsSizer->Add ( this->m_pAddFolderButton );
+
+		this->m_pRemoveFolderButton = new wxButton (
+			this,
+			CyWxDatabaseUserPreferencesPanel::kRemoveFolderButton,
+			CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.RemoveFolder" ),
+			wxDefaultPosition,
+			wxDefaultSize );
+
+		pImportButtonsSizer->Add ( this->m_pRemoveFolderButton );
+
+		pMainImportSizer->Add ( pImportButtonsSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+
+		pMainSizer->Add ( pMainImportSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
+
+		this->Connect ( this->m_pAddFolderButton->GetId ( ), wxEVT_BUTTON, wxCommandEventHandler ( CyWxDatabaseUserPreferencesPanel::onAddFolder ) );
+		this->Connect ( this->m_pRemoveFolderButton->GetId ( ), wxEVT_BUTTON, wxCommandEventHandler ( CyWxDatabaseUserPreferencesPanel::onRemoveFolder ) );
+
+
+
 	}
 	// Numbers...
 
@@ -113,6 +188,32 @@ CyWxDatabaseUserPreferencesPanel::CyWxDatabaseUserPreferencesPanel ( wxWindow* p
 
 CyWxDatabaseUserPreferencesPanel::~CyWxDatabaseUserPreferencesPanel ( )
 {
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxDatabaseUserPreferencesPanel::onAddFolder ( wxCommandEvent& )
+{
+	wxDirDialog objDirDialog(
+		this,
+		CyGetText::getInstance ( ).getText ( "CyWxDatabaseUserPreferencesPanel.onAddFolder.SelectFolder" ) );
+	if ( wxID_OK == objDirDialog.ShowModal ( ) )
+	{
+		wxArrayString objFolders;
+		wxFileName objFileName;
+		objFolders.Add ( objDirDialog.GetPath ( ) + objFileName.GetPathSeparator ( ) );
+		this->m_pImportFilesListBox->InsertItems ( objFolders, 0 );
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxDatabaseUserPreferencesPanel::onRemoveFolder ( wxCommandEvent& )
+{
+	if ( wxNOT_FOUND != this->m_pImportFilesListBox->GetSelection ( ) )
+	{
+		this->m_pImportFilesListBox->Delete ( static_cast < unsigned int> ( this->m_pImportFilesListBox->GetSelection ( )  ) );
+	}
 }
 
 /* ---------------------------------------------------------------------------- */
