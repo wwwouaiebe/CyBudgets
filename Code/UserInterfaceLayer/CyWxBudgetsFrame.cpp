@@ -841,14 +841,17 @@ void CyWxBudgetsFrame::importFiles ( )
 	{
 		wxString strImportFolder = iterator->at ( CyParametersSqlBuilder::kTextValue )->getAsString ( );
 
-		wxFileSystem objFileSystem;
-		objFileSystem.ChangePathTo ( strImportFolder );
-		wxString strFileName = objFileSystem.FindFirst ( wxString ( "*.*" ) );
-		while ( ! strFileName.empty ( ) )
+		if ( wxDirExists  ( strImportFolder ) )
 		{
-			wxFileName objFileName = wxFileSystem::URLToFileName ( strFileName );
-			this->importFile ( objFileName.GetFullPath ( ) );
-			strFileName = objFileSystem.FindNext ( );
+			wxFileSystem objFileSystem;
+			objFileSystem.ChangePathTo ( strImportFolder );
+			wxString strFileName = objFileSystem.FindFirst ( wxString ( "*.*" ) );
+			while ( ! strFileName.empty ( ) )
+			{
+				wxFileName objFileName = wxFileSystem::URLToFileName ( strFileName );
+				this->importFile ( objFileName.GetFullPath ( ) );
+				strFileName = objFileSystem.FindNext ( );
+			}
 		}
 	}
 }
