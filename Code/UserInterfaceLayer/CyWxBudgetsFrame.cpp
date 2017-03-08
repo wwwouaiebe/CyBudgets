@@ -206,7 +206,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 		wxDefaultPosition, 
 		wxSize ( kComboToolsWidth ,kToolsHeight ),
 		strDummyArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	this->m_pToolBar->AddControl ( this->m_pAccountComboBox );
 
 	// The combo box is filled
@@ -222,7 +222,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 		wxDefaultPosition,
 		wxSize ( kComboToolsWidth ,kToolsHeight ),
 		strDummyArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	this->m_pToolBar->AddControl ( m_pBudgetComboBox );
 
 	// The combo box is filled

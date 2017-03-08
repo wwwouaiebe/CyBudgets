@@ -89,7 +89,7 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strDummyArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pAttributionSizer->Add ( this->m_pAttributionGroupDescriptionComboBox, wxGBPosition ( 0, 1 ) );
 
 	// ... groups values are searched in the db...
@@ -148,7 +148,7 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strDummyArray, 
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pAttributionSizer->Add ( this->m_pBudgetComboBox, wxGBPosition ( 2, 1 ));
 
 	// ... budgets values are searched in the db...

@@ -155,7 +155,7 @@ CyWxDisplayUserPreferencesPanel::CyWxDisplayUserPreferencesPanel ( wxWindow* pPa
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strCurrencyColorsArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pGridBagMoneySizer->Add ( this->m_pCurrencyPositiveColorComboBox, wxGBPosition ( 1, 1 ) );
 
 	// Currency negative symbol
@@ -197,7 +197,7 @@ CyWxDisplayUserPreferencesPanel::CyWxDisplayUserPreferencesPanel ( wxWindow* pPa
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strCurrencyColorsArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pGridBagMoneySizer->Add ( this->m_pCurrencyNegativeColorComboBox, wxGBPosition ( 3, 1 ) );
 
 	// Currency symbol position
@@ -223,7 +223,7 @@ CyWxDisplayUserPreferencesPanel::CyWxDisplayUserPreferencesPanel ( wxWindow* pPa
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strCurrencySymbolPositionArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pGridBagMoneySizer->Add ( this->m_pCurrencySymbolPositionComboBox, wxGBPosition ( 4, 1 ) );
 
 	pMainMoneySizer->Add ( pGridBagMoneySizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );

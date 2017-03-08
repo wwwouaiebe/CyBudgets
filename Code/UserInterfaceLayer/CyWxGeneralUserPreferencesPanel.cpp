@@ -73,7 +73,7 @@ CyWxGeneralUserPreferencesPanel::CyWxGeneralUserPreferencesPanel ( wxWindow* pPa
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strLanguageFilesArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pUserLanguageSizer->Add ( this->m_pUserLanguageComboBox, wxGBPosition ( 0, 1 ) );
 
 	pMainLanguageSizer->Add ( pUserLanguageSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );

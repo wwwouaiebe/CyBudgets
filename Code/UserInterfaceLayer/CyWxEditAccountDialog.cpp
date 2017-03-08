@@ -135,7 +135,7 @@ CyWxEditAccountDialog::CyWxEditAccountDialog ( CyQueryResult::CyQueryResultValue
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strAccountCanBeImported,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 
 	pAccountSizer->Add ( this->m_pAccountCanBeImportedComboBox, wxGBPosition ( 2, 1 ) );
 
