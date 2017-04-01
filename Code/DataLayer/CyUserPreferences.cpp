@@ -92,9 +92,16 @@ void CyUserPreferences::init ( )
 
 /* ---------------------------------------------------------------------------- */
 
-void CyUserPreferences::save ( ) 
+void CyUserPreferences::save ( )
 {
 	wxPersistenceManager::Get ( ).Save ( this );
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyUserPreferences::saveAndUnregister ( )
+{
+	wxPersistenceManager::Get ( ).SaveAndUnregister ( this );
 }
 
 /* ---------------------------------------------------------------------------- */

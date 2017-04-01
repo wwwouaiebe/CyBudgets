@@ -1205,8 +1205,11 @@ bool CySqliteDb::getParameter ( const wxString& strParameterName, wxString& strP
 	if ( ( this->getSingleValue ( strSql, pStringValue ) ) && ( ! pStringValue->isNull ( ) ) )
 	{
 		strParameterValue = pStringValue->get ( strParameterValue );
+		delete pStringValue;
+
 		return true;
 	}
+	delete pStringValue;
 
 	return false;
 }
@@ -1225,8 +1228,11 @@ bool CySqliteDb::getParameter ( const wxString& strParameterName, long long& lPa
 	if ( ( this->getSingleValue ( strSql, pLongValue ) ) && ( ! pLongValue->isNull ( ) ) )
 	{
 		lParameterValue = pLongValue->get ( lParameterValue );
+		delete pLongValue;
+
 		return true;
 	}
+	delete pLongValue;
 
 	return false;
 }

@@ -826,6 +826,9 @@ msgstr "Oui"
 #
 ###########################################################
 
+msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.AttributionValidTo"
+msgstr "Valide jusqu'au : "
+
 msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.Budget"
 msgstr "Budget :"
 

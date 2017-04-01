@@ -22,6 +22,7 @@
     <ProjectGuid>{2F3F2D01-A566-4546-86F4-5669477C16EF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CyBudgets</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

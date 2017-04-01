@@ -181,6 +181,11 @@ class CyUserPreferences
 
 		void save ( ) ;
 
+		//! \fn save ( )
+		//! Call the wxPersistenceManager object, save and unregister
+
+		void saveAndUnregister ( );
+
 	private:
 
 		//! \fn init ( )

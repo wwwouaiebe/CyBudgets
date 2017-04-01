@@ -583,7 +583,7 @@ void CyWxBudgetsFrame::displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturn
 
 void CyWxBudgetsFrame::onQuit ( wxCommandEvent& )
 {
-	CyUserPreferences::getInstance ( ).save ( );
+	CyUserPreferences::getInstance ( ).saveAndUnregister ( );
 	this->Destroy();
 }
 
