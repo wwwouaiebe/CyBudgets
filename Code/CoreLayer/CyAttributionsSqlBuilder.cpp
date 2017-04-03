@@ -133,9 +133,9 @@ wxString CyAttributionsSqlBuilder::getDeleteSql ( long long lObjId) const
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionDescription )->get ( CyStringValue::m_strDummyValue )
 		<< wxString ( "\", " )
 		<< newRow.at ( CyAttributionsSqlBuilder::kBudgetObjId )->get ( CyLongValue::m_lDummyValue )
-		<< wxString ( ", " )
+		<< wxString ( ", \"" )
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->get ( CyStringValue::m_strDummyValue )
-		<< wxString ( " );" );
+		<< wxString ( "\" );" );
 
 	return strInsertSql;
 }
