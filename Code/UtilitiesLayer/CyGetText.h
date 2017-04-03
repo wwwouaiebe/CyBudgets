@@ -75,7 +75,7 @@ class CyGetText
 		//! this method gives the unique instance of the class
 		//! \return a reference to the one and only one instance of the class
 
-		static const CyGetText& getInstance ( );
+		static CyGetText& getInstance ( );
 
 		//! \fn getText ( )
 		//! @param [ in ] strKey the key corresponding to the desired message
@@ -83,6 +83,12 @@ class CyGetText
 		//! \return the text corresponding to the key, if the key is found, the key itself otherwise
 
 		const wxString& getText ( const wxString& strKey ) const;
+
+		//! \fn loadMessages ( const wxString& strLanguage )
+		//! @param [ in ] strLanguage the name of the language file to load
+		//! This method load a message file 
+
+		void loadMessages ( const wxString& strLanguage );
 
 	private:
 

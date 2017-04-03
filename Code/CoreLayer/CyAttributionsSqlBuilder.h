@@ -58,6 +58,13 @@ class CyAttributionsSqlBuilder: public CySqlBuilder
 
 		CyAttributionsSqlBuilder ( );
 
+		//! \fn CyAttributionsSqlBuilder ( const wxDateTime& objAttributionValidToDate ) 
+		//! @param [ in ] objAttributionValidToDate a reference to a wxDateTime value to filter attributions on the validity date.
+		//!
+		//! constructor
+
+		CyAttributionsSqlBuilder ( const wxDateTime& objAttributionValidToDate );
+
 		//! \fn ~CyAttributionsSqlBuilder ( ) 
 		//! destructor
 
@@ -112,7 +119,8 @@ class CyAttributionsSqlBuilder: public CySqlBuilder
 			kBudgetObjId = 2,
 			kAttributionGroupDescription = 3,
 			kAttributionDescription = 4,
-			kBudgetDescription = 5
+			kBudgetDescription = 5,
+			kAttributionValidToDate = 6
 		};
 
 	protected:
@@ -158,6 +166,11 @@ class CyAttributionsSqlBuilder: public CySqlBuilder
 		//! not implemented
 
 		CyAttributionsSqlBuilder& operator = ( const CyAttributionsSqlBuilder& );
+
+		//! \var m_strWhereClause
+		//! this variable is used to build a where clause for the getSelectSql () method. See also constructor implementation
+
+		wxString m_strWhereClause;
 
 };
 

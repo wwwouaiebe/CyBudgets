@@ -97,3 +97,23 @@ wxString CyFilesService::getResourcesPath ( ) const
 
 /* ---------------------------------------------------------------------------- */
 
+wxArrayString CyFilesService::getMessagesFiles ( )const
+{
+	wxArrayString strFilesArray;
+	wxFileSystem objFileSystem;
+	objFileSystem.ChangePathTo ( this->getMessagesPath ( ) );
+	wxString strFileName = objFileSystem.FindFirst ( wxString ( "*.po" ) ) ;
+	do 
+	{
+		wxFileName objFileName ( strFileName );
+		strFileName = objFileName.GetName ( );
+		strFilesArray.Add ( strFileName );
+		strFileName = objFileSystem.FindNext ( );
+	}
+	while ( ! strFileName.empty ( ) );
+	strFilesArray.Sort ( );
+
+	return strFilesArray;
+}
+
+/* ---------------------------------------------------------------------------- */

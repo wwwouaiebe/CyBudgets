@@ -263,9 +263,11 @@ CyIngImportTool::ImportError CyIngImportTool::import ( const wxString& strFileNa
 	wxString strInformationMessage;
 	strInformationMessage
 		<< CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.InformationText1" )
+		<< strFileName
+		<< CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.InformationText2" )
 		<<  wxString ( char ( 10 ) )
 		<< iImportCounter
-		<< CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.InformationText2" );
+		<< CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.InformationText3" );
 
 	if ( NULL != callback )
 	{

@@ -83,7 +83,9 @@ CyWxEditOperationAttributionDialog::CyWxEditOperationAttributionDialog ( CyQuery
 		wxTR_DEFAULT_STYLE);
 
 	// The attributions are searched in the db
-	CyAttributionsSqlBuilder objAttributionsSqlBuilder;
+	wxDateTime objToday;
+	objToday.SetToCurrent ( );
+	CyAttributionsSqlBuilder objAttributionsSqlBuilder ( objToday );
 	objAttributionsSqlBuilder.doSelect ( this->m_objAttributionsQueryResult );
 
 	// An empty root item is created

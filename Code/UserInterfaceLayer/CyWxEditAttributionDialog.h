@@ -111,6 +111,13 @@ class CyWxEditAttributionDialog : public wxDialog
 
 		const long long getAttributionBudgetObjId ( ) const;
 
+		//! \fn getAttributionValidToDate ( ) 
+		//! get method
+		//!
+		//! \return the attribution valid to date by the user
+
+		const wxString getAttributionValidToDate ( ) const;
+
 		//! \enum wxId
 		//! values for the controls in the dialog box
 		//!
@@ -123,12 +130,16 @@ class CyWxEditAttributionDialog : public wxDialog
 		//! \var kBudgetDescription
 		//! id for the budget combo box
 		//!
+		//! \var kAttributionValidToDate
+		//! id for the attribution valid to date picker control
+		//!
 
 		enum wxId
 		{
 			kAttributionGroupDescription,
 			kAttributionDescription,
-			kBudgetDescription
+			kBudgetDescription,
+			kAttributionValidToDate
 		};
 
 		//! \enum DialogSizeAndPosition
@@ -193,6 +204,11 @@ class CyWxEditAttributionDialog : public wxDialog
 		//!
 
 		wxComboBox* m_pBudgetComboBox;
+
+		//! \var m_pAttributionValidToDateCtrl
+		//! the attribution valid to date picker control
+
+		wxDatePickerCtrl* m_pAttributionValidToDateCtrl;
 
 		//! \var m_currentRow
 		//! the edited row

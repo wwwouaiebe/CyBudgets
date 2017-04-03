@@ -22,6 +22,7 @@
     <ProjectGuid>{2F3F2D01-A566-4546-86F4-5669477C16EF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CyBudgets</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -186,6 +187,7 @@
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyOperationsSqlManager.h" />
+    <ClInclude Include="..\..\Code\CoreLayer\CyParametersSqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CySqlBuilder.h" />
     <ClInclude Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.h" />
     <ClInclude Include="..\..\Code\DataLayer\CyLongValue.h" />
@@ -195,12 +197,16 @@
     <ClInclude Include="..\..\Code\DataLayer\CyStringValue.h" />
     <ClInclude Include="..\..\Code\DataLayer\CyUserPreferences.h" />
     <ClInclude Include="..\..\Code\DataLayer\CyValue.h" />
+    <ClInclude Include="..\..\Code\DataLayer\CyWxPersistentUserPreferences.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsApp.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsFrame.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxDatabaseUserPreferencesPanel.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxDisplayUserPreferencesPanel.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditAccountDialog.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditAttributionDialog.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationAttributionDialog.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationDialog.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxGeneralUserPreferencesPanel.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxLongLongItemData.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAccountsMediator.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAnalyseMediator.h" />
@@ -211,6 +217,7 @@
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestMediator.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestOperationsMediator.h" />
     <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxTreeItemData.h" />
+    <ClInclude Include="..\..\Code\UserInterfaceLayer\CyWxUserPreferencesDialog.h" />
     <ClInclude Include="..\..\Code\UtilitiesLayer\CyIngDateParser.h" />
     <ClInclude Include="..\..\Code\UtilitiesLayer\CyIngDetailParser.h" />
     <ClInclude Include="..\..\Code\UtilitiesLayer\CyEnum.h" />
@@ -235,6 +242,7 @@
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsDetailsSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyOperationsSqlManager.cpp" />
+    <ClCompile Include="..\..\Code\CoreLayer\CyParametersSqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CySqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\CoreLayer\CyUserQuerySqlBuilder.cpp" />
     <ClCompile Include="..\..\Code\DataLayer\CyLongValue.cpp" />
@@ -244,13 +252,17 @@
     <ClCompile Include="..\..\Code\DataLayer\CyStringValue.cpp" />
     <ClCompile Include="..\..\Code\DataLayer\CyUserPreferences.cpp" />
     <ClCompile Include="..\..\Code\DataLayer\CyValue.cpp" />
+    <ClCompile Include="..\..\Code\DataLayer\CyWxPersistentUserPreferences.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyBudgets.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsApp.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxBudgetsFrame.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxDatabaseUserPreferencesPanel.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxDisplayUserPreferencesPanel.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditAccountDialog.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditAttributionDialog.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationAttributionDialog.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxEditOperationDialog.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxGeneralUserPreferencesPanel.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxLongLongItemData.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAccountsMediator.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestAnalyseMediator.cpp" />
@@ -261,6 +273,7 @@
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestMediator.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxShowRequestOperationsMediator.cpp" />
     <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxTreeItemData.cpp" />
+    <ClCompile Include="..\..\Code\UserInterfaceLayer\CyWxUserPreferencesDialog.cpp" />
     <ClCompile Include="..\..\Code\UtilitiesLayer\CyIngDateParser.cpp" />
     <ClCompile Include="..\..\Code\UtilitiesLayer\CyIngDetailParser.cpp" />
     <ClCompile Include="..\..\Code\UtilitiesLayer\CyFilesService.cpp" />

@@ -42,6 +42,7 @@
 #include "UserInterfaceLayer/CyWxShowRequestDialog.h"
 #include "UserInterfaceLayer/CyWxShowRequestOperationsMediator.h"
 #include "UserInterfaceLayer/CyWxLongLongItemData.h"
+#include "UserInterfaceLayer/CyWxUserPreferencesDialog.h"
 #include "CoreLayer/CyAccountsBalanceSqlBuilder.h"
 #include "CoreLayer/CyAccountsSqlBuilder.h"
 #include "CoreLayer/CyAnalyseSqlBuilder.h"
@@ -49,10 +50,12 @@
 #include "CoreLayer/CyAttributionsGroupsSqlBuilder.h"
 #include "CoreLayer/CyBudgetsSqlBuilder.h"
 #include "CoreLayer/CyIngImportTool.h"
+#include "CoreLayer/CyParametersSqlBuilder.h"
 #include "CoreLayer/CyOperationsSqlBuilder.h"
 #include "CoreLayer/CyUserQuerySqlBuilder.h"
 #include "DataLayer/CyValue.h"
 #include "DataLayer/CyLongValue.h"
+#include "DataLayer/CyUserPreferences.h"
 #include "UtilitiesLayer/CyEnum.h"
 #include "UtilitiesLayer/CyFilesService.h"
 #include "UtilitiesLayer/CyGetText.h"
@@ -73,11 +76,11 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 	this->SetIcon ( objIcon );
 
 	// Toolbar creation
-	wxToolBar* pToolBar = this->CreateToolBar( );
+	this->m_pToolBar = this->CreateToolBar( );
 
 	// Quit button creation
 	wxBitmap quitBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Quit.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pQuitTool = pToolBar->AddTool (
+	wxToolBarToolBase* pQuitTool = this->m_pToolBar->AddTool (
 									   this->kQuitButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Quit" ),
 									   quitBitmap,
@@ -85,11 +88,24 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   wxITEM_NORMAL,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.QuitToolHelp" ) );
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
+
+	// Preferences button creation 
+	wxBitmap preferencesBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) + wxString ( "preferences.gif" ), wxBITMAP_TYPE_GIF );
+	wxToolBarToolBase* pPreferencesTool = m_pToolBar->AddTool (
+		this->kPreferencesButton,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Preferences" ),
+		preferencesBitmap,
+		wxNullBitmap,
+		wxITEM_NORMAL,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesTooltip" ),
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesToolHelp" ) );
+
+	m_pToolBar->AddSeparator ( );
 
 	// About button creation 
 	wxBitmap aboutBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "about.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAboutTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAboutTool = this->m_pToolBar->AddTool (
 									   this->kAboutButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.About" ),
 									   aboutBitmap,
@@ -98,13 +114,13 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutToolHelp" ) );
 
-	pToolBar->AddSeparator ();
-	pToolBar->AddStretchableSpace ( );
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
+	this->m_pToolBar->AddStretchableSpace ( );
+	this->m_pToolBar->AddSeparator ();
 
 	// New file creation
 	wxBitmap newFileBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "NewFile.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pNewFileTool = pToolBar->AddTool (
+	wxToolBarToolBase* pNewFileTool = this->m_pToolBar->AddTool (
 									   this->kNewFileButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.NewFile" ),
 									   newFileBitmap,
@@ -115,7 +131,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Open file creation
 	wxBitmap openFileBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "OpenFile.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pOpenFileTool = pToolBar->AddTool (
+	wxToolBarToolBase* pOpenFileTool = this->m_pToolBar->AddTool (
 									   this->kOpenFileButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFile" ),
 									   openFileBitmap,
@@ -123,11 +139,11 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   wxITEM_NORMAL,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFileTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.OpenFileToolHelp" ) );
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// Operations button creation
 	wxBitmap operationsBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Operations.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pOperationsTool = pToolBar->AddTool (
+	wxToolBarToolBase* pOperationsTool = this->m_pToolBar->AddTool (
 									   this->kOperationsButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Operations" ),
 									   operationsBitmap,
@@ -138,7 +154,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Analyse button creation 
 	wxBitmap analyseBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Analyse.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAnalyseTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAnalyseTool = this->m_pToolBar->AddTool (
 									   this->kAnalyseButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Analyse" ),
 									   analyseBitmap,
@@ -149,7 +165,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Account balance button creation 
 	wxBitmap accountsBalanceBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "AccountBalance.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAccountBalanceTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAccountBalanceTool = this->m_pToolBar->AddTool (
 									   this->kAccountsBalanceButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AccountsBalance" ),
 									   accountsBalanceBitmap,
@@ -160,7 +176,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Non attributed operations button creation 
 	wxBitmap operationsWithoutAttributionBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "operationsWithoutAttribution.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pOperationsWithoutAttributionTool = pToolBar->AddTool (
+	wxToolBarToolBase* pOperationsWithoutAttributionTool = this->m_pToolBar->AddTool (
 									   this->kOperationsWithoutAttributionButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttribution" ),
 									   operationsWithoutAttributionBitmap,
@@ -171,7 +187,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Import button creation 
 	wxBitmap importBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Import.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pImportTool = pToolBar->AddTool (
+	wxToolBarToolBase* pImportTool = this->m_pToolBar->AddTool (
 									   this->kImportButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Import" ),
 									   importBitmap,
@@ -179,50 +195,50 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   wxITEM_NORMAL,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.ImportTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.ImportToolHelp" ) );
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// Account combo box creation
 	wxArrayString strDummyArray;
 	this->m_pAccountComboBox = new wxComboBox ( 
-		pToolBar, 
+		this->m_pToolBar, 
 		this->kAccountComboBox, 
 		wxEmptyString,
 		wxDefaultPosition, 
 		wxSize ( kComboToolsWidth ,kToolsHeight ),
 		strDummyArray,
-		wxCB_READONLY );
-	pToolBar->AddControl ( this->m_pAccountComboBox );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
+	this->m_pToolBar->AddControl ( this->m_pAccountComboBox );
 
 	// The combo box is filled
 	this->UpdateAccounts ( );
 
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// Budget combo box creation
 	this->m_pBudgetComboBox = new wxComboBox (
-		pToolBar, 
+		this->m_pToolBar, 
 		this->kBudgetComboBox,
 		wxEmptyString,
 		wxDefaultPosition,
 		wxSize ( kComboToolsWidth ,kToolsHeight ),
 		strDummyArray,
-		wxCB_READONLY );
-	pToolBar->AddControl ( m_pBudgetComboBox );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
+	this->m_pToolBar->AddControl ( m_pBudgetComboBox );
 
 	// The combo box is filled
 	this->UpdateBudgets ( );
 
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// Start date picker control creation
 	m_pStartDateCtrl = new wxDatePickerCtrl ( 
-		pToolBar, 
+		this->m_pToolBar, 
 		this->kStartDateCtrl,
 		wxDefaultDateTime,
 		wxDefaultPosition , 
 		wxSize ( kDateToolsWidth, kToolsHeight ),
 		wxDP_DROPDOWN );
-	pToolBar->AddControl ( m_pStartDateCtrl );
+	this->m_pToolBar->AddControl ( m_pStartDateCtrl );
 
 	// the start date picker is set to the begin of the year
 	wxDateTime beginOfYear;
@@ -230,24 +246,24 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 	beginOfYear.SetToYearDay ( 1 );
 	m_pStartDateCtrl->SetValue ( beginOfYear );
 
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// End date picker control creation
 	m_pEndDateCtrl = new wxDatePickerCtrl ( 
-		pToolBar, 
+		this->m_pToolBar, 
 		this->kEndDateCtrl,
 		wxDefaultDateTime,
 		wxDefaultPosition ,
 		wxSize ( kDateToolsWidth, kToolsHeight ),
 		wxDP_DROPDOWN );
-	pToolBar->AddControl ( m_pEndDateCtrl );
+	this->m_pToolBar->AddControl ( m_pEndDateCtrl );
 
-	pToolBar->AddStretchableSpace ( );
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddStretchableSpace ( );
+	this->m_pToolBar->AddSeparator ();
 
 	// Account button creation 
 	wxBitmap accountBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Account.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAccountTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAccountTool = this->m_pToolBar->AddTool (
 									   this->kAccountsButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Account" ),
 									   accountBitmap,
@@ -258,7 +274,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Budgets button creation 
 	wxBitmap budgetsBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Budgets.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pBudgetsTool = pToolBar->AddTool (
+	wxToolBarToolBase* pBudgetsTool = this->m_pToolBar->AddTool (
 									   this->kBudgetsButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Budget" ),
 									   budgetsBitmap,
@@ -269,7 +285,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Attributions groups button creation 
 	wxBitmap AttributionsGroupsBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "AttributionsGroups.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAttributionsGroupsTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAttributionsGroupsTool = this->m_pToolBar->AddTool (
 									   this->kAttributionsGroupsButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsGroups" ),
 									   AttributionsGroupsBitmap,
@@ -280,7 +296,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Attributions button creation 
 	wxBitmap AttributionsBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Attributions.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pAttributionsTool = pToolBar->AddTool (
+	wxToolBarToolBase* pAttributionsTool = this->m_pToolBar->AddTool (
 									   this->kAttributionsButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Attributions" ),
 									   AttributionsBitmap,
@@ -289,11 +305,11 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsTooltip" ),
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.AttributionsToolHelp" ) );
 
-	pToolBar->AddSeparator ();
+	this->m_pToolBar->AddSeparator ();
 
 	// SQL button creation 
 	wxBitmap sqlBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Sql.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pSqlTool = pToolBar->AddTool (
+	wxToolBarToolBase* pSqlTool = this->m_pToolBar->AddTool (
 									   this->kSqlButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Sql" ),
 									   sqlBitmap,
@@ -304,7 +320,7 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 
 	// Query button creation 
 	wxBitmap queryBitmap ( CyFilesService::getInstance ( ).getResourcesPath ( ) +  wxString ( "Query.gif" ), wxBITMAP_TYPE_GIF );
-	wxToolBarToolBase* pQueryTool = pToolBar->AddTool (
+	wxToolBarToolBase* pQueryTool = this->m_pToolBar->AddTool (
 									   this->kQueryButton,
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.Query" ),
 									   queryBitmap,
@@ -314,8 +330,8 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 									   CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.QueryToolHelp" ) );
 
 	// End of toolbar creation
-	pToolBar->Realize ( );
-	this->SetToolBar ( pToolBar );
+	this->m_pToolBar->Realize ( );
+	this->SetToolBar ( this->m_pToolBar );
 
 	// Events creation
 	this->Connect ( pNewFileTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onNewFile ) );
@@ -333,6 +349,32 @@ CyWxBudgetsFrame::CyWxBudgetsFrame ( ) :
 	this->Connect ( pSqlTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onSql ) );
 	this->Connect ( pQueryTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onQuery ) );
 	this->Connect ( pAboutTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onAbout ) );
+	this->Connect ( pPreferencesTool->GetId ( ), wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler ( CyWxBudgetsFrame::onPreferences ) );
+
+	this->m_pToolBar->EnableTool ( this->kAccountsButton, false );
+	this->m_pToolBar->EnableTool ( this->kBudgetsButton, false );
+	this->m_pToolBar->EnableTool ( this->kAttributionsButton, false );
+	this->m_pToolBar->EnableTool ( this->kAttributionsGroupsButton, false );
+	this->m_pToolBar->EnableTool ( this->kOperationsButton, false );
+	this->m_pToolBar->EnableTool ( this->kOperationsWithoutAttributionButton, false );
+	this->m_pToolBar->EnableTool ( this->kAnalyseButton, false );
+	this->m_pToolBar->EnableTool ( this->kAccountsBalanceButton, false );
+	this->m_pToolBar->EnableTool ( this->kImportButton, false );
+	this->m_pToolBar->EnableTool ( this->kSqlButton, false );
+	this->m_pToolBar->EnableTool ( this->kQueryButton, false );
+
+	wxString strPathName = wxEmptyString;
+	wxString strFileName = wxEmptyString;
+	if ( CyUserPreferences::getInstance ( ).getLastUsedFile ( strPathName, strFileName ) )
+	{
+		CySqliteDb::NewOpenErrors eReturnCode = CySqliteDb::getInstance ( ).openFile ( strPathName, strFileName );
+		this->displayDbErrorMessage ( eReturnCode );
+
+		if ( CySqliteDb::kNewOpenOk == eReturnCode )
+		{
+			this->onNewOpenSuccess ( strPathName + strFileName );
+		}
+	}
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -378,10 +420,24 @@ void CyWxBudgetsFrame::onNewFile ( wxCommandEvent& )
 
 		if ( CySqliteDb::kNewOpenOk == eReturnCode)
 		{
-			this->m_pBudgetComboBox->Select ( 0 );
-			this->m_pAccountComboBox->Select ( 0 );
+			this->onNewOpenSuccess (
+				sqlFileDialog.GetDirectory ( )
+				+ wxFileName::GetPathSeparator ( )
+				+ sqlFileDialog.GetFilename ( ) );
 		}
 	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::onPreferences ( wxCommandEvent& )
+{
+	CyWxUserPreferencesDialog*  pUserPreferencesDialog = new CyWxUserPreferencesDialog (
+		this,
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.onPreferences.Title" ) );
+
+	pUserPreferencesDialog->ShowModal ( );
+	pUserPreferencesDialog->Destroy ( );
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -405,10 +461,39 @@ void CyWxBudgetsFrame::onOpenFile ( wxCommandEvent& )
 
 		if ( CySqliteDb::kNewOpenOk == eReturnCode)
 		{
-			this->m_pBudgetComboBox->Select ( 0 );
-			this->m_pAccountComboBox->Select ( 0 );
+			this->onNewOpenSuccess (
+				sqlFileDialog.GetDirectory ( ) 
+				+ wxFileName::GetPathSeparator ( ) 
+				+ sqlFileDialog.GetFilename ( ) );
 		}
 	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::onNewOpenSuccess ( const wxString& strFilePath )
+{
+	this->m_pToolBar->EnableTool ( this->kAccountsButton, true );
+	this->m_pToolBar->EnableTool ( this->kBudgetsButton, true );
+	this->m_pToolBar->EnableTool ( this->kAttributionsButton, true );
+	this->m_pToolBar->EnableTool ( this->kAttributionsGroupsButton, true );
+	this->m_pToolBar->EnableTool ( this->kOperationsButton, true );
+	this->m_pToolBar->EnableTool ( this->kOperationsWithoutAttributionButton, true );
+	this->m_pToolBar->EnableTool ( this->kAnalyseButton, true );
+	this->m_pToolBar->EnableTool ( this->kAccountsBalanceButton, true );
+	this->m_pToolBar->EnableTool ( this->kImportButton, true );
+	this->m_pToolBar->EnableTool ( this->kSqlButton, true );
+	this->m_pToolBar->EnableTool ( this->kQueryButton, true );
+
+	this->importFiles ( );
+
+	this->m_pBudgetComboBox->Select ( 0 );
+	this->m_pAccountComboBox->Select ( 0 );
+
+	this->SetTitle (
+		CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.CyWxBudgetsFrame.WindowTitle" )
+		+ wxString ( " - " )
+		+ strFilePath );
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -469,8 +554,12 @@ void CyWxBudgetsFrame::displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturn
 		strErrorCaption = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion102Caption" );
 		break;
 	case CySqliteDb::kNewOpenErrorUpgrade103:
-		strErrorMessage = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text" );
-		strErrorCaption = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion103Caption" );
+		strErrorMessage = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text");
+		strErrorCaption = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion103Caption");
+		break;
+	case CySqliteDb::kNewOpenErrorUpgrade110:
+		strErrorMessage = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion110Text");
+		strErrorCaption = CyGetText::getInstance().getText("CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion110Caption");
 		break;
 	case CySqliteDb::kNewOpenUnknown:
 		strErrorMessage = CyGetText::getInstance ( ).getText ( "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenUnknownText" );
@@ -494,6 +583,7 @@ void CyWxBudgetsFrame::displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturn
 
 void CyWxBudgetsFrame::onQuit ( wxCommandEvent& )
 {
+	CyUserPreferences::getInstance ( ).saveAndUnregister ( );
 	this->Destroy();
 }
 
@@ -724,26 +814,63 @@ void CyWxBudgetsFrame::onImport ( wxCommandEvent& )
 		return;
 	}
 
-	// import
-	CyIngImportTool objImportTool;
-		wxFileDialog csvFileDialog ( 
-		this, 
+	wxFileDialog csvFileDialog (
+		this,
 		CyGetText::getInstance ( ).getText ( "CyIngImportTool.import.SelectFile" ),
 		wxFileSelectorPromptStr,
 		wxEmptyString,
 		wxString ( "CSV files (*.csv)|*.csv" ),
 		wxFD_OPEN | wxFD_FILE_MUST_EXIST );
-	if (wxID_CANCEL == csvFileDialog.ShowModal ( ) )
+	if ( wxID_CANCEL == csvFileDialog.ShowModal ( ) )
 	{
 		return;
 	}
 
+	this->importFile ( csvFileDialog.GetPath ( ) );
+}
 
-	CyIngImportTool::ImportError eImportError = objImportTool.import ( csvFileDialog.GetPath ( ), &CyWxBudgetsFrame::displayMessage );
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::importFiles ( )
+{
+	CyQueryResult objParametersQueryResult;
+	CyParametersSqlBuilder objParametersSqlBuilder ( wxString ( "ImportFolder" ) );
+	objParametersSqlBuilder.doSelect ( objParametersQueryResult );
+	CyQueryResult::const_iterator iterator;
+	for ( iterator = objParametersQueryResult.begin ( ); iterator != objParametersQueryResult.end ( ); ++ iterator )
+	{
+		wxString strImportFolder = iterator->at ( CyParametersSqlBuilder::kTextValue )->getAsString ( );
+
+		if ( wxDirExists  ( strImportFolder ) )
+		{
+			wxFileSystem objFileSystem;
+			objFileSystem.ChangePathTo ( strImportFolder );
+			wxString strFileName = objFileSystem.FindFirst ( wxString ( "*.*" ) );
+			while ( ! strFileName.empty ( ) )
+			{
+				wxFileName objFileName = wxFileSystem::URLToFileName ( strFileName );
+				this->importFile ( objFileName.GetFullPath ( ) );
+				strFileName = objFileSystem.FindNext ( );
+			}
+		}
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyWxBudgetsFrame::importFile ( const wxString& strPath )
+{
+	// import
+	CyIngImportTool objImportTool;
+	CyIngImportTool::ImportError eImportError = objImportTool.import ( strPath, &CyWxBudgetsFrame::displayMessage );
 
 	switch ( eImportError )
 	{
 	case CyIngImportTool::kImportOk:
+		if ( CyUserPreferences::getInstance ( ).getDeleteImportFile ( ) )
+		{
+			wxRemoveFile ( strPath );
+		}
 		break;
 	case CyIngImportTool::kImportErrorGetObjId:
 		{
@@ -889,7 +1016,9 @@ void CyWxBudgetsFrame::UpdateAccounts ( )
 
 	// Accounts are searched...
 	CyQueryResult objAccountsQueryResult;
-	CyAccountsSqlBuilder objAccountsSqlBuilder;
+	wxDateTime objToday;
+	objToday.SetToCurrent ( );
+	CyAccountsSqlBuilder objAccountsSqlBuilder ( objToday );
 	objAccountsSqlBuilder.doSelect ( objAccountsQueryResult );
 
 	// and added to the list of the combo box

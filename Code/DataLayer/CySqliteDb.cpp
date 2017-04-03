@@ -45,6 +45,7 @@
 #include "UtilitiesLayer/CyStringParser.h"
 #include "UtilitiesLayer/CyUtf8WxStringTranslator.h"
 #include "UtilitiesLayer/CyWxVersionInfo.h"
+#include "DataLayer/CyUserPreferences.h"
 
 /* ---------------------------------------------------------------------------- */
 
@@ -99,14 +100,15 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 
 	// ... table creation...
 	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Accounts (ObjId INTEGER PRIMARY KEY DESC, AccountNumber TEXT, AccountOwner TEXT, CanBeImported INTEGER, InitialAmount INTEGER, ValidSinceDate TEXT, ValidToDate TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsAttributions (ObjId INTEGER PRIMARY KEY DESC, AttributionObjId INTEGER, OperationObjId INTEGER, Amount INTEGER);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS AttributionsGroups (ObjId INTEGER PRIMARY KEY DESC, GroupDescription TEXT);" ));
-	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Attributions (ObjId INTEGER PRIMARY KEY DESC, GroupObjId INTEGER, Description TEXT, BudgetObjId INTEGER, ValidToDate TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Operations (ObjId INTEGER PRIMARY KEY DESC, AccountObjId INTEGER, OperationNumber INTEGER,OperationDate TEXT,ValueDate TEXT,AttributionDate TEXT, Amount INTEGER, Description TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS OperationsDetails (ObjId INTEGER PRIMARY KEY DESC, OperationObjId INTEGER, Detail TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Budgets (ObjId INTEGER PRIMARY KEY DESC, Description TEXT);" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Versions (Application TEXT, MajorVersion INTEGER, MinorVersion INTEGER, MicroVersion INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters ( ObjId INTEGER PRIMARY KEY DESC, ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
 
 	// ... version is added to the version table...
 	wxString strSql;
@@ -147,6 +149,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS OperationsAttributions_OperationObjId ON OperationsAttributions ( OperationObjId );" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS OperationsAttributions_AttributionObjId ON OperationsAttributions ( AttributionObjId );" ) );
 
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );") );
+
 	// ... view creation...
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE VIEW IF NOT EXISTS AccountsView AS SELECT ObjId as AccObjId, CanBeImported, AccountNumber FROM Accounts;" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE VIEW IF NOT EXISTS OperationsView AS SELECT ObjId AS OpeObjId, AccountObjId, OperationNumber, OperationDate, ValueDate, AttributionDate, Amount, Description FROM Operations;" ) );
@@ -159,6 +163,11 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteBudgetTrigger BEFORE DELETE ON Budgets BEGIN DELETE FROM Attributions WHERE BudgetObjId = old.ObjId; END;" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteAttributionTrigger BEFORE DELETE ON Attributions BEGIN DELETE FROM OperationsAttributions WHERE AttributionObjId = old.ObjId; END;" ) );
 	bTransactionOk &= this->executeSql ( wxString ( "CREATE TRIGGER IF NOT EXISTS DeleteOperationTrigger BEFORE DELETE ON Operations BEGIN DELETE FROM OperationsDetails WHERE OperationObjId = old.ObjId; DELETE FROM OperationsAttributions WHERE OperationObjId = old.ObjId; END;" ) );
+
+	// ... Parameters table update 
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , TextValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencySymbol\", \"€\") " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , IntegerValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencyDecimalPrecision\", 2) " ) );
+
 
 	if ( bTransactionOk )
 	{
@@ -175,6 +184,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::newFile ( const wxString& strPathName, con
 		this->closeLogFiles ( );
 		sqlite3_close ( m_pSqlite3 );
 	}
+
+	this->updatePreferences ( strPathName, strFileName );
 
 	return eReturnCode;
 }
@@ -242,6 +253,8 @@ CySqliteDb::NewOpenErrors CySqliteDb::openFile ( const wxString& strPathName, co
 		this->m_bInitialized = false;
 		return eReturnCode;
 	}
+
+	this->updatePreferences ( strPathName, strFileName );
 
 	return CySqliteDb::kNewOpenOk;
 }
@@ -387,6 +400,22 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeDatabase ( )
 		if ( CySqliteDb::kNewOpenOk == eReturnCode )
 		{
 			lMicroVersion = 3;
+		}
+		else
+		{
+			return eReturnCode;
+		}
+	}
+
+	eReturnCode = CySqliteDb::kNewOpenUnknown;
+	if ( ( 1 == lMajorVersion ) && ( 0 == lMinorVersion ) && ( 3 == lMicroVersion ) )
+	{
+		// upgrading to version 1.1.0
+		eReturnCode = this->upgradeToVersion110 ( );
+		if ( CySqliteDb::kNewOpenOk == eReturnCode )
+		{
+			lMinorVersion = 1;
+			lMicroVersion = 0;
 		}
 		else
 		{
@@ -557,6 +586,49 @@ CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion103 ( )
 		// update not executed
 		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;") );
 		return CySqliteDb::kNewOpenErrorUpgrade103;
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+CySqliteDb::NewOpenErrors CySqliteDb::upgradeToVersion110()
+{
+	// starting the upgrade
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
+
+	// parameters table creation
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE TABLE IF NOT EXISTS Parameters ( ObjId INTEGER PRIMARY KEY DESC, ParameterName TEXT, TextValue TEXT, IntegerValue INTEGER);" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "CREATE INDEX IF NOT EXISTS Parameters_ParameterName ON Parameters ( ParameterName );" ) );
+
+	// Accounts table modification
+	bTransactionOk &= this->executeSql ( wxString ( "ALTER TABLE Accounts ADD COLUMN ValidToDate TEXT;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Accounts SET ValidToDate = \"2099-12-31\";" ) );
+
+	// Attributions table modification
+	bTransactionOk &= this->executeSql ( wxString ( "ALTER TABLE Attributions ADD COLUMN ValidToDate TEXT;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Attributions SET ValidToDate = \"2099-12-31\";" ) );
+
+	// Version update
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MinorVersion = 1;" ) );
+	bTransactionOk &= this->executeSql ( wxString ( "UPDATE Versions SET MicroVersion = 0;" ) );
+
+	// ... Parameters table update 
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , TextValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencySymbol\", \"€\") " ) );
+	bTransactionOk &= this->executeSql ( wxString ( "INSERT INTO Parameters ( ObjId, ParameterName , IntegerValue ) values ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"CurrencyDecimalPrecision\", 2) " ) );
+
+	if (bTransactionOk)
+	{
+		// update executed correctly
+		this->executeSql(wxString("COMMIT;"));
+		return CySqliteDb::kNewOpenOk;
+	}
+	else
+	{
+		// update not executed
+		this->executeSql(wxString("ROLLBACK TRANSACTION;"));
+		return CySqliteDb::kNewOpenErrorUpgrade110;
 	}
 }
 
@@ -1045,6 +1117,134 @@ void CySqliteDb::logSql ( const wxString& strSql )
 	// ... and added as remark to the SQL log file
 	this->m_SqlLogStream << "--" << objCurrentDateTime.FormatISOCombined ( ).ToStdString ( )  << std::endl;
 	this->m_SqlLogStream << CyUtf8WxStringTranslator().fromWxStringToUtf8 ( strSql ) << std::endl << std::flush;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::setParameter ( const wxString& strParameterName, const wxString& strParameterValue )
+{
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
+
+	wxString strSql;
+	strSql
+		<< wxString ( "DELETE FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	strSql.clear ( );
+	strSql
+		<< wxString ( "INSERT INTO Parameters ( ObjId, ParameterName, TextValue ) VALUES ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"" )
+		<< strParameterName
+		<< wxString ( "\", \"" )
+		<< strParameterValue
+		<< wxString ( "\" );" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	if ( bTransactionOk )
+	{
+		this->executeSql ( wxString ( "COMMIT;" ) );
+	}
+	else
+	{
+		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;" ) );
+	}
+
+	return bTransactionOk;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::setParameter ( const wxString& strParameterName, const long long& lParameterValue )
+{
+	bool bTransactionOk = true;
+
+	bTransactionOk &= this->executeSql ( wxString ( "BEGIN EXCLUSIVE TRANSACTION;" ) );
+
+	wxString strSql;
+	strSql
+		<< wxString ( "DELETE FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	strSql.clear ( );
+	strSql
+		<< wxString ( "INSERT INTO Parameters ( ObjId, ParameterName, IntegerValue ) VALUES ( ( SELECT IFNULL ( MAX ( ObjId ), -1) + 1 FROM Parameters ), \"" )
+		<< strParameterName
+		<< wxString ( "\", " )
+		<< lParameterValue
+		<< wxString ( " );" );
+	bTransactionOk &= this->executeSql ( strSql );
+
+	if ( bTransactionOk )
+	{
+		this->executeSql ( wxString ( "COMMIT;" ) );
+	}
+	else
+	{
+		this->executeSql ( wxString ( "ROLLBACK TRANSACTION;" ) );
+	}
+
+	return bTransactionOk;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::getParameter ( const wxString& strParameterName, wxString& strParameterValue )
+{
+	wxString strSql;
+	strSql
+		<< wxString ( "SELECT TextValue FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+
+	CyStringValue* pStringValue = new CyStringValue;
+	if ( ( this->getSingleValue ( strSql, pStringValue ) ) && ( ! pStringValue->isNull ( ) ) )
+	{
+		strParameterValue = pStringValue->get ( strParameterValue );
+		delete pStringValue;
+
+		return true;
+	}
+	delete pStringValue;
+
+	return false;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CySqliteDb::getParameter ( const wxString& strParameterName, long long& lParameterValue )
+{
+	wxString strSql;
+	strSql
+		<< wxString ( "SELECT IntegerValue FROM Parameters WHERE ParameterName = \"" )
+		<< strParameterName
+		<< wxString ( "\";" );
+
+	CyLongValue* pLongValue = new CyLongValue;
+	if ( ( this->getSingleValue ( strSql, pLongValue ) ) && ( ! pLongValue->isNull ( ) ) )
+	{
+		lParameterValue = pLongValue->get ( lParameterValue );
+		delete pLongValue;
+
+		return true;
+	}
+	delete pLongValue;
+
+	return false;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CySqliteDb::updatePreferences ( const wxString& strPathName, const wxString& strFileName )
+{
+	CyUserPreferences::m_objUserPreferences.m_strLastUsedFilePath = strPathName;
+	CyUserPreferences::m_objUserPreferences.m_strLastUsedFileName = strFileName;
+	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencyDecimalPrecision" ), CyUserPreferences::m_objUserPreferences.m_lCurrencyDecimalPrecision );
+	CySqliteDb::getInstance ( ).getParameter ( wxString ( "CurrencySymbol" ), CyUserPreferences::m_objUserPreferences.m_strCurrencySymbol );
 }
 
 /* ---------------------------------------------------------------------------- */

@@ -31,7 +31,7 @@
 
 /* ---------------------------------------------------------------------------- */
 
-#include "DataLayer/CyUserPreferences.h"
+#include "DataLayer/CyWxPersistentUserPreferences.h"
 #include "UtilitiesLayer/CyEnum.h"
 
 /* ---------------------------------------------------------------------------- */
@@ -41,9 +41,9 @@ CyUserPreferences CyUserPreferences::m_objUserPreferences;
 /* ---------------------------------------------------------------------------- */
 
 CyUserPreferences::CyUserPreferences ( ):
-	m_lDecimalPrecision ( 2 ),
-	m_strPositiveSymbol ( L"+" ),
-	m_strNegativeSymbol ( L"-"),
+	m_lCurrencyDecimalPrecision ( 2 ),
+	m_strCurrencyPositiveSymbol ( L"+" ),
+	m_strCurrencyNegativeSymbol ( L"-"),
 	m_strCurrencyPositiveColor ( CyForegroundGreen ),
 	m_strCurrencyNegativeColor ( CyForegroundRed ),
 	m_strDecimalSeparator ( L",") ,
@@ -52,8 +52,13 @@ CyUserPreferences::CyUserPreferences ( ):
 	m_strCurrencySymbol ( L" €"),
 	m_bCurrencySymbolBefore ( false ),
 	m_strBooleanTrueSymbol (  L"✓" ),
-	m_strBooleanFalseSymbol ( L"" )
-
+	m_strBooleanFalseSymbol ( L"" ),
+	m_strUserLanguage ( wxString ( "FR_be" ) ),
+	m_strLastUsedFileName ( wxEmptyString ),
+	m_strLastUsedFilePath ( wxEmptyString ),
+	m_bReuseLastFile ( false ),
+	m_bDeleteImportFile ( false ),
+	m_bInit ( false )
 {
 }
 
@@ -65,30 +70,59 @@ CyUserPreferences::CyUserPreferences ( ):
 
 /* ---------------------------------------------------------------------------- */
 
-const CyUserPreferences& CyUserPreferences::getInstance ( )
+CyUserPreferences& CyUserPreferences::getInstance ( )
 {
+	if ( ! m_objUserPreferences.m_bInit )
+	{
+		m_objUserPreferences.init ( );
+	}
+
 	return m_objUserPreferences;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyUserPreferences::init ( )
+{
+	this->setName ( wxString ( "CyUserPreferences" ) );
+	wxPersistenceManager::Get ( ).RegisterAndRestore ( this );
+
+	this->m_bInit = true;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyUserPreferences::save ( )
+{
+	wxPersistenceManager::Get ( ).Save ( this );
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyUserPreferences::saveAndUnregister ( )
+{
+	wxPersistenceManager::Get ( ).SaveAndUnregister ( this );
 }
 
 /* ---------------------------------------------------------------------------- */
 
 const long long& CyUserPreferences::getCurrencyDecimalPrecision ( ) const
 {
-	return this->m_lDecimalPrecision;
+	return this->m_lCurrencyDecimalPrecision;
 }
 
 /* ---------------------------------------------------------------------------- */
 
 const wxString& CyUserPreferences::getCurrencyPositiveSymbol ( ) const
 {
-	return this->m_strPositiveSymbol;
+	return this->m_strCurrencyPositiveSymbol;
 }
 
 /* ---------------------------------------------------------------------------- */
 
 const wxString& CyUserPreferences::getCurrencyNegativeSymbol ( ) const
 {
-	return this->m_strNegativeSymbol;
+	return this->m_strCurrencyNegativeSymbol;
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -149,7 +183,6 @@ const wxString& CyUserPreferences::getBooleanTrueSymbol ( ) const
 
 /* ---------------------------------------------------------------------------- */
 
-
 const wxString& CyUserPreferences::getBooleanFalseSymbol ( ) const
 {
 	return this->m_strBooleanFalseSymbol;
@@ -157,3 +190,57 @@ const wxString& CyUserPreferences::getBooleanFalseSymbol ( ) const
 
 /* ---------------------------------------------------------------------------- */
 
+const wxString& CyUserPreferences::getUserLanguage ( ) const
+{
+	return this->m_strUserLanguage;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getLastUsedFile ( wxString& strPath, wxString& strFileName ) const
+{
+	if ( ( this->m_bReuseLastFile ) && ( wxEmptyString != this->m_strLastUsedFileName ) && ( wxEmptyString != this->m_strLastUsedFilePath ) )
+	{
+		strPath = this->m_strLastUsedFilePath;
+		strFileName = this->m_strLastUsedFileName;
+
+		return true;
+	}
+	else
+	{
+		strPath = wxEmptyString;
+		strFileName = wxEmptyString;
+
+		return false;
+	}
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getReuseLastFile ( ) const
+{
+	return this->m_bReuseLastFile;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+bool CyUserPreferences::getDeleteImportFile ( ) const
+{
+	return this->m_bDeleteImportFile;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+const wxString& CyUserPreferences::getName ( ) const
+{
+	return this->m_strName;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+void CyUserPreferences::setName ( const wxString& strName )
+{
+	this->m_strName = strName;
+}
+
+/* ---------------------------------------------------------------------------- */

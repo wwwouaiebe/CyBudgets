@@ -42,6 +42,24 @@
 
 CyAttributionsSqlBuilder::CyAttributionsSqlBuilder ( )
 {
+	this->m_strWhereClause = wxEmptyString;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+CyAttributionsSqlBuilder::CyAttributionsSqlBuilder ( const wxDateTime& objAttributionValidToDate )
+{
+	//
+	// this->m_strWhereClause =
+
+	// WHERE 
+	//		a.ValidToDate >= "2017-02-26" 
+	//
+
+	this->m_strWhereClause
+		<<"WHERE a.ValidToDate >= \""
+		<< objAttributionValidToDate.Format ( wxString ( "%Y-%m-%d" ) )
+		<< "\" ";
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -93,27 +111,31 @@ wxString CyAttributionsSqlBuilder::getDeleteSql ( long long lObjId) const
 	//			ObjId, 
 	//			GroupObjId, 
 	//			Description, 
-	//			BudgetObjId
+	//			BudgetObjId,
+	//			ValidToDate
 	//		) 
 	//		VALUES 
 	//		(  
 	//			( SELECT IFNULL ( MAX ( ObjId ), -1 ) + 1 FROM Attributions ),
 	//			0,
 	//			"Maison", 
-	//			1 
+	//			1 ,
+	//			"2015-02-06"
 	//		);
 	//
 
 	wxString strInsertSql = wxEmptyString;
 
 	strInsertSql
-		<< wxString ( "INSERT INTO Attributions ( ObjId, GroupObjId, Description, BudgetObjId ) VALUES (  ( SELECT IFNULL ( MAX ( ObjId ), -1 ) + 1 FROM Attributions ), " )
+		<< wxString ( "INSERT INTO Attributions ( ObjId, GroupObjId, Description, BudgetObjId, ValidToDate ) VALUES (  ( SELECT IFNULL ( MAX ( ObjId ), -1 ) + 1 FROM Attributions ), " )
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionGroupObjId )->get ( CyLongValue::m_lDummyValue )
 		<< wxString ( ", \"" )
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionDescription )->get ( CyStringValue::m_strDummyValue )
 		<< wxString ( "\", " )
 		<< newRow.at ( CyAttributionsSqlBuilder::kBudgetObjId )->get ( CyLongValue::m_lDummyValue )
-		<< wxString ( " );" );
+		<< wxString ( ", \"" )
+		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->get ( CyStringValue::m_strDummyValue )
+		<< wxString ( "\" );" );
 
 	return strInsertSql;
 }
@@ -156,10 +178,19 @@ void CyAttributionsSqlBuilder::createRow ( CyQueryResult::CyQueryResultValuesRow
 	pAttributionDescription->set ( wxString ( "" ), strStringFormat );
 	newRow.push_back ( pAttributionDescription );
 
-	// ... Budget description
+	// ... Budget description ...
 	CyStringValue* pBudgetDescription = new CyStringValue;
 	pBudgetDescription->set ( wxString ( "" ), strStringFormat );
 	newRow.push_back ( pBudgetDescription );
+
+	// ... Validity date
+	strStringFormat.clear ( );
+	strStringFormat
+		<< CyStartFormat
+		<< CyFormatDate;
+	CyStringValue* pValidityDate = new CyStringValue;
+	pValidityDate->set ( wxString ( "2099-12-31" ), strStringFormat );
+	newRow.push_back ( pValidityDate );
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -181,7 +212,9 @@ wxString CyAttributionsSqlBuilder::getSelectSql ( ) const
 	//		"➻α" AS ➻, 
 	//		a.Description AS "Sous-groupe", 
 	//		"➻α" AS ➻, 
-	//		b.Description AS "Budget" 
+	//		b.Description AS "Budget",
+	//		"➻≋" AS ➻,
+	//		a.ValidToDate AS "Utilisé jusqu'au"
 	//	FROM 
 	//		Attributions a 
 	//		LEFT JOIN AttributionsGroups g ON g.ObjId = a.GroupObjId 
@@ -200,8 +233,11 @@ wxString CyAttributionsSqlBuilder::getSelectSql ( ) const
 		<< this->getFieldSql ( wxString ( "b.ObjId" ),wxString ( "BudgetObjId" ), CyFormatHidden )
 		<< this->getFieldSql ( wxString ( "g.GroupDescription" ), CyGetText::getInstance ( ).getText ( "CyAttributionsSqlBuilder.getSelectSql.GroupDescription" ), CyFormatString )
 		<< this->getFieldSql ( wxString ( "a.Description" ), CyGetText::getInstance ( ).getText ( "CyAttributionsSqlBuilder.getSelectSql.Description" ), CyFormatString )
-		<< this->getFieldSql ( wxString ( "b.Description" ), CyGetText::getInstance ( ).getText ( "CyAttributionsSqlBuilder.getSelectSql.Budget" ), CyFormatString, true)
-		<< wxString ( "FROM Attributions a LEFT JOIN AttributionsGroups g ON g.ObjId = a.GroupObjId LEFT JOIN Budgets b ON a.BudgetObjId = b.ObjId ORDER BY g.GroupDescription, a.Description;" );
+		<< this->getFieldSql ( wxString ( "b.Description" ), CyGetText::getInstance ( ).getText ( "CyAttributionsSqlBuilder.getSelectSql.Budget" ), CyFormatString )
+		<< this->getFieldSql ( wxString ( "a.ValidToDate" ), CyGetText::getInstance ( ).getText ( "CyAttributionsSqlBuilder.getSelectSql.ValidToDate" ), CyFormatDate, true )
+		<< wxString ( "FROM Attributions a LEFT JOIN AttributionsGroups g ON g.ObjId = a.GroupObjId LEFT JOIN Budgets b ON a.BudgetObjId = b.ObjId " )
+		<< this->m_strWhereClause
+		<< wxString ( "ORDER BY g.GroupDescription, a.Description;" );
 
 	return strSelectSql;
 }
@@ -218,7 +254,8 @@ wxString CyAttributionsSqlBuilder::getUpdateSql ( const CyQueryResult::CyQueryRe
 	//	SET 
 	//		GroupObjId = 0 ,
 	//		BudgetObjId = 0 ,
-	//		Description = "Assurances"
+	//		Description = "Assurances",
+	//		ValidToDate = ""2017-02-06""
 	//	WHERE 
 	//		ObjId = 20;
 	//
@@ -232,6 +269,8 @@ wxString CyAttributionsSqlBuilder::getUpdateSql ( const CyQueryResult::CyQueryRe
 		<< newRow.at ( CyAttributionsSqlBuilder::kBudgetObjId )->get ( CyLongValue::m_lDummyValue )
 		<< wxString ( ", Description = \"" )
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionDescription )->get ( CyStringValue::m_strDummyValue )
+		<< wxString ( "\", ValidToDate = \"" )
+		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->get ( CyStringValue::m_strDummyValue )
 		<< wxString ( "\" WHERE ObjId = " )
 		<< newRow.at ( CyAttributionsSqlBuilder::kAttributionObjId )->get ( CyLongValue::m_lDummyValue )
 		<< wxString ( ";" );

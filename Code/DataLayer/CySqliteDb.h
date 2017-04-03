@@ -117,7 +117,8 @@ class CySqliteDb
 			kNewOpenVersionNotFound = 8,
 			kNewOpenErrorUpgrade102 = 9,
 			kNewOpenErrorUpgrade103 = 10,
-			kNewOpenUnknown = 11
+			kNewOpenErrorUpgrade110 = 11,
+			kNewOpenUnknown = 12
 		};
 
 		//! \fn newFile ( const wxString& strPathName, const wxString& strFileName )
@@ -212,6 +213,42 @@ class CySqliteDb
 
 		bool IsInitialized ( ) const;
 
+		//! \fn setParameter ( const wxString& strParameterName, const wxString& strParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ in ] strParameterValue the parameter value
+		//!
+		//! This method inserts or updates a string value in the parameters table
+		//! \return true when the parameter is added correctly
+
+		bool setParameter ( const wxString& strParameterName, const wxString& strParameterValue );
+
+		//! \fn setParameter ( const wxString& strParameterName, const long long& lParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ in ] lParameterValue the parameter value
+		//!
+		//! This method inserts or updates a long long value in the parameters table
+		//! \return true when the parameter is added correctly
+
+		bool setParameter ( const wxString& strParameterName, const long long& lParameterValue );
+
+		//! \fn getParameter ( const wxString& strParameterName, wxString& strParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ out ] strParameterValue the parameter value
+		//!
+		//! This method read a string parameter in the parameters table
+		//! \return true when the parameter was found
+
+		bool getParameter ( const wxString& strParameterName, wxString& strParameterValue );
+
+		//! \fn getParameter ( const wxString& strParameterName, long long& lParameterValue )
+		//! @param [ in ] strParameterName the name of the parameter
+		//! @param [ out ] lParameterValue the parameter value
+		//!
+		//! This method read a long long parameter in the parameters table
+		//! \return true when the parameter was found
+
+		bool getParameter ( const wxString& strParameterName, long long& lParameterValue );
+
 	private:
 
 		//! \fn CySqliteDb ( ) 
@@ -288,7 +325,15 @@ class CySqliteDb
 		//! - kNewOpenErrorUpgrade103 when an error occurs
 		//! - kNewOpenOk when successfull
 
-		NewOpenErrors upgradeToVersion103 ( );
+		NewOpenErrors upgradeToVersion103();
+
+		//! \fn upgradeToVersion110 ( )
+		//! this method upgrade the database to the version 1.1.0
+		//! \return 
+		//! - kNewOpenErrorUpgrade110 when an error occurs
+		//! - kNewOpenOk when successfull
+
+		NewOpenErrors upgradeToVersion110();
 
 		//! \fn logError ( const wxString& strSql )
 		//! This method log the error message and the SQL instruction associated to the error
@@ -301,6 +346,12 @@ class CySqliteDb
 		//! @param [ in ] strSql the SQL instruction to be logged
 
 		void logSql ( const wxString& strSql );
+
+		//! \fn updatePreferences ( const wxString& strPathName, const wxString& strFileName )
+		//! @param [in ] strPathName the path of the last used file
+		//! @param [in ] strFileName the name of the last used file
+		//! This method updates the CyUserPreferences object when a db is created or opened
+		void updatePreferences ( const wxString& strPathName, const wxString& strFileName );
 
 		//! \var m_bInitialized
 		//! true when the database is opened correctly
@@ -328,3 +379,4 @@ class CySqliteDb
 		std::ofstream m_SqlLogStream;
 };
 
+/* ---------------------------------------------------------------------------- */

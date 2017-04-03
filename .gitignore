@@ -15,3 +15,5 @@ documentation/warning.txt
 documentation/html
 CyBudgetsGcc/CyBudgets
 bin/
+/CyBudgets VC14/CyBudgets.VC.VC.opendb
+/CyBudgets VC14/CyBudgets/CyBudgets.vcxproj.user

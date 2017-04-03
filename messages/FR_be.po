@@ -64,6 +64,9 @@ msgstr "Montant initial"
 msgid "CyAccountsSqlBuilder.getSelectSql.AccountValidSinceDate"
 msgstr "Date d'ouverture"
 
+msgid "CyAccountsSqlBuilder.getSelectSql.AccountValidToDate"
+msgstr "Date de clôture"
+
 msgid "CyAccountsSqlBuilder.getSelectSql.Balance"
 msgstr "Solde"
 
@@ -160,6 +163,9 @@ msgstr "Attribution"
 msgid "CyAttributionsSqlBuilder.getSelectSql.GroupDescription"
 msgstr "Groupe"
 
+msgid "CyAttributionsSqlBuilder.getSelectSql.ValidToDate"
+msgstr "Utilisé jusqu'au"
+
 ###########################################################
 #
 # class CyAttributionsGroupsSqlBuilder
@@ -251,9 +257,12 @@ msgid "CyIngImportTool.import.InformationCaption"
 msgstr "Information"
 
 msgid "CyIngImportTool.import.InformationText1"
-msgstr "L'importation des données est terminée."
+msgstr "L'importation du fichier " 
 
 msgid "CyIngImportTool.import.InformationText2"
+msgstr " est terminée."
+
+msgid "CyIngImportTool.import.InformationText3"
 msgstr " opérations ont été ajoutées"
 
 msgid "CyIngImportTool.import.SelectFile"
@@ -350,13 +359,13 @@ msgstr "Résultats de la requête"
 ###########################################################
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.About"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutToolHelp"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.AboutTooltip"
-msgstr "À propos de CyBudgets"
+msgstr "À propos de CyBudgets FR"
 
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Account"
 msgstr "Comptes"
@@ -457,6 +466,15 @@ msgstr "Voir ou modifer les opérations  sans attribution"
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.OperationsWithoutAttributionToolHelp"
 msgstr "Voir ou modifer les opérations  sans attribution"
 
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Preferences"
+msgstr "Préférences de l'utilisateur"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesTooltip"
+msgstr "Préférences de l'utilisateur"
+
+msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.PreferencesToolHelp"
+msgstr "Préférences de l'utilisateur"
+
 msgid "CyWxBudgetsFrame.CyWxBudgetsFrame.Quit"
 msgstr "Quitter"
 
@@ -550,6 +568,12 @@ msgstr "Mise à jour vers la version 1.0.3"
 msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion103Text"
 msgstr "La mise à jour vers la version 1.0.3 a échoué"
 
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.upgradeToVersion110Caption"
+msgstr "Mise à jour vers la version 1.1.0"
+
+msgid "CyWxBudgetsFrame.displayDbErrorMessage.UpgradeToVersion110Text"
+msgstr "La mise à jour vers la version 1.1.0 a échoué"
+
 msgid "CyWxBudgetsFrame.displayDbErrorMessage.NewOpenVersionNotFoundCaption"
 msgstr "Erreur..."
 
@@ -600,6 +624,18 @@ msgstr "Sélectionnez le fichier CyBudgets à ouvrir"
 # class CyWxBudgetsFrame
 #
 #
+# method CyWxBudgetsFrame.onPreferences
+#
+###########################################################
+
+msgid "CyWxBudgetsFrame.onPreferences.Title"
+msgstr "Préférences de l'utilisateur"
+
+###########################################################
+#
+# class CyWxBudgetsFrame
+#
+#
 # method CyWxBudgetsFrame.onQuery
 #
 ###########################################################
@@ -636,6 +672,120 @@ msgstr "L'instruction Sql a été exécutée"
 
 ###########################################################
 #
+# class CyWxDatabaseUserPreferencesPanel
+#
+#
+# method CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.AddFolder"
+msgstr "Ajouter un répertoire"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyValues"
+msgstr "Valeurs monétaires"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencyDecimalPrecision"
+msgstr "Précision décimale : "
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbol"
+msgstr "Symbole monétaire : "
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolAfter"
+msgstr "Après le texte"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolBefore"
+msgstr "Avant le texte"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.CurrencySymbolPosition"
+msgstr "Position du symbole monétaire : "
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.Import"
+msgstr "Importation des données"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.ImportFolders"
+msgstr "Répertoires contenant les fichiers à importer :"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.NumberValues"
+msgstr "Nombres"
+
+msgid "CyWxDatabaseUserPreferencesPanel.CyWxDatabaseUserPreferencesPanel.RemoveFolder"
+msgstr "Supprimer un répertoire"
+
+###########################################################
+#
+# class CyWxDisplayUserPreferencesPanel
+#
+#
+# method CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanFalseSymbol"
+msgstr "Symbole pour une valeur fausse : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanTrueSymbol"
+msgstr "Symbole pour une valeur vraie : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.BooleanValues"
+msgstr "Valeurs booléennes"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.MoneyValues"
+msgstr "Valeurs monétaires"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundBlue"
+msgstr "Bleu"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundCyan"
+msgstr "Cyan"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundGreen"
+msgstr "Vert"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundYellow"
+msgstr "Jaune"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundRed"
+msgstr "Rouge"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundBlack"
+msgstr "Noir"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundGrey"
+msgstr "Gris"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ForegroundWhite"
+msgstr "Blanc"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyNegativeColor"
+msgstr "Couleur pour une valeur négative : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyNegativeSymbol"
+msgstr "Préfixe pour une valeur négative : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyPositiveColor"
+msgstr "Couleur pour une valeur positve : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencyPositiveSymbol"
+msgstr "Préfixe pour une valeur positve : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.CurrencySymbol"
+msgstr "Symbole monétaire : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.NumberValues"
+msgstr "Valeurs numériques"
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.DecimalSeparator"
+msgstr "Séparateur décimal : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.Grouping"
+msgstr "Groupement des milliers : "
+
+msgid "CyWxDisplayUserPreferencesPanel.CyWxDisplayUserPreferencesPanel.ThousandSeparator"
+msgstr "Séparateur des milliers : "
+
+###########################################################
+#
 # class CyWxEditAccountDialog
 #
 #
@@ -658,6 +808,9 @@ msgstr "Description : "
 msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidSince"
 msgstr "Date d'ouverture : "
 
+msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.AccountValidTo"
+msgstr "Date de clôture : "
+
 msgid "CyWxEditAccountDialog.CyWxEditAccountDialog.No"
 msgstr "Non"
 
@@ -672,6 +825,9 @@ msgstr "Oui"
 # method CyWxEditAttributionDialog.CyWxEditAttributionDialog
 #
 ###########################################################
+
+msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.AttributionValidTo"
+msgstr "Valide jusqu'au : "
 
 msgid "CyWxEditAttributionDialog.CyWxEditAttributionDialog.Budget"
 msgstr "Budget :"
@@ -810,6 +966,30 @@ msgstr "Modifier l'attribution"
 
 msgid "CyWxEditOperationDialog.onRightClickLabel.AddAttribution"
 msgstr "Ajouter une attribution"
+
+###########################################################
+#
+# class CyWxGeneralUserPreferencesPanel
+#
+#
+# method CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel
+#
+###########################################################
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.DeleteImportFile"
+msgstr "Effacer les fichiers de donnée après importation"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.MainLanguage"
+msgstr "Langue"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.Others"
+msgstr "Autres"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.ReuseLastOpenedfile"
+msgstr "Au lancement du programme, ouvrir le dernier fichier utilisé"
+
+msgid "CyWxGeneralUserPreferencesPanel.CyWxGeneralUserPreferencesPanel.UserLanguage"
+msgstr "Langue : "
 
 ###########################################################
 #
@@ -1227,3 +1407,23 @@ msgstr "Erreur"
 
 msgid "CyWxShowRequestOperationsMediator.onEdit.FailedText"
 msgstr "Une erreur s'est produite lors de la modification de l'opération"
+
+###########################################################
+#
+# class CyWxUserPreferencesDialog
+#
+#
+# method CyWxUserPreferencesDialog.CyWxUserPreferencesDialog
+#
+###########################################################
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.DisplayUserPreferenceTitle"
+msgstr "Affichage"
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.GeneralUserPreferenceTitle"
+msgstr "Général"
+
+msgid "CyWxUserPreferencesDialog.CyWxUserPreferencesDialog.DatabaseUserPreferenceTitle"
+msgstr "Base de données"
+
+

@@ -59,6 +59,12 @@ class CyFilesService
 		//! \return le répertoire où sont stockés les fichiers de resources
 		wxString getResourcesPath ( ) const;
 
+		//! \fn getMessagesFiles ( ) const
+		//! This method search all the.po files with messages
+		//! \return an array with the file names
+
+		wxArrayString getMessagesFiles ( ) const;
+
 		//! \fn setPaths ( wxString strExePath )
 		//! Cette méthode crée les chemins d'accès aux différents fichiers utilisés par l'application
 		//! @param [ in ] strExePath le nom et le chemin d'accès à l'exécutable donné

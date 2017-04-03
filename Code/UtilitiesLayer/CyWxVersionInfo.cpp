@@ -44,8 +44,8 @@ CyWxVersionInfo::CyWxVersionInfo ( ) :
 	wxVersionInfo ( 
 		wxString ( "CyBudgets" ),
 		1,
-		0,
-		3, 
+		1,
+		0, 
 		wxString (
 			wxString ( char ( 10 ) )
 			+ wxString ( "This program is free software: you can redistribute it and/or modify it under the terms" )
@@ -60,7 +60,7 @@ CyWxVersionInfo::CyWxVersionInfo ( ) :
 			+ wxString ( " and SQLite " )
 			+ wxString ( SQLITE_VERSION )
 			+ wxString ( char ( 10 ) ) ),
-		wxString ( "Copyright ( C ) 2014 - Christian Guyette" ) )
+		wxString ( "Copyright ( C ) 2014 - 2017 Christian Guyette" ) )
 {
 }
 
@@ -98,7 +98,7 @@ const wxString CyWxVersionInfo::getVersion ( ) const
 
 const wxString CyWxVersionInfo::getWebSite ( ) const
 {
-	return  wxString ( "http://www.ouaie.be/" ) ;
+	return  wxString ( "https://github.com/wwwouaiebe/CyBudgets" );
 }
 
 

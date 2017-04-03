@@ -1,9 +1,9 @@
-﻿/* ---------------------------------------------------------------------------- */
-//! CyAccountsSqlBuilder.h
+/* ---------------------------------------------------------------------------- */
+//! CyParametersSqlBuilder.h
 /* ---------------------------------------------------------------------------- */
 //!
-//! \file CyAccountsSqlBuilder.h
-//! \brief header file for class CyAccountsSqlBuilder
+//! \file CyParametersSqlBuilder.h
+//! \brief header file for class CyParametersSqlBuilder
 //!
 /* ----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@
 
     This file is a part of the CyBudgets program
 
-    Copyright ( C ) 2014 - Christian Guyette
+    Copyright ( C ) 2017 - Christian Guyette
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -43,32 +43,31 @@
 
 /* ---------------------------------------------------------------------------- */
 
-//! \class CyAccountsSqlBuilder
-//! \brief Helper class for SQL operations for the accounts 
+//! \class CyParametersSqlBuilder
+//! \brief Helper class for SQL operations on the Parameters
 //!
-//! \since version 1.0.3
+//! \since version 1.1.0
 
-class CyAccountsSqlBuilder: public CySqlBuilder
+class CyParametersSqlBuilder: public CySqlBuilder
 {
 
 	public:
 
-		//! \fn CyAccountsSqlBuilder ( ) 
+		//! \fn CyParametersSqlBuilder ( ) 
 		//! constructor
 
-		CyAccountsSqlBuilder ( );
+		CyParametersSqlBuilder ( );
 
-		//! \fn CyAccountsSqlBuilder ( const wxDateTime& objAccountValidToDate ) 
-		//! @param [ in ] objAccountValidToDate a reference to a wxDateTime value to filter accounts on the validity date.
-		//!
+		//! \fn CyParametersSqlBuilder ( const wxString& strParameterName ) 
+		//! @param [ in ] strParameterName the parameter name used in the WHERE clause
 		//! constructor
 
-		CyAccountsSqlBuilder ( const wxDateTime& objAccountValidToDate );
+		CyParametersSqlBuilder ( const wxString& strParameterName );
 
-		//! \fn ~CyAccountsSqlBuilder ( ) 
+		//! \fn ~CyParametersSqlBuilder ( ) 
 		//! destructor
 
-		~CyAccountsSqlBuilder ( );
+		~CyParametersSqlBuilder ( );
 
 		//! \fn getDialogTitle ( ) const
 		//!
@@ -91,48 +90,24 @@ class CyAccountsSqlBuilder: public CySqlBuilder
 
 		void createRow ( CyQueryResult::CyQueryResultValuesRow& newRow ) const;
 
-		//! \fn doUpdate ( const CyQueryResult::CyQueryResultValuesRow& newRow  ) const
-		//! @param [ in ] newRow a reference to a vector for witch values are aupdated
-		//!
-		//! special version of the doUpdate method of the base class due to recoputation of the account balnce after update.
-		//! \return true when the update is successfull
-
-		virtual bool doUpdate ( const CyQueryResult::CyQueryResultValuesRow& newRow  ) const;
-
 		//! \enum ColumnPosition
 		//! values for fields position in the query results
 		//!
-		//! \var kAccountObjId
-		//! The ObjId field of the table Accounts
+		//! \var kParameterName
+		//! The ParameterName field of the table Parameters
 		//!
-		//! \var kAccountNumber
-		//! The AccountNumber field of the table Accounts
+		//! \var kTextValue
+		//! The TextValue field of the table Parameters
 		//!
-		//! \var kAccountOwner
-		//! The AccountOwner field of the table Accounts
-		//!
-		//! \var kAccountImported
-		//! The CanBeImported field of the table Accounts
-		//!
-		//! \var kAccountValidSinceDate
-		//! The ValidSinceDate field of the table Accounts
-		//! 
-		//! \var kAccountInitialAmount
-		//! The InitialAmount field of the table Accounts
-		//!
-		//! \var kAccountBalance
-		//! The Account Balance computed in the Select statement
+		//! \var kIntegerValue
+		//! The IntegerValue field of the table Parameters
 
 		enum ColumnPosition
 		{
-			kAccountObjId = 0,
-			kAccountNumber = 1,
-			kAccountOwner = 2,
-			kAccountImported = 3,
-			kAccountValidSinceDate = 4,
-			kAccountInitialAmount = 5,
-			kAccountValidToDate = 6,
-			kAccountBalance = 7
+			kObjId = 0,
+			kParameterName = 1,
+			kTextValue = 2,
+			kIntegerValue = 3
 		};
 
 	protected:
@@ -166,21 +141,21 @@ class CyAccountsSqlBuilder: public CySqlBuilder
 
 	private:
 
-		//! \fn CyAccountsSqlBuilder ( const CyAccountsSqlBuilder& ) 
+		//! \fn CyParametersSqlBuilder ( const CyParametersSqlBuilder& ) 
 		//! copy constructor
 		//! not implemented
 
-		CyAccountsSqlBuilder ( const CyAccountsSqlBuilder& );
+		CyParametersSqlBuilder ( const CyParametersSqlBuilder& );
 
-		//! \fn operator = ( const CyAccountsSqlBuilder& ) 
+		//! \fn operator = ( const CyParametersSqlBuilder& ) 
 		//! operator =
-		//! \return a reference to a CyAccountsSqlBuilder object
+		//! \return a reference to a CyParametersSqlBuilder object
 		//! not implemented
 
-		CyAccountsSqlBuilder& operator = ( const CyAccountsSqlBuilder& );
+		CyParametersSqlBuilder& operator = ( const CyParametersSqlBuilder& );
 
 		//! \var m_strWhereClause
-		//! this variable is used to build a where clause for the getSelectSql () method. See also constructor implementation
+		//! the where clause used in the select statment
 
 		wxString m_strWhereClause;
 

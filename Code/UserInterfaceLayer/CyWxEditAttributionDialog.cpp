@@ -89,7 +89,7 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strDummyArray,
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pAttributionSizer->Add ( this->m_pAttributionGroupDescriptionComboBox, wxGBPosition ( 0, 1 ) );
 
 	// ... groups values are searched in the db...
@@ -148,7 +148,7 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		wxDefaultPosition,
 		wxSize ( kControlGridWidth, kControlGridHeight ),
 		strDummyArray, 
-		wxCB_READONLY );
+		wxCB_READONLY | wxTE_PROCESS_ENTER );
 	pAttributionSizer->Add ( this->m_pBudgetComboBox, wxGBPosition ( 2, 1 ));
 
 	// ... budgets values are searched in the db...
@@ -169,6 +169,33 @@ CyWxEditAttributionDialog::CyWxEditAttributionDialog ( CyQueryResult::CyQueryRes
 		( CyEnum::kInvalidObjId == m_currentRow.at ( CyAttributionsSqlBuilder::kBudgetObjId )->get ( CyLongValue::m_lDummyValue ) ) ?
 			objBudgetsQueryResult.at ( 0 ).at ( CyBudgetsSqlBuilder::kBudgetDescription )->getAsString ( ):
 			m_currentRow.at ( CyAttributionsSqlBuilder::kBudgetDescription )->getAsString ( ) );
+
+	// attribution valid to date
+	wxStaticText* pAttributionValidToDateText = new wxStaticText (
+		this,
+		wxID_ANY,
+		CyGetText::getInstance ( ).getText ( "CyWxEditAttributionDialog.CyWxEditAttributionDialog.AttributionValidTo" ),
+		wxDefaultPosition,
+		wxSize ( kTextGridWidth, kTextGridHeight ),
+		wxALIGN_BOTTOM | wxALIGN_RIGHT );
+	pAttributionSizer->Add ( pAttributionValidToDateText, wxGBPosition ( 3, 0 ) );
+
+	this->m_pAttributionValidToDateCtrl = new wxDatePickerCtrl (
+		this,
+		CyWxEditAttributionDialog::kAttributionValidToDate,
+		wxDefaultDateTime,
+		wxDefaultPosition,
+		wxSize ( kControlGridWidth, kControlGridHeight ),
+		wxDP_DROPDOWN );
+	pAttributionSizer->Add ( this->m_pAttributionValidToDateCtrl, wxGBPosition ( 3, 1 ) );
+
+	wxString strAttributionValidSinceDate = m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->getAsString ( );
+
+	wxDateTime attributionValidToDate;
+	if ( attributionValidToDate.ParseISODate ( strAttributionValidSinceDate ) )
+	{
+		this->m_pAttributionValidToDateCtrl->SetValue ( attributionValidToDate );
+	}
 
 	// and the gridbag is added to the secondary sizer...
 	pStaticBoxSizer->Add ( pAttributionSizer, 0, wxEXPAND | wxALL, CyEnum::kMarginSize );
@@ -252,6 +279,13 @@ const long long CyWxEditAttributionDialog::getAttributionBudgetObjId ( ) const
 
 /* ---------------------------------------------------------------------------- */
 
+const wxString CyWxEditAttributionDialog::getAttributionValidToDate ( ) const
+{
+	return this->m_pAttributionValidToDateCtrl->GetValue ( ).Format ( wxString ( "%Y-%m-%d" ) );
+}
+
+/* ---------------------------------------------------------------------------- */
+
 int CyWxEditAttributionDialog::ShowModal ( )
 {
 	int iReturnCode =  wxDialog::ShowModal ( );
@@ -263,6 +297,7 @@ int CyWxEditAttributionDialog::ShowModal ( )
 		this->m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionGroupDescription )->set ( this->getAttributionGroupDescription ( ) );
 		this->m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionDescription )->set ( this->getAttributionDescription ( ) );
 		this->m_currentRow.at ( CyAttributionsSqlBuilder::kBudgetDescription )->set ( this->getAttributionBudgetDescription ( ) );
+		this->m_currentRow.at ( CyAttributionsSqlBuilder::kAttributionValidToDate )->set ( this->getAttributionValidToDate ( ) );
 	}
 
 	return iReturnCode;

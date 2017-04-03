@@ -71,6 +71,12 @@
 #include <wx/treebase.h>
 #include <wx/valnum.h>
 #include <wx/wx.h>
+#include <wx/persist.h>
+#include <wx/persist/window.h>
+#include <wx/notebook.h>
+#include <wx/spinctrl.h>
+#include <wx/filesys.h>
+#include <wx/dirdlg.h>
 
 #ifdef CY_COMPILER_VC10
 #pragma warning(pop)

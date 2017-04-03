@@ -147,6 +147,7 @@ class CyWxBudgetsFrame: public wxFrame
 		enum wxId
 		{
 			kNewFileButton,
+			kPreferencesButton,
 			kOpenFileButton,
 			kQuitButton,
 			kAccountsButton,
@@ -178,7 +179,6 @@ class CyWxBudgetsFrame: public wxFrame
 		//!
 		//! \var kComboToolsWidth
 		//! the width of the combo boxes
-		//!
 
 		enum Sizes
 		{
@@ -204,6 +204,12 @@ class CyWxBudgetsFrame: public wxFrame
 		//! @param [ in ] event the event send by the wxWidget framework
 
 		void onOpenFile ( wxCommandEvent& event );
+
+		//! \fn onPreferences ( )
+		//! event handler for the "single click on the Preference button" user action
+		//! @param [ in ] event the event send by the wxWidget framework
+
+		void onPreferences ( wxCommandEvent& event );
 
 		//! \fn onQuit ( )
 		//! event handler for the "single click on the Quit button" user action
@@ -283,6 +289,17 @@ class CyWxBudgetsFrame: public wxFrame
 
 		void onAbout ( wxCommandEvent& event );
 
+		//! \fn importFiles ( )
+		//! this method launch the import at startup
+
+		void importFiles ( );
+			
+		//! \fn importFile ( const wxString& strPath )
+		//! this method import a csv file in the database
+		//! @param [ in ] strPath the path and file name to import
+
+		void importFile ( const wxString& strPath );
+
 		//! \fn displayDbErrorMessage ( CySqliteDb::NewOpenErrors eReturnCode )
 		//! this method display an error message, depending of the parameter value
 		//! @param [ in ] eReturnCode the error code for witch the error message must be displayed
@@ -309,29 +326,36 @@ class CyWxBudgetsFrame: public wxFrame
 
 		CyWxBudgetsFrame& operator = ( const CyWxBudgetsFrame& );
 
+		//! \fn onNewOpenSuccess ( const wxString& strFilePath )
+		//! this method display the file name on the window title and activate the toolbar button.
+		//! @param [ in ] strFilePath the db path
+
+		void onNewOpenSuccess ( const wxString& strFilePath );
+
 		//! \var m_pAccountComboBox
 		//! the account combo box on the toolbar
-		//!
 
 		wxComboBox* m_pAccountComboBox;
 
 		//! \var m_pBudgetComboBox
 		//! the budget combo box on the toolbar
-		//!
 
 		wxComboBox* m_pBudgetComboBox;
 
 		//! \var m_pStartDateCtrl
 		//! the start date picker on the toolbar
-		//!
 
 		wxDatePickerCtrl* m_pStartDateCtrl;
 
 		//! \var m_pEndDateCtrl
 		//! the start date picker on the toolbar
-		//!
 
 		wxDatePickerCtrl* m_pEndDateCtrl;
+
+		//! \var m_pToolBar
+		//! the toolbar
+
+		wxToolBar* m_pToolBar;
 
 };
 
